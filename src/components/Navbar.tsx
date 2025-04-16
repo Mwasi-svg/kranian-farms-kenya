@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Search } from 'lucide-react';
@@ -14,7 +15,7 @@ const Navbar: React.FC = () => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-3">
               <img 
-                src="/kranian-logo.png" 
+                src="./kranian-logo.png" 
                 alt="Kranian Farms Logo" 
                 className="h-10 w-10 object-contain"
               />
@@ -48,7 +49,6 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 animate-fade-in">
             <div className="flex flex-col space-y-4 pb-4">
