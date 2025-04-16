@@ -6,7 +6,10 @@ import Footer from '@/components/Footer';
 import { useCart } from '@/context/CartContext';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, CreditCard, Truck, MapPin } from 'lucide-react';
+import { CheckCircle, CreditCard, Truck, MapPin, Phone, CreditCard as CardIcon } from 'lucide-react';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
 
 const Checkout = () => {
   const { cart, getCartTotal, clearCart } = useCart();
@@ -29,10 +32,19 @@ const Checkout = () => {
     cardNumber: '',
     expMonth: '',
     expYear: '',
-    cvv: ''
+    cvv: '',
+    mpesaPhone: '',
   });
   
   const [deliveryOption, setDeliveryOption] = useState('standard');
+  const [paymentMethod, setPaymentMethod] = useState('card');
+  
+  // Payment form
+  const form = useForm({
+    defaultValues: {
+      paymentMethod: 'card',
+    },
+  });
   
   // Calculate order totals
   const subtotal = getCartTotal();
@@ -63,16 +75,51 @@ const Checkout = () => {
     
     setLoading(true);
     
-    // Simulate order processing
-    setTimeout(() => {
+    // Perform payment processing based on selected method
+    let paymentSuccessful = false;
+    
+    try {
+      // Simulated payment processing
+      if (paymentMethod === 'card') {
+        // Validate card information
+        if (!formData.cardName || !formData.cardNumber || !formData.expMonth || !formData.expYear || !formData.cvv) {
+          throw new Error('Please fill in all card details');
+        }
+        // Simulate card processing
+      } else if (paymentMethod === 'mpesa') {
+        // Validate M-Pesa phone
+        if (!formData.mpesaPhone || formData.mpesaPhone.length < 10) {
+          throw new Error('Please enter a valid M-Pesa phone number');
+        }
+        // Simulate M-Pesa processing
+      } else if (paymentMethod === 'stripe') {
+        // Simulate Stripe processing
+      }
+      
+      paymentSuccessful = true;
+      
+    } catch (error) {
       toast({
-        title: "Order Placed!",
-        description: "Your order has been successfully placed.",
+        title: "Payment Failed",
+        description: error instanceof Error ? error.message : "An error occurred during payment processing",
+        variant: "destructive"
       });
-      clearCart();
-      navigate('/checkout-success');
       setLoading(false);
-    }, 1500);
+      return;
+    }
+    
+    if (paymentSuccessful) {
+      // Simulate order processing
+      setTimeout(() => {
+        toast({
+          title: "Order Placed!",
+          description: "Your order has been successfully placed.",
+        });
+        clearCart();
+        navigate('/checkout-success');
+        setLoading(false);
+      }, 1500);
+    }
   };
   
   // If cart is empty, redirect to products
@@ -305,89 +352,150 @@ const Checkout = () => {
               <div className="bg-white rounded-lg shadow p-6 mb-8">
                 <h2 className="text-xl font-medium flex items-center mb-6">
                   <CreditCard className="mr-2 h-5 w-5 text-kranian-600" />
-                  Payment Information
+                  Payment Method
                 </h2>
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="sm:col-span-2">
-                    <label htmlFor="cardName" className="block text-sm font-medium text-gray-700 mb-1">
-                      Name on Card *
-                    </label>
-                    <input
-                      type="text"
-                      id="cardName"
-                      name="cardName"
-                      required
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-kranian-500"
-                      value={formData.cardName}
-                      onChange={handleInputChange}
-                    />
+                <RadioGroup defaultValue="card" value={paymentMethod} onValueChange={setPaymentMethod} className="mb-6">
+                  <div className="flex items-center space-x-2 border border-gray-200 rounded-md p-4 hover:bg-gray-50">
+                    <RadioGroupItem value="card" id="payment-card" />
+                    <FormLabel htmlFor="payment-card" className="flex items-center">
+                      <CardIcon className="h-5 w-5 mr-2" />
+                      <span>Credit/Debit Card</span>
+                    </FormLabel>
                   </div>
                   
-                  <div className="sm:col-span-2">
-                    <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-700 mb-1">
-                      Card Number *
-                    </label>
-                    <input
-                      type="text"
-                      id="cardNumber"
-                      name="cardNumber"
-                      required
-                      placeholder="XXXX XXXX XXXX XXXX"
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-kranian-500"
-                      value={formData.cardNumber}
-                      onChange={handleInputChange}
-                    />
+                  <div className="flex items-center space-x-2 border border-gray-200 rounded-md p-4 mt-2 hover:bg-gray-50">
+                    <RadioGroupItem value="mpesa" id="payment-mpesa" />
+                    <FormLabel htmlFor="payment-mpesa" className="flex items-center">
+                      <Phone className="h-5 w-5 mr-2" />
+                      <span>M-Pesa</span>
+                    </FormLabel>
                   </div>
                   
-                  <div>
-                    <label htmlFor="expMonth" className="block text-sm font-medium text-gray-700 mb-1">
-                      Expiration Month *
-                    </label>
-                    <input
-                      type="text"
-                      id="expMonth"
-                      name="expMonth"
-                      required
-                      placeholder="MM"
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-kranian-500"
-                      value={formData.expMonth}
-                      onChange={handleInputChange}
-                    />
+                  <div className="flex items-center space-x-2 border border-gray-200 rounded-md p-4 mt-2 hover:bg-gray-50">
+                    <RadioGroupItem value="stripe" id="payment-stripe" />
+                    <FormLabel htmlFor="payment-stripe" className="flex items-center">
+                      <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305h.003z" />
+                      </svg>
+                      <span>Pay with Stripe</span>
+                    </FormLabel>
                   </div>
-                  
-                  <div>
-                    <label htmlFor="expYear" className="block text-sm font-medium text-gray-700 mb-1">
-                      Expiration Year *
-                    </label>
-                    <input
-                      type="text"
-                      id="expYear"
-                      name="expYear"
-                      required
-                      placeholder="YYYY"
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-kranian-500"
-                      value={formData.expYear}
-                      onChange={handleInputChange}
-                    />
+                </RadioGroup>
+                
+                {paymentMethod === 'card' && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="sm:col-span-2">
+                      <label htmlFor="cardName" className="block text-sm font-medium text-gray-700 mb-1">
+                        Name on Card *
+                      </label>
+                      <input
+                        type="text"
+                        id="cardName"
+                        name="cardName"
+                        required={paymentMethod === 'card'}
+                        className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-kranian-500"
+                        value={formData.cardName}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    
+                    <div className="sm:col-span-2">
+                      <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-700 mb-1">
+                        Card Number *
+                      </label>
+                      <input
+                        type="text"
+                        id="cardNumber"
+                        name="cardNumber"
+                        required={paymentMethod === 'card'}
+                        placeholder="XXXX XXXX XXXX XXXX"
+                        className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-kranian-500"
+                        value={formData.cardNumber}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="expMonth" className="block text-sm font-medium text-gray-700 mb-1">
+                        Expiration Month *
+                      </label>
+                      <input
+                        type="text"
+                        id="expMonth"
+                        name="expMonth"
+                        required={paymentMethod === 'card'}
+                        placeholder="MM"
+                        className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-kranian-500"
+                        value={formData.expMonth}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="expYear" className="block text-sm font-medium text-gray-700 mb-1">
+                        Expiration Year *
+                      </label>
+                      <input
+                        type="text"
+                        id="expYear"
+                        name="expYear"
+                        required={paymentMethod === 'card'}
+                        placeholder="YYYY"
+                        className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-kranian-500"
+                        value={formData.expYear}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="cvv" className="block text-sm font-medium text-gray-700 mb-1">
+                        CVV *
+                      </label>
+                      <input
+                        type="text"
+                        id="cvv"
+                        name="cvv"
+                        required={paymentMethod === 'card'}
+                        placeholder="XXX"
+                        className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-kranian-500"
+                        value={formData.cvv}
+                        onChange={handleInputChange}
+                      />
+                    </div>
                   </div>
-                  
-                  <div>
-                    <label htmlFor="cvv" className="block text-sm font-medium text-gray-700 mb-1">
-                      CVV *
-                    </label>
-                    <input
-                      type="text"
-                      id="cvv"
-                      name="cvv"
-                      required
-                      placeholder="XXX"
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-kranian-500"
-                      value={formData.cvv}
-                      onChange={handleInputChange}
-                    />
+                )}
+                
+                {paymentMethod === 'mpesa' && (
+                  <div className="grid grid-cols-1 gap-4">
+                    <div>
+                      <label htmlFor="mpesaPhone" className="block text-sm font-medium text-gray-700 mb-1">
+                        M-Pesa Phone Number *
+                      </label>
+                      <input
+                        type="tel"
+                        id="mpesaPhone"
+                        name="mpesaPhone"
+                        required={paymentMethod === 'mpesa'}
+                        placeholder="e.g. 254712345678"
+                        className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-kranian-500"
+                        value={formData.mpesaPhone}
+                        onChange={handleInputChange}
+                      />
+                      <p className="text-sm text-gray-500 mt-1">
+                        You will receive a prompt on your phone to complete the payment.
+                      </p>
+                    </div>
                   </div>
-                </div>
+                )}
+                
+                {paymentMethod === 'stripe' && (
+                  <div className="p-4 bg-gray-50 rounded-md">
+                    <p className="text-sm text-gray-600">
+                      You will be redirected to Stripe to complete your payment securely.
+                    </p>
+                  </div>
+                )}
               </div>
               
               <Button
