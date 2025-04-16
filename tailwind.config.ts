@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,32 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				kranian: {
+					50: '#f0f9ee',
+					100: '#dcefda',
+					200: '#bddcb7',
+					300: '#93c28c',
+					400: '#6aa35e',
+					500: '#4f8645',
+					600: '#3d6b37',
+					700: '#31552d',
+					800: '#294427',
+					900: '#233a22',
+					950: '#0f1f0f',
+				},
+				rose: {
+					50: '#fff1f3',
+					100: '#ffe0e5',
+					200: '#ffc6d1',
+					300: '#ff9bad',
+					400: '#ff6280',
+					500: '#f83356',
+					600: '#e51e46',
+					700: '#c11438',
+					800: '#9f1233',
+					900: '#851330',
+					950: '#4b0516',
 				}
 			},
 			borderRadius: {
@@ -84,11 +111,19 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': { opacity: '0' },
+					'100%': { opacity: '1' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.5s ease-out'
+			},
+			fontFamily: {
+				'serif': ['Playfair Display', 'serif'],
 			}
 		}
 	},
