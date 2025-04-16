@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Search, ShoppingCart } from 'lucide-react';
+import { Menu, X, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CartIcon from './CartIcon';
 
@@ -13,7 +12,12 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center">
+            <Link to="/" className="flex items-center space-x-3">
+              <img 
+                src="/kranian-logo.png" 
+                alt="Kranian Farms Logo" 
+                className="h-10 w-10 object-contain"
+              />
               <span className="text-kranian-700 font-serif text-2xl font-bold">Kranian Farms</span>
             </Link>
           </div>
