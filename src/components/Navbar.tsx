@@ -1,38 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Search, ChevronDown } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import CartIcon from './CartIcon';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
   const flowersDropdownRef = useRef<HTMLDivElement>(null);
   const productsDropdownRef = useRef<HTMLDivElement>(null);
-  const [isFlowersOpen, setIsFlowersOpen] = useState(false);
-  const [isProductsOpen, setIsProductsOpen] = useState(false);
-  const [hoveredDropdown, setHoveredDropdown] = useState<'flowers' | 'products' | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (hoveredDropdown === 'flowers') {
-      setIsFlowersOpen(true);
-      setIsProductsOpen(false);
-    } else if (hoveredDropdown === 'products') {
-      setIsFlowersOpen(false);
-      setIsProductsOpen(true);
-    } else {
-      setIsFlowersOpen(false);
-      setIsProductsOpen(false);
-    }
-  }, [hoveredDropdown]);
-
-  const handleMouseEnter = (dropdown: 'flowers' | 'products') => {
-    setHoveredDropdown(dropdown);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredDropdown(null);
-  };
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
@@ -54,56 +30,50 @@ const Navbar: React.FC = () => {
             <Link to="/" className="text-gray-700 hover:text-kranian-600 transition-colors">Home</Link>
 
             {/* Flowers Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMouseEnter('flowers')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <button className="text-gray-700 hover:text-kranian-600 hover:underline transition-colors flex items-center">
-                Flowers <ChevronDown className="ml-1 h-4 w-4" />
-              </button>
-              {isFlowersOpen && (
-                <div className="absolute left-0 mt-1 w-40 bg-white rounded-md shadow-lg z-10">
-                  <motion.div
-                    initial={{ x: -10, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -10, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="py-1"
-                  >
-                    <Link to="/products?category=summer-flowers" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Summer Flowers</Link>
-                    <Link to="/products?category=premium-roses" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Premium Roses</Link>
-                    <Link to="/products?category=spray-roses" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Spray Roses</Link>
-                  </motion.div>
-                </div>
-              )}
-            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="text-gray-700 hover:text-kranian-600 hover:underline transition-colors flex items-center">
+                  Flowers <ChevronDown className="ml-1 h-4 w-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-40 rounded-md">
+                <DropdownMenuItem className="font-geist hover:bg-gray-100 focus:bg-gray-100">
+                  <Link to="/products?category=summer-flowers" className="w-full">
+                    Summer Flowers
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="font-geist hover:bg-gray-100 focus:bg-gray-100">
+                  <Link to="/products?category=premium-roses" className="w-full">
+                    Premium Roses
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="font-geist hover:bg-gray-100 focus:bg-gray-100">
+                  <Link to="/products?category=spray-roses" className="w-full">
+                    Spray Roses
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             {/* Products Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMouseEnter('products')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <button className="text-gray-700 hover:text-kranian-600 hover:underline transition-colors flex items-center">
-                Products <ChevronDown className="ml-1 h-4 w-4" />
-              </button>
-              {isProductsOpen && (
-                <div className="absolute left-0 mt-1 w-40 bg-white rounded-md shadow-lg z-10">
-                  <motion.div
-                    initial={{ x: -10, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -10, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="py-1"
-                  >
-                    <Link to="/products?category=vegetables" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Vegetables</Link>
-                    <Link to="/products?category=herbs" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Herbs</Link>
-                    <Link to="/products?category=fruits" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Fruits</Link>
-                  </motion.div>
-                </div>
-              )}
-            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="text-gray-700 hover:text-kranian-600 hover:underline transition-colors flex items-center">
+                  Products <ChevronDown className="ml-1 h-4 w-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-40 rounded-md">
+                <DropdownMenuItem className="font-geist hover:bg-gray-100 focus:bg-gray-100">
+                  <Link to="/products?category=vegetables" className="w-full">Vegetables</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="font-geist hover:bg-gray-100 focus:bg-gray-100">
+                  <Link to="/products?category=herbs" className="w-full">Herbs</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="font-geist hover:bg-gray-100 focus:bg-gray-100">
+                  <Link to="/products?category=fruits" className="w-full">Fruits</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <Link to="/contact" className="text-gray-700 hover:text-kranian-600 transition-colors">Contacts</Link>
           </div>

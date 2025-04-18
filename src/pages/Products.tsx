@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
 import { products, getProductsByCategory } from '@/data/products';
@@ -45,10 +44,13 @@ const Products = () => {
 
   const categories = [
     { id: null, name: "All Products" },
-    { id: "bouquet", name: "Bouquets" },
-    { id: "roses", name: "Roses" },
-    { id: "herbs", name: "Herbs" },
-    { id: "vegetables", name: "Vegetables" }
+    { id: "intermediate-roses", name: "Intermediate Roses" },
+    { id: "summer-flowers", name: "Summer Flowers" },
+    { id: "premium-roses", name: "Premium Roses" },
+    { id: "spray-roses", name: "Spray Roses" },
+    { id: "vegetables", name: "Vegetables" },
+    { id: "fruits", name: "Fruits" },
+    { id: "herbs", name: "Herbs" }
   ];
 
   const handleCategoryChange = (category: string | null) => {
@@ -58,7 +60,6 @@ const Products = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       
       {/* Page Header */}
       <div className="bg-kranian-100 py-8">
