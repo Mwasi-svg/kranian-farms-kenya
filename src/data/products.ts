@@ -14,11 +14,12 @@ export type Product = {
 export const products: Product[] = [
   {
     id: 1,
-    name: "Spring Elegance",
+    name: "Hypericum Berries",
     price: 59.99,
     description: "A stunning arrangement of seasonal spring flowers, featuring tulips, daffodils, and hyacinths. Perfect for brightening any room.",
-    image: "https://images.unsplash.com/photo-1596438459194-f275f413d6ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "Hypericum.png",
     category: "bouquet",
+    subheading: "Soft texture, rich color — what’s not to love?",
     featured: true,
     bestseller: true,
     inStock: true

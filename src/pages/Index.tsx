@@ -1,7 +1,6 @@
 import React from 'react';
-import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import FeaturedProducts from '@/components/FeaturedProducts';
+import FeaturedProducts from "@/components/FeaturedProducts";
 import AboutSection from '@/components/AboutSection';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -15,7 +14,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       <Hero />
       
       {/* Benefits Section */}

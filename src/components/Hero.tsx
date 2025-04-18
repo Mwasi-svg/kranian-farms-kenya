@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -13,11 +12,17 @@ import {
 
 const Hero: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [carouselApi, setCarouselApi] = useState<any>(null);
   const slides = [
     {
-      image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      title: "Beautiful Blooms, Fresh from Our Farm",
-      subtitle: "Kranian Farms delivers the freshest flowers, herbs, and vegetables locally and internationally. Grown with love, delivered with care."
+      image: "./burgundy.png",
+      title: "Premium Roses",
+      subtitle: "Explore our fine roses"
+    },
+    {
+      image: "reflex.png",
+      title: "Spray Roses",
+      subtitle: "Explore our Spray Roses"
     },
     {
       image: "https://images.unsplash.com/photo-1500673922987-e212871fec22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
@@ -30,15 +35,37 @@ const Hero: React.FC = () => {
       subtitle: "Experience the beauty of nature with our carefully curated selection of farm-fresh products."
     }
   ];
+  const vegetablesIndex = slides.findIndex(slide => slide.title === "Handpicked Excellence, Sustainable Growing");
+
+  slides.splice(vegetablesIndex, 0, {
+    image: "summerflower.png",
+    title: "Summer Flowers",
+    subtitle: "Explore our vast Summer Flowers"
+  },
+  {
+    image: "vegetables.png",
+    title: "Vegetables",
+    subtitle: "Explore our fresh vegetables",
+    buttonText: "Browse Vegetables"
+  });
 
   const featuredProducts = getFeaturedProducts();
 
+  useEffect(() => {
+    if (carouselApi) {
+      const interval = setInterval(() => {
+        carouselApi.scrollNext();
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [carouselApi]);
+
   return (
-    <section className="relative h-[550px] md:h-[650px] overflow-hidden">
+    <div className="relative h-[550px] md:h-[650px] overflow-hidden ">
       <Carousel
         className="w-full h-full"
         opts={{ loop: true }}
-        setApi={(api) => {
+        setApi={(api) => { setCarouselApi(api);
           api?.on('select', () => {
             setActiveSlide(api.selectedScrollSnap());
           });
@@ -49,8 +76,11 @@ const Hero: React.FC = () => {
             <CarouselItem key={index} className="h-full">
               <div className="relative w-full h-full">
                 <div 
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-[2000ms] transform scale-105"
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat object-cover w-full h-full transition-transform duration-[2000ms]"
                   style={{
+                    ...(slide.title === "Premium Roses" && {
+                      backgroundPosition: 'left center',
+                    }),
                     backgroundImage: `url('${slide.image}')`,
                     animation: activeSlide === index ? 'heroZoom 8s ease-out forwards' : '',
                   }}
@@ -89,13 +119,34 @@ const Hero: React.FC = () => {
                         Shop Our Collection
                       </Link>
                     </Button>
-                    <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
-                      <Link to="/products?category=bouquet">
-                        Browse Bouquets
-                      </Link>
-                    </Button>
+                    {slide.title === "Summer Flowers" ? (
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=summer-flowers">
+                          Explore Summer Flowers
+                        </Link>
+                      </Button>
+                    ) : slide.buttonText === "Browse Vegetables" ? ( // For the vegetables slide
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=vegetables"> 
+                          {slide.buttonText} 
+                        </Link>
+                      </Button>
+                    ) : slide.title === "Spray Roses" ? ( //For the Spray Roses slide
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=spray-roses">
+                          Browse Spray Roses
+                        </Link>
+                      </Button>
+                    ) : (
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=bouquet">
+                          Browse Premium Roses
+                        </Link>
+                      </Button> 
+                    )}
                   </div>
                 </div>
+
               </div>
             </CarouselItem>
           ))}
@@ -123,18 +174,19 @@ const Hero: React.FC = () => {
         </div>
       </Carousel>
 
-      {/* CSS for animations */}
-      <style jsx>{`
-        @keyframes heroZoom {
-          0% {
-            transform: scale(1.05);
-          }
-          100% {
-            transform: scale(1);
-          }
-        }
-      `}</style>
-    </section>
+      <style>
+      {`
+       @keyframes heroZoom {
+         0% {
+           transform: scale(1.05);
+         }
+         100% {
+           transform: scale(1);
+         }
+       }
+      `}
+      </style>
+    </div>
   );
 };
 
