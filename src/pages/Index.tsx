@@ -4,7 +4,7 @@ import FeaturedProducts from "@/components/FeaturedProducts";
 import AboutSection from '@/components/AboutSection';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, Truck, Clock, Award } from 'lucide-react';
+import { Globe, Truck, Clock, Award, ShoppingCart } from 'lucide-react';
 import { getBestsellerProducts } from '@/data/products';
 import ProductCard from '@/components/ProductCard';
 import { Link } from 'react-router-dom';
@@ -17,41 +17,58 @@ const Index = () => {
       <Hero />
       
       {/* Benefits Section */}
-      <section className="py-8 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="flex items-center p-4">
-              <Clock className="h-8 w-8 text-kranian-600 mr-3" />
-              <div>
-                <h3 className="font-medium">Fresh Daily</h3>
-                <p className="text-sm text-gray-600">Hand-picked each morning</p>
-              </div>
-            </div>
-            <div className="flex items-center p-4">
-              <Truck className="h-8 w-8 text-kranian-600 mr-3" />
-              <div>
-                <h3 className="font-medium">Free Shipping</h3>
-                <p className="text-sm text-gray-600">On orders over $50</p>
-              </div>
-            </div>
-            <div className="flex items-center p-4">
-              <ShoppingCart className="h-8 w-8 text-kranian-600 mr-3" />
-              <div>
-                <h3 className="font-medium">Easy Returns</h3>
-                <p className="text-sm text-gray-600">30-day return policy</p>
-              </div>
-            </div>
-            <div className="flex items-center p-4">
-              <Award className="h-8 w-8 text-kranian-600 mr-3" />
-              <div>
-                <h3 className="font-medium">Quality Guaranteed</h3>
-                <p className="text-sm text-gray-600">Fresh or your money back</p>
-              </div>
-            </div>
-          </div>
+<section className="py-12 bg-gray-50">
+  <div className="container mx-auto px-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Farm-Fresh Produce */}
+      <div className="flex items-start space-x-4">
+        <div className="p-2 bg-white rounded-md">
+          <Clock className="h-6 w-6 text-kranian-600" />
         </div>
-      </section>
+        <div>
+          <h3 className="text-lg font-medium text-gray-700">Farm-Fresh Produce</h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Harvested same-day, straight from our fields to your table.
+          </p>
+        </div>
+      </div>
+      {/* Reliable Delivery */}
+      <div className="flex items-start space-x-4">
+        <div className="p-2 bg-white rounded-md">
+          <Truck className="h-6 w-6 text-kranian-600" />
+        </div>
+        <div>
+          <h3 className="text-lg font-medium text-gray-700">Reliable Delivery</h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Free local delivery on orders over KES 5,000.
+          </p>
+        </div>
+      </div>
+      {/* Trusted Quality */}
+      <div className="flex items-start space-x-4">
+        <div className="p-2 bg-white rounded-md">
+          <Award className="h-6 w-6 text-kranian-600" />
+        </div>
+        <div>
+          <h3 className="text-lg font-medium text-gray-700">Trusted Quality</h3>
+          <p className="mt-1 text-sm text-gray-500">Grown with care. 100% natural, no shortcuts.</p>
+        </div>
+      </div>
+      {/* Sustainable Practices */}
+      <div className="flex items-start space-x-4">
+        <div className="p-2 bg-white rounded-md">
+          <Globe className="h-6 w-6 text-kranian-600" />
+        </div>
+        <div>
+          <h3 className="text-lg font-medium text-gray-700">Sustainable Practices</h3>
+          <p className="mt-1 text-sm text-gray-500">We farm with the planet in mind.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+      
       <FeaturedProducts />
       
       {/* Bestsellers Section */}
@@ -80,8 +97,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* Export/Shipping Banner */}
       <section className="py-12 bg-cover bg-center relative" style={{
         backgroundImage: 'url("https://images.unsplash.com/photo-1469041797191-50ace28483c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'
       }}>
@@ -123,6 +138,7 @@ const Index = () => {
       
       <Footer />
     </div>
+
   );
 };
 

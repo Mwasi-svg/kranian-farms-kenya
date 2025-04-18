@@ -33,28 +33,31 @@ const Hero: React.FC = () => {
       image: "https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       title: "From Our Gardens to Your Doorstep",
       subtitle: "Experience the beauty of nature with our carefully curated selection of farm-fresh products."
-    }
+    },
   ];
-  const vegetablesIndex = slides.findIndex(slide => slide.title === "Handpicked Excellence, Sustainable Growing");  
-  
-  slides.splice(vegetablesIndex, 0, {
-    image: "summerflower.png",
-    title: "Summer Flowers",
-    subtitle: "Explore our vast Summer Flowers"
-  },
-  { image: "herbs.jpg",
-    title: "Herbs",
-    subtitle: "Explore our fresh Herbs",
-    buttonText: "Explore Herbs"},
-  { image: "fruits.png",
-    title: "Fruits",
-    subtitle: "Explore our tropical Fruits",
-    buttonText: "Browse Fruits"},{
-    image: "vegetables.png",
-    title: "Vegetables",
-    subtitle: "Explore our fresh vegetables",
-    buttonText: "Browse Vegetables"
-  });
+
+  const vegetablesIndex = slides.findIndex(slide => slide.title === "Handpicked Excellence, Sustainable Growing");
+
+  slides.splice(vegetablesIndex, 0, 
+    {
+      image: "summerflower.png",
+      title: "Summer Flowers",
+      subtitle: "Explore our vast Summer Flowers"
+    },
+    { image: "herbs.jpg",
+      title: "Herbs",
+      subtitle: "Explore our fresh Herbs",
+      buttonText: "Explore Herbs"},
+    { image: "fruits.png",
+      title: "Fruits",
+      subtitle: "Explore our tropical Fruits",
+      buttonText: "Browse Fruits"},
+    { image: "vegetables.png",
+      title: "Vegetables",
+      subtitle: "Explore our fresh vegetables",
+      buttonText: "Browse Vegetables"}
+  );  
+  slides.splice(6, 2);
 
   const featuredProducts = getFeaturedProducts();
 

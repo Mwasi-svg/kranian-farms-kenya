@@ -25,24 +25,17 @@ export const products: Product[] = [
     inStock: true
   },
   {
-    id: 2,
-    name: "Rose Romance",
-    price: 49.99,
-    description: "A classic bouquet of premium red roses, symbolizing love and passion. Carefully arranged with greenery and baby's breath.",
-    image: "https://images.unsplash.com/photo-1548586196-aa5803b77379?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    id: 2, name: "Gypso", price: 49.99, description: "A classic bouquet of premium red roses, symbolizing love and passion. Carefully arranged with greenery and baby's breath.", image: "gypso.png",
     category: "roses",
     bestseller: true,
     inStock: true
+
   },
   {
-    id: 3,
-    name: "Herb Garden Trio",
-    price: 24.99,
-    description: "A set of three essential culinary herbs: basil, rosemary, and thyme. Grown organically at our farm.",
-    image: "https://images.unsplash.com/photo-1511697413833-5aeaacf351df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "herbs",
+    id: 3, name: "Fireflash Roses", price: 24.99, description: "A set of three essential culinary herbs: basil, rosemary, and thyme. Grown organically at our farm.", image: "fireflash.png", category: "herbs",
     featured: true,
     inStock: true
+
   },
   {
     id: 4,
@@ -63,14 +56,11 @@ export const products: Product[] = [
     inStock: true
   },
   {
-    id: 6,
-    name: "Summer Sunflower Bouquet",
-    price: 39.99,
-    description: "Bright and cheerful arrangement featuring sunflowers and complementary blooms. Brings the sunshine indoors!",
-    image: "https://images.unsplash.com/photo-1551248429-40975aa4de74?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    id: 6, name: "Marjoram", price: 39.99, description: "Bright and cheerful arrangement featuring sunflowers and complementary blooms. Brings the sunshine indoors!", image: "marjoram.png",
     category: "bouquet",
     featured: true,
     inStock: true
+
   },
   {
     id: 7,
@@ -82,14 +72,11 @@ export const products: Product[] = [
     inStock: true
   },
   {
-    id: 8,
-    name: "Heirloom Tomato Plants",
-    price: 29.99,
-    description: "A set of three heirloom tomato varieties, ready to plant in your garden. Produces flavorful, unique tomatoes.",
-    image: "https://images.unsplash.com/photo-1592921870789-04563d55041c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "vegetables",
+    id: 8, name: "Lisianthus", price: 29.99, description: "A set of three heirloom tomato varieties, ready to plant in your garden. Produces flavorful, unique tomatoes.", image: "lisianthus.png",
+    category: "bouquet",
     featured: true,
     inStock: true
+
   },
   {
     id: 9,

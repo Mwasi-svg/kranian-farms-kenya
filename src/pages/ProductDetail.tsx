@@ -75,7 +75,7 @@ const ProductDetail = () => {
           {/* Product Info */}
           <div>
             <h1 className="text-3xl font-serif font-bold text-gray-800 mb-2">{product.name}</h1>
-            <p className="text-2xl text-kranian-700 font-bold mb-4">${product.price.toFixed(2)}</p>
+            <p className="text-2xl text-kranian-700 font-bold mb-4">KES {product.price.toFixed(2)}</p>
             
             <div className="border-t border-b border-gray-200 py-6 my-6">
               <p className="text-gray-700 mb-4">{product.description}</p>
@@ -132,7 +132,7 @@ const ProductDetail = () => {
               <h3 className="font-medium text-lg mb-2">Delivery Information</h3>
               <ul className="space-y-2 text-gray-700">
                 <li>• Local delivery available within 24 hours</li>
-                <li>• Free shipping on orders over $50</li>
+                <li>• Free shipping on orders over KES 50</li>
                 <li>• International shipping to select countries</li>
                 <li>• All flowers are fresh-cut and arranged the day of delivery</li>
               </ul>

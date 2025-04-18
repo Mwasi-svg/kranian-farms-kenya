@@ -54,7 +54,7 @@ const Cart = () => {
                             </Link>
                           </h3>
                           <p className="font-medium text-gray-900">
-                            ${item.product.price.toFixed(2)}
+                            KES {Number(item.product.price).toFixed(2)}
                           </p>
                         </div>
                         <p className="mt-1 text-sm text-gray-500 line-clamp-1">
@@ -123,7 +123,7 @@ const Cart = () => {
                 <dl className="space-y-4">
                   <div className="flex justify-between">
                     <dt className="text-gray-600">Subtotal</dt>
-                    <dd className="font-medium">${getCartTotal().toFixed(2)}</dd>
+                    <dd className="font-medium">KES {Number(getCartTotal()).toFixed(2)}</dd>
                   </div>
                   
                   <div className="flex justify-between">
@@ -132,7 +132,7 @@ const Cart = () => {
                       {getCartTotal() >= 50 ? (
                         <span className="text-green-600">Free</span>
                       ) : (
-                        '$5.00'
+                        'KES 5.00'
                       )}
                     </dd>
                   </div>
@@ -140,7 +140,7 @@ const Cart = () => {
                   <div className="border-t border-gray-200 pt-4 flex justify-between">
                     <dt className="text-base font-medium">Total</dt>
                     <dd className="text-base font-medium">
-                      ${(getCartTotal() + (getCartTotal() >= 50 ? 0 : 5)).toFixed(2)}
+                      KES {Number(getCartTotal() + (getCartTotal() >= 50 ? 0 : 5)).toFixed(2)}
                     </dd>
                   </div>
                 </dl>
