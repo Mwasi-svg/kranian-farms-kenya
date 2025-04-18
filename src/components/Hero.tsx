@@ -35,14 +35,21 @@ const Hero: React.FC = () => {
       subtitle: "Experience the beauty of nature with our carefully curated selection of farm-fresh products."
     }
   ];
-  const vegetablesIndex = slides.findIndex(slide => slide.title === "Handpicked Excellence, Sustainable Growing");
-
+  const vegetablesIndex = slides.findIndex(slide => slide.title === "Handpicked Excellence, Sustainable Growing");  
+  
   slides.splice(vegetablesIndex, 0, {
     image: "summerflower.png",
     title: "Summer Flowers",
     subtitle: "Explore our vast Summer Flowers"
   },
-  {
+  { image: "herbs.jpg",
+    title: "Herbs",
+    subtitle: "Explore our fresh Herbs",
+    buttonText: "Explore Herbs"},
+  { image: "fruits.png",
+    title: "Fruits",
+    subtitle: "Explore our tropical Fruits",
+    buttonText: "Browse Fruits"},{
     image: "vegetables.png",
     title: "Vegetables",
     subtitle: "Explore our fresh vegetables",
@@ -85,7 +92,7 @@ const Hero: React.FC = () => {
                     animation: activeSlide === index ? 'heroZoom 8s ease-out forwards' : '',
                   }}
                 >
-                  <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+                   <div className="absolute inset-0 bg-black bg-opacity-40"></div>
                 </div>
                 
                 <div className="relative container mx-auto px-4 py-24 md:py-36 lg:py-48 h-full flex flex-col items-center justify-center text-center">
@@ -119,16 +126,22 @@ const Hero: React.FC = () => {
                         Shop Our Collection
                       </Link>
                     </Button>
-                    {slide.title === "Summer Flowers" ? (
+                    { slide.title === "Herbs" ? (
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=herbs">
+                          Explore Herbs
+                        </Link>
+                      </Button>
+                    ) : slide.title === "Fruits" ? (
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=fruits">
+                          Browse Fruits
+                        </Link>
+                      </Button>
+                    ) : slide.title === "Summer Flowers" ? (
                       <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
                         <Link to="/products?category=summer-flowers">
                           Explore Summer Flowers
-                        </Link>
-                      </Button>
-                    ) : slide.buttonText === "Browse Vegetables" ? ( // For the vegetables slide
-                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
-                        <Link to="/products?category=vegetables"> 
-                          {slide.buttonText} 
                         </Link>
                       </Button>
                     ) : slide.title === "Spray Roses" ? ( //For the Spray Roses slide
