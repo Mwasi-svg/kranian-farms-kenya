@@ -89,10 +89,10 @@ export const products: Product[] = [
   },
   {
     id: 10,
-    name: "Celebration Bouquet",
+    name: "Sunflower",
     price: 79.99,
     description: "A grand arrangement perfect for special occasions. Features a designer selection of seasonal premium flowers.",
-    image: "https://images.unsplash.com/photo-1484900089846-718a3c6a0555?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "sunflower.png",
     category: "bouquet",
     bestseller: true,
     inStock: true
