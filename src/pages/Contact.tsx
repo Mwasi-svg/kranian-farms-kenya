@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { MessageCircle, Instagram, Facebook } from 'lucide-react'; // Import MessageCircle icon
 
 const Contact: React.FC = () => {
   return (
@@ -30,25 +30,36 @@ const Contact: React.FC = () => {
 
         {/* Meet Our Team Section */}
         <div className="mt-12">
+          <div className="flex justify-center space-x-6 mb-8">
+            <a href="https://www.instagram.com/kranianfarms_kenya/" className="text-gray-500 hover:text-kranian-500">
+              <Instagram size={32} />
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61575074558774" className="text-gray-500 hover:text-kranian-500">
+              <Facebook size={32} />
+            </a>
+          </div>
           <h2 className="text-3xl font-bold text-center text-kranian-700 mb-4">Meet Our Team</h2>
           <p className="text-gray-700 text-center mb-8">Our dedicated team is passionate delivering quality product to your table.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Rachel Muturi */}
             <div className="flex flex-col items-center">
               <img
-                src="placeholder_image_url.jpg" // Replace with actual image URL
+                src="/placeholder.svg"
                 alt="Rachel Muturi"
                 className="w-48 h-48 rounded-full object-cover mb-4"
               />
               <h3 className="text-xl font-semibold text-gray-800">Rachel Muturi</h3>
               <p className="text-gray-600 mb-2">Director</p>
               <p className="text-gray-700 text-center mb-4">"At Kranian Farms, I grow more than crops--I grow community."</p>
-              <div className="flex space-x-4">
-                <a href="mailto:placeholder@email.com" className="text-gray-500 hover:text-kranian-500">
+              <div className="flex space-x-4">                
+                <a href="mailto:rachel@kranianfarms.com" className="text-gray-500 hover:text-kranian-500">
                   <Mail size={24} />
                 </a>
-                <a href="tel:+1234567890" className="text-gray-500 hover:text-kranian-500"> {/* Replace with actual phone number */}
+                <a href="tel:+254701640801" className="text-gray-500 hover:text-kranian-500">
                   <Phone size={24} />
+                </a>
+                <a href="https://wa.me/254701640801" className="text-gray-500 hover:text-kranian-500">
+                  <MessageCircle size={24} /> {/* WhatsApp icon */}
                 </a>
                 {/* Add other social media links as needed */}
               </div>
@@ -57,21 +68,24 @@ const Contact: React.FC = () => {
             {/* Brian Senelwa */}
             <div className="flex flex-col items-center">
               <img
-                src="placeholder_image_url.jpg" // Replace with actual image URL
+                src="/placeholder.svg"
                 alt="Brian Senelwa"
                 className="w-48 h-48 rounded-full object-cover mb-4"
               />
               <h3 className="text-xl font-semibold text-gray-800">Brian Senelwa</h3>
               <p className="text-gray-600 mb-2">Director</p>
               <p className="text-gray-700 text-center mb-4">"Dedication to quality, transparency, and long-term sustainability."</p>
-              <div className="flex space-x-4">
-                <a href="mailto:placeholder@email.com" className="text-gray-500 hover:text-kranian-500">
+              <div className="flex space-x-4">                
+                <a href="mailto:brian@kranianfarms.com" className="text-gray-500 hover:text-kranian-500">
                   <Mail size={24} />
                 </a>
-                <a href="tel:+1234567890" className="text-gray-500 hover:text-kranian-500"> {/* Replace with actual phone number */}
+                <a href="tel:+254702726346" className="text-gray-500 hover:text-kranian-500">
                   <Phone size={24} />
                 </a>
-                {/* Add other social media links as needed */}
+                <a href="https://wa.me/254702726346" className="text-gray-500 hover:text-kranian-500">
+                  <MessageCircle size={24} /> {/* WhatsApp icon */}
+                </a>
+                {/* Add other social media links as needed */}                
               </div>
             </div>
           </div>

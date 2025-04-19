@@ -12,7 +12,6 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       
       <div className="container mx-auto px-4 py-8 flex-grow">
         <h1 className="text-3xl font-serif font-bold text-gray-800 mb-8">Your Cart</h1>
@@ -158,8 +157,6 @@ const Cart = () => {
           </div>
         )}
       </div>
-      
-      <Footer />
     </div>
   );
 };

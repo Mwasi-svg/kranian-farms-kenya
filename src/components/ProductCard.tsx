@@ -23,9 +23,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <div className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col h-full">
       <Link to={`/product/${product.id}`} className="flex-grow">
         <div className="relative pb-[100%] overflow-hidden">
-          <img 
-            src={product.image} 
-            alt={product.name} 
+          <img
+            src={
+              product.name === "Grapes (import)" ? "/grapes.png" : product.name === "Cavendish Bananas (export)" ? "/cavendishbanana.png" : product.name === "Oranges (import)" ? "/oranges.png" : product.image !== "placeholder.svg" ? product.image : "/placeholder.svg"
+            }
+                alt={product.name}
             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
           {product.bestseller && (

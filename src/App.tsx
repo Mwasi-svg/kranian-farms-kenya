@@ -9,6 +9,7 @@ import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Checkout, { CheckoutSuccess } from "./pages/Checkout";
+import Contact from "./pages/Contact"; // Import the Contact component
 import Chatbot from './components/Chatbot';
 import NotFound from "./pages/NotFound";
 import ChatAssistant from "@/components/ChatAssistant";
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/checkout-success" element={<CheckoutSuccess />} />
+            <Route path="/contact" element={<Contact />} /> {/* Add the route for the Contact page */}
             <Route path="*" element={<NotFound />} />
           </Routes>
 

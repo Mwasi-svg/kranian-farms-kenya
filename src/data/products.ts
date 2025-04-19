@@ -1,4 +1,3 @@
-
 export type Product = {
   id: number;
   name: string;
@@ -19,7 +18,6 @@ export const products: Product[] = [
     description: "A stunning arrangement of seasonal spring flowers, featuring tulips, daffodils, and hyacinths. Perfect for brightening any room.",
     image: "Hypericum.png",
     category: "summer-flowers",
-
     featured: true,
     inStock: true,
     subheading: "Soft texture, rich color — what’s not to love?",
@@ -27,48 +25,31 @@ export const products: Product[] = [
   {
     id: 2, name: "Gypso", price: 49.99, description: "A classic bouquet of premium red roses, symbolizing love and passion. Carefully arranged with greenery and baby's breath.", image: "gypso.png",
     category: "roses",
- 
-   inStock: true
-
-  },
-  {
-    id: 4,
-    name: "Farm Fresh Vegetables",
-    price: 34.99,
-    description: "A seasonal selection of our farm-fresh vegetables. May include tomatoes, lettuce, carrots, and peppers.",
-    image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "vegetables",
-   inStock: true
+    inStock: true, featured: true, bestseller: true
   },
   {
     id: 5,
     name: "Premium Roses 1",
     price: 64.99,
-    description: "Elegant white roses, perfect for weddings, formal events, or as a luxurious gift. Each stem carefully selected for quality.  and what are they used for",
+    description: "Elegant white roses, perfect for weddings, formal events, or as a luxurious gift. Each stem carefully selected for quality.",
     image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     category: "roses",
-
   },
  {
     id: 6, name: "Intermediate Roses 1", price: 39.99, description: "Bright and cheerful arrangement featuring sunflowers and complementary blooms. Brings the sunshine indoors!", image: "https://via.placeholder.com/400x300",
     category: "intermediate-roses",
-
     inStock: true,
   },
   {
     id: 7,name: "Spray Roses 1",
-    
     price: 19.99,
     description: "Three varieties of fresh mint plants: peppermint, spearmint, and chocolate mint. Perfect for teas and cocktails.",
-    image: "https://images.unsplash.com/photo-1599031628994-ce86358c84a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "mint.png",
     category: "summer-flowers",
-
   },
-
   {
     id: 8, name: "Summer Flower 2", price: 29.99, description: "A set of three heirloom tomato varieties, ready to plant in your garden. Produces flavorful, unique tomatoes.", image: "https://via.placeholder.com/400x300", category: "summer-flowers", inStock: true,
   },
-
   {
     id: 9, name: "Premium Rose 2", price: 129.99, description: "Premium preserved roses arranged in an elegant gift box. These specially treated roses will last for months.", image: "https://via.placeholder.com/400x300",
     category: "premium-roses",
@@ -76,8 +57,7 @@ export const products: Product[] = [
   {
     id: 10, name: "Sunflower", price: 79.99, description: "A grand arrangement perfect for special occasions. Features a designer selection of seasonal premium flowers.", image: "sunflower.png",
     category: "summer-flowers",
-
-    inStock: true,
+    inStock: true, bestseller: true, featured: true
   },
   {
     id: 99,
@@ -88,7 +68,7 @@ export const products: Product[] = [
     category: "herbs",
     inStock: true,
   },
-  {
+   {
     id: 11, name: "Chives", price: 39.99, description: "Fresh chives", image: "chives.png", category: "herbs", inStock: true
   },
   {
@@ -102,7 +82,7 @@ export const products: Product[] = [
   { id: 108, name: "Thyme", price: 39.99, description: "Fresh thyme", image: "thyme.png", category: "herbs", inStock: true },
 
   {id: 12, name: "Bupleurum", price: 30, description: "filler", image: "BUPLEURUM.png", category: "summer-flowers", inStock: true},
-  {id: 13, name: "Ammi", price: 30, description: "filler", image: "AMMI_VISNAGA.png", category: "summer-flowers", inStock: true},
+  {id: 13, name: "Ammi", price: 30, description: "filler", image: "AMMI_VISNAGA.png", category: "summer-flowers", inStock: true,},
   {id: 14, name: "Delphinium", price: 30, description: "filler", image: "DELPHINIUM.png", category: "summer-flowers", inStock: true},
   {id: 15, name: "Agapanthus", price: 30, description: "filler", image: "AGAPANTHUS.png", category: "summer-flowers", inStock: true},
   {id: 16, name: "Arabicum", price: 30, description: "filler", image: "ARABICUM.png", category: "summer-flowers", inStock: true},
@@ -110,7 +90,7 @@ export const products: Product[] = [
   {id: 18, name: "Chrysanthemums", price: 30, description: "filler", image: "CHRYSANTHEMUMS.png", category: "summer-flowers", inStock: true},
   {id: 19, name: "Mathiola", price: 30, description: "filler", image: "MATTHIOLA.png", category: "summer-flowers", inStock: true},
   {id: 20, name: "Craspedia", price: 30, description: "filler", image: "CRASPEDIA.png", category: "summer-flowers", inStock: true},
-  {id: 21, name: "Eryngium", price: 30, description: "filler", image: "ERYNGIUM.png", category: "summer-flowers", inStock: true},
+  {id: 21, name: "Eryngium", price: 30, description: "filler", image: "ERYNGIUM.png", category: "summer-flowers", inStock: true, bestseller: true},
   {id: 22, name: "Eucalyptus", price: 30, description: "filler", image: "EUCALYPTUS.png", category: "summer-flowers", inStock: true},
   {id: 23, name: "Monstera Leaves", price: 30, description: "filler", image: "MONSTERA_LEAVES.png", category: "summer-flowers", inStock: true},
   {id: 24, name: "Leather Ferns", price: 30, description: "filler", image: "LEATHER_FERNS.png", category: "summer-flowers", inStock: true},
@@ -124,80 +104,58 @@ export const products: Product[] = [
   {id: 32, name: "Statice", price: 30, description: "filler", image: "STATICE.png", category: "summer-flowers", inStock: true},
 
   {id: 42, name: "Alison", price: 30, description: "filler", image: "ALISON.png", category: "premium-roses", inStock: true},
-
-  {id: 43, name: "Cotton Candy", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "premium-roses", inStock: true},
-  {id: 44, name: "Bellevue", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "premium-roses", inStock: true},
-  {id: 45, name: "Chapeau", price: 30, description: "filler", image: "CHAPEAU.png", category: "premium-roses", inStock: true},
-  {id: 46, name: "Athena", price: 30, description: "filler", image: "ATHENA.png", category: "premium-roses", inStock: true},
-  {id: 47, name: "Confidential", price: 30, description: "filler", image: "CONFIDENTIAL_ORANGE.png", category: "premium-roses", inStock: true},
-  {id: 48, name: "Deep Purple", price: 30, description: "filler", image: "DEEP_PURPLE.png", category: "premium-roses", inStock: true},
-  {id: 49, name: "Ever Red", price: 30, description: "filler", image: "EVER_RED.png", category: "premium-roses", inStock: true},
-  {id: 50, name: "Famous", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "premium-roses", inStock: true},
   {id: 51, name: "Jumilia", price: 30, description: "filler", image: "JUMILIA.png", category: "premium-roses", inStock: true},
   {id: 52, name: "Lampion", price: 30, description: "filler", image: "LAMPION.png", category: "premium-roses", inStock: true},
   {id: 53, name: "Moon Walker", price: 30, description: "filler", image: "MOON_WALKER.png", category: "premium-roses", inStock: true},
   {id: 54, name: "Orange Crush", price: 30, description: "filler", image: "ORANGE_CRUSH.png", category: "premium-roses", inStock: true},
-  {id: 55, name: "Pink Rhodos", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "premium-roses", inStock: true},
+  {id: 55, name: "Pink Rhodos", price: 30, description: "filler", image: "RHODOS.png", category: "premium-roses", inStock: true},
   {id: 56, name: "Proud", price: 30, description: "filler", image: "PROUD_ROSE.png", category: "premium-roses", inStock: true},
   {id: 57, name: "Revival", price: 30, description: "filler", image: "REVIVAL.png", category: "premium-roses", inStock: true},
   {id: 58, name: "Rhodos", price: 30, description: "filler", image: "RHODOS.png", category: "premium-roses", inStock: true},
   {id: 59, name: "Shangai Lady", price: 30, description: "filler", image: "SHANGAI_LADY.png", category: "premium-roses", inStock: true},
 
-  {id: 60, name: "Babe", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "spray-roses", inStock: true},
+  {id: 60, name: "Babe", price: 30, description: "filler", image: "babe.png", category: "spray-roses", inStock: true},
 
-  {id: 61, name: "Dinara", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "spray-roses", inStock: true},
-  {id: 63, name: "Fireworks", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "spray-roses", inStock: true},
-  {id: 64, name: "Marisa", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "spray-roses", inStock: true},
-  {id: 65, name: "Mirabel", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "spray-roses", inStock: true},
-  {id: 66, name: "Miss Bombastic", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "spray-roses", inStock: true},
+  {id: 61, name: "Dinara", price: 30, description: "filler", image: "dinara.png", category: "spray-roses", inStock: true},
+  {id: 63, name: "Fireworks", price: 30, description: "filler", image: "firework.png", category: "spray-roses", inStock: true},
+  {id: 64, name: "Marisa", price: 30, description: "filler", image: "marisa.png", category: "spray-roses", inStock: true},
+  {id: 65, name: "Mirabel", price: 30, description: "filler", image: "mirabel.png", category: "spray-roses", inStock: true},
+  {id: 66, name: "Miss Bombastic", price: 30, description: "filler", image: "missbombastic.png", category: "spray-roses", inStock: true},
 
-  {id: 67, name: "Reflex", price: 30, description: "filler", image: "reflex.png", category: "spray-roses", inStock: true},
-  {id: 68, name: "Snowflake", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "spray-roses", inStock: true},
+  {id: 67, name: "Reflex", price: 30, description: "filler", image: "reflex.png", category: "spray-roses", inStock: true, featured: true},
+  {id: 68, name: "Snowflake", price: 30, description: "filler", image: "snowflake.png", category: "spray-roses", inStock: true},
 
-  {id: 69, name: "Aqua", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "intermediate-roses", inStock: true},
+  {id: 69, name: "Aqua", price: 30, description: "filler", image: "aqua.png", category: "intermediate-roses", inStock: true},
   {id: 70, name: "Athena", price: 30, description: "filler", image: "ATHENA.png", category: "intermediate-roses", inStock: true},
-  {id: 71, name: "Bellerose", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "intermediate-roses", inStock: true},
-  {id: 72, name: "Bingo Cerise", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "intermediate-roses", inStock: true},
+  {id: 71, name: "Bellerose", price: 30, description: "filler", image: "bellerose.png", category: "intermediate-roses", inStock: true},
+  {id: 72, name: "Bingo Cerise", price: 30, description: "filler", image: "bingocerise.png", category: "intermediate-roses", inStock: true},
   {id: 73, name: "Burgundy", price: 30, description: "filler", image: "BURGUNDY.png", category: "intermediate-roses", inStock: true},
-  {id: 74, name: "High and Sparkling", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "intermediate-roses", inStock: true},
-  {id: 75, name: "Julishka", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "intermediate-roses", inStock: true},
-  {id: 76, name: "Labelle", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "intermediate-roses", inStock: true},
-  {id: 77, name: "Madam Cerise", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "intermediate-roses", inStock: true},
-  {id: 78, name: "Madam Pink", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "intermediate-roses", inStock: true},
+  {id: 74, name: "High and Sparkling", price: 30, description: "filler", image: "highandsparkling.png", category: "intermediate-roses", inStock: true},
+  {id: 75, name: "Julishka", price: 30, description: "filler", image: "julishka.png", category: "intermediate-roses", inStock: true},
+  {id: 76, name: "Labelle", price: 30, description: "filler", image: "labelle.png", category: "intermediate-roses", inStock: true},
+  {id: 77, name: "Madam Cerise", price: 30, description: "filler", image: "madamcerise.png", category: "intermediate-roses", inStock: true},
+  {id: 78, name: "Madam Pink", price: 30, description: "filler", image: "madampink.png", category: "intermediate-roses", inStock: true},
   {id: 79, name: "Madam Red", price: 30, description: "filler", image: "MADAM_RED.png", category: "intermediate-roses", inStock: true},
-  {id: 80, name: "Marina", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "intermediate-roses", inStock: true},
-  {id: 81, name: "Moonwalk", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "intermediate-roses", inStock: true},
-  {id: 82, name: "Pink Ace", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "intermediate-roses", inStock: true},
-  {id: 83, name: "Upperclass", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "intermediate-roses", inStock: true},
+  {id: 80, name: "Marina", price: 30, description: "filler", image: "marina.png", category: "intermediate-roses", inStock: true},
+  {id: 81, name: "Moonwalk", price: 30, description: "filler", image: "moonwalk.png", category: "intermediate-roses", inStock: true},
+  {id: 82, name: "Pink Ace", price: 30, description: "filler", image: "pinkace.png", category: "intermediate-roses", inStock: true},
+  {id: 83, name: "Upperclass", price: 30, description: "filler", image: "upperclass.png", category: "intermediate-roses", inStock: true},
 
-  {id: 84, name: "French Beans", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "vegetables", inStock: true},
-  {id: 85, name: "Sugar Snaps", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "vegetables", inStock: true},
-  {id: 86, name: "Snow Peas", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "vegetables", inStock: true},
-  {id: 87, name: "Sweet Potatoes", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "vegetables", inStock: true},
-  {id: 88, name: "Baby Carrots", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "vegetables", inStock: true},
-  {id: 89, name: "Baby Corn", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "vegetables", inStock: true},
-
-  {id: 90, name: "Passion Fruit", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "fruits", inStock: true},
-  {id: 91, name: "Pineapples", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "fruits", inStock: true},
-  {id: 92, name: "Avocados", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "fruits", inStock: true},
-  {id: 93, name: "Mangoes", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "fruits", inStock: true},
-  {id: 94, name: "Cavendish Bananas (export)", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "fruits", inStock: true},
-
-  {id: 95, name: "Apples (import)", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "fruits", inStock: true},
-  {id: 96, name: "Strawberries (import)", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "fruits", inStock: true},
-  {id: 97, name: "Grapes (import)", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "fruits", inStock: true},
-  {id: 98, name: "Oranges (import)", price: 30, description: "filler", image: "https://via.placeholder.com/400x300", category: "fruits", inStock: true},
-
-  {
-    id: 100,
-    name: "Gourmet Vegetable Selection",
-    price: 49.99,
-    description: "Premium vegetable assortment including specialty items like colored bell peppers, heirloom tomatoes, and purple carrots.",
-    image: "https://images.unsplash.com/photo-1607305387299-a3d9611cd469?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "vegetables",
-    inStock: true,
-  },
-
+  {id: 84, name: "French Beans", price: 30, description: "filler", image: "frenchbeans.png", category: "vegetables", inStock: true},
+  {id: 85, name: "Sugar Snaps", price: 30, description: "filler", image: "sugarsnaps.png", category: "vegetables", inStock: true},
+  {id: 86, name: "Snow Peas", price: 30, description: "filler", image: "snowpeas.png", category: "vegetables", inStock: true},
+  {id: 87, name: "Sweet Potatoes", price: 30, description: "filler", image: "sweetpotato.png", category: "vegetables", inStock: true},
+  {id: 88, name: "Baby Carrots", price: 30, description: "filler", image: "babycarrots.png", category: "vegetables", inStock: true},
+  {id: 89, name: "Baby Corn", price: 30, description: "filler", image: "babycorn.png", category: "vegetables", inStock: true},
+  {id: 90, name: "Passion Fruit", price: 30, description: "filler", image: "passion.png", category: "fruits", inStock: true},
+  {id: 91, name: "Pineapples", price: 30, description: "filler", image: "pineapple.png", category: "fruits", inStock: true},
+  {id: 92, name: "Avocados", price: 30, description: "filler", image: "avocado.png", category: "fruits", inStock: true},
+  {id: 93, name: "Mangoes", price: 30, description: "filler", image: "mango.png", category: "fruits", inStock: true, featured: true, bestseller: true},
+  {id: 94, name: "Cavendish Bananas (export)", price: 30, description: "filler", image: "banana.png", category: "fruits", inStock: true},
+  {id: 95, name: "Apples (import)", price: 30, description: "filler", image: "apples.png", category: "fruits", inStock: true},
+  {id: 96, name: "Strawberries (import)", price: 30, description: "filler", image: "strawberry.png", category: "fruits", inStock: true},
+  {id: 97, name: "Grapes (import)", price: 30, description: "filler", image: "grapes.png", category: "fruits", inStock: true},
+  {id: 98, name: "Oranges (import)", price: 30, description: "filler", image: "oranges.png", category: "fruits", inStock: true},
   {
     id: 101,
     name: "Premium White Roses",
@@ -216,24 +174,7 @@ export const products: Product[] = [
     category: "spray-roses",
     inStock: true,
   },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ];
-
 
 export const getProductsByCategory = (category: string) => {
   return products.filter(product => product.category === category);
