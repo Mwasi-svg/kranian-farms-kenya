@@ -36,10 +36,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </span>
           )}
         </div>
-        <div className="p-4">
-          <h3 className="font-medium text-lg mb-1 text-gray-800">{product.name}</h3>
-          <p className="text-kranian-700 font-bold mb-2">KES {product.price.toFixed(2)}</p>
-          <p className="text-gray-600 text-sm line-clamp-2 mb-4">{product.description}</p>
+        <div className="p-4 flex flex-col items-center justify-center">
+          <h3 className="font-medium text-lg mb-1 text-gray-800 text-center">{product.name}</h3>
+          <p className="text-kranian-700 font-bold mb-2 text-center">KES {product.price.toFixed(2)}</p>
         </div>
       </Link>
       <div className="px-4 pb-4 mt-auto">
