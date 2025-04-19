@@ -1,15 +1,36 @@
 import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X, Search, ChevronDown } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CartIcon from './CartIcon';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { products } from '@/data/products';
 
 const Navbar = () => {
-  const flowersDropdownRef = useRef<HTMLDivElement>(null);
+  const [searchResults, setSearchResults] = useState([]);
   const productsDropdownRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+    const query = event.target.value.toLowerCase();
+    if (query) {
+      const results = products.filter(product =>
+        product.name.toLowerCase().startsWith(query)
+      );
+      setSearchResults(results);
+    } else {
+      setSearchResults([]);
+    }
+  };
+
+  const handleSearchResultClick = (productId: string) => {
+    navigate(`/product/${productId}`);
+    setSearchQuery('');
+    setSearchResults([]);
+  };
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
@@ -54,7 +75,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-
+            
             {/* Products Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -78,11 +99,34 @@ const Navbar = () => {
             <Link to="/contact" className="text-gray-700 hover:text-kranian-600 transition-colors">Contacts</Link>
           </div>
 
-          {/* Icons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="icon">
-              <Search className="h-5 w-5" />
-            </Button>
+          {/* Search */}
+          <div className="hidden md:flex items-center relative">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+                className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-kranian-500 text-sm w-64"
+              />
+              {searchResults.length > 0 && (
+                <ul className="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10">
+                  {searchResults.map(product => (
+                    <li key={product.id}>
+                      <Link
+                        to={`/products/${product.id}`}
+                        onClick={() => handleSearchResultClick(product.id)}
+                        className="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm"
+                      >
+                        {product.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            
             <CartIcon />
           </div>
 

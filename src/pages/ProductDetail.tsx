@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { getProductById, getProductsByCategory, Product } from '@/data/products';
 import { Button } from '@/components/ui/button';
@@ -20,7 +19,6 @@ const ProductDetail = () => {
   if (!product) {
     return (
       <div className="min-h-screen flex flex-col">
-        <Navbar />
         <div className="container mx-auto px-4 py-16 text-center">
           <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
           <p className="text-gray-600 mb-8">The product you are looking for doesn't exist or has been removed.</p>
@@ -47,10 +45,19 @@ const ProductDetail = () => {
   const relatedProducts = getProductsByCategory(product.category)
     .filter(item => item.id !== product.id)
     .slice(0, 3);
+
+  // Fisher-Yates shuffle algorithm to randomize related products
+  const shuffledRelatedProducts = [...relatedProducts];
+  for (let i = shuffledRelatedProducts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledRelatedProducts[i], shuffledRelatedProducts[j]] = [
+      shuffledRelatedProducts[j],
+      shuffledRelatedProducts[i],
+    ];
+  }
   
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       
       <div className="container mx-auto px-4 py-8">
         <button 
@@ -65,7 +72,7 @@ const ProductDetail = () => {
           <div>
             <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
               <img 
-                src={product.image} 
+                src={`/${product.image}`}
                 alt={product.name} 
                 className="w-full h-full object-cover"
               />
@@ -145,7 +152,7 @@ const ProductDetail = () => {
           <div className="mt-12">
             <h2 className="text-2xl font-serif font-bold text-gray-800 mb-6">You May Also Like</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedProducts.map(product => (
+              {shuffledRelatedProducts.map(product => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
