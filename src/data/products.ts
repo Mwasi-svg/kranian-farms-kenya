@@ -28,33 +28,6 @@ export const products: Product[] = [
     inStock: true, featured: true, bestseller: true
   },
   {
-    id: 5,
-    name: "Premium Roses 1",
-    price: 64.99,
-    description: "Elegant white roses, perfect for weddings, formal events, or as a luxurious gift. Each stem carefully selected for quality.",
-    image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "roses",
-  },
- {
-    id: 6, name: "Intermediate Roses 1", price: 39.99, description: "Bright and cheerful arrangement featuring sunflowers and complementary blooms. Brings the sunshine indoors!", image: "https://via.placeholder.com/400x300",
-    category: "intermediate-roses",
-    inStock: true,
-  },
-  {
-    id: 7,name: "Spray Roses 1",
-    price: 19.99,
-    description: "Three varieties of fresh mint plants: peppermint, spearmint, and chocolate mint. Perfect for teas and cocktails.",
-    image: "mint.png",
-    category: "summer-flowers",
-  },
-  {
-    id: 8, name: "Summer Flower 2", price: 29.99, description: "A set of three heirloom tomato varieties, ready to plant in your garden. Produces flavorful, unique tomatoes.", image: "https://via.placeholder.com/400x300", category: "summer-flowers", inStock: true,
-  },
-  {
-    id: 9, name: "Premium Rose 2", price: 129.99, description: "Premium preserved roses arranged in an elegant gift box. These specially treated roses will last for months.", image: "https://via.placeholder.com/400x300",
-    category: "premium-roses",
-  },
-  {
     id: 10, name: "Sunflower", price: 79.99, description: "A grand arrangement perfect for special occasions. Features a designer selection of seasonal premium flowers.", image: "sunflower.png",
     category: "summer-flowers",
     inStock: true, bestseller: true, featured: true
@@ -113,18 +86,14 @@ export const products: Product[] = [
   {id: 57, name: "Revival", price: 30, description: "filler", image: "REVIVAL.png", category: "premium-roses", inStock: true},
   {id: 58, name: "Rhodos", price: 30, description: "filler", image: "RHODOS.png", category: "premium-roses", inStock: true},
   {id: 59, name: "Shangai Lady", price: 30, description: "filler", image: "SHANGAI_LADY.png", category: "premium-roses", inStock: true},
-
   {id: 60, name: "Babe", price: 30, description: "filler", image: "babe.png", category: "spray-roses", inStock: true},
-
   {id: 61, name: "Dinara", price: 30, description: "filler", image: "dinara.png", category: "spray-roses", inStock: true},
   {id: 63, name: "Fireworks", price: 30, description: "filler", image: "firework.png", category: "spray-roses", inStock: true},
   {id: 64, name: "Marisa", price: 30, description: "filler", image: "marisa.png", category: "spray-roses", inStock: true},
   {id: 65, name: "Mirabel", price: 30, description: "filler", image: "mirabel.png", category: "spray-roses", inStock: true},
   {id: 66, name: "Miss Bombastic", price: 30, description: "filler", image: "missbombastic.png", category: "spray-roses", inStock: true},
-
   {id: 67, name: "Reflex", price: 30, description: "filler", image: "reflex.png", category: "spray-roses", inStock: true, featured: true},
   {id: 68, name: "Snowflake", price: 30, description: "filler", image: "snowflake.png", category: "spray-roses", inStock: true},
-
   {id: 69, name: "Aqua", price: 30, description: "filler", image: "aqua.png", category: "intermediate-roses", inStock: true},
   {id: 70, name: "Athena", price: 30, description: "filler", image: "ATHENA.png", category: "intermediate-roses", inStock: true},
   {id: 71, name: "Bellerose", price: 30, description: "filler", image: "bellerose.png", category: "intermediate-roses", inStock: true},
@@ -139,7 +108,6 @@ export const products: Product[] = [
   {id: 80, name: "Marina", price: 30, description: "filler", image: "marina.png", category: "intermediate-roses", inStock: true},
   {id: 81, name: "Moonwalk", price: 30, description: "filler", image: "moonwalk.png", category: "intermediate-roses", inStock: true},
   {id: 82, name: "Pink Ace", price: 30, description: "filler", image: "pinkace.png", category: "intermediate-roses", inStock: true},
-  {id: 83, name: "Upperclass", price: 30, description: "filler", image: "upperclass.png", category: "intermediate-roses", inStock: true},
 
   {id: 84, name: "French Beans", price: 30, description: "filler", image: "frenchbeans.png", category: "vegetables", inStock: true},
   {id: 85, name: "Sugar Snaps", price: 30, description: "filler", image: "sugarsnaps.png", category: "vegetables", inStock: true},
@@ -156,15 +124,6 @@ export const products: Product[] = [
   {id: 96, name: "Strawberries (import)", price: 30, description: "filler", image: "strawberry.png", category: "fruits", inStock: true},
   {id: 97, name: "Grapes (import)", price: 30, description: "filler", image: "grapes.png", category: "fruits", inStock: true},
   {id: 98, name: "Oranges (import)", price: 30, description: "filler", image: "oranges.png", category: "fruits", inStock: true},
-  {
-    id: 101,
-    name: "Premium White Roses",
-    price: 64.99,
-    description: "Elegant white roses, perfect for weddings, formal events, or as a luxurious gift. Each stem carefully selected for quality.",
-    image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "premium-roses",
-    inStock: true,
-  },
   {
     id: 3,
     name: "Fireflash Roses",
