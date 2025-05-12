@@ -8,6 +8,7 @@ export type Product = {
   featured?: boolean;
   bestseller?: boolean;
   inStock: boolean;
+  subheading?: string; // Added optional subheading property
 };
 
 export const products: Product[] = [

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, setSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
 import { products as allProducts, getProductsByCategory } from '@/data/products';
@@ -54,7 +54,7 @@ const Products: React.FC = () => {
   ];
 
   const handleCategoryChange = (category: string | null) => {
- if (category === null) {
+    if (category === null) {
       setSearchParams({}); // Remove category param for "All Products"
     } else {
       setSearchParams({ category });

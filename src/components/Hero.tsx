@@ -15,7 +15,7 @@ type HeroSlide = {
   image: string;
   title: string;
   subtitle: string;
-  buttonText?: string;
+  buttonText?: string;  // Added optional buttonText property
 };
 
 const Hero: React.FC = () => {
