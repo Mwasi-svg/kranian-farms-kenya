@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, Clock } from 'lucide-react';
 import { BlogPost } from '@/data/blogPosts';
 import { Badge } from '@/components/ui/badge';
+import { motion } from 'framer-motion';
 
 interface BlogPostCardProps {
   post: BlogPost;
@@ -12,8 +13,12 @@ interface BlogPostCardProps {
 
 const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, featured = false }) => {
   return (
-    <div className={`group bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full
-                    ${featured ? 'md:col-span-2' : ''}`}>
+    <motion.div 
+      className={`group bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full
+                 ${featured ? 'md:col-span-2' : ''}`}
+      whileHover={{ y: -5 }}
+      transition={{ type: "spring", stiffness: 300 }}
+    >
       <Link to={`/blog/${post.slug}`} className="block">
         <div className="relative pb-[56.25%] overflow-hidden">
           <img 
@@ -39,7 +44,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, featured = false }) =
         </div>
         
         <Link to={`/blog/${post.slug}`} className="block">
-          <h3 className={`font-bold text-gray-800 mb-2 group-hover:text-kranian-600 transition-colors 
+          <h3 className={`font-bold text-gray-800 mb-2 group-hover:text-kranian-600 transition-colors story-link 
                          ${featured ? 'text-2xl' : 'text-xl'}`}>
             {post.title}
           </h3>
@@ -56,7 +61,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, featured = false }) =
           <span className="text-sm font-medium">{post.author.name}</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
