@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -22,7 +23,7 @@ const Hero: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [carouselApi, setCarouselApi] = useState<any>(null);
 
-  const slides = [
+  const slides: HeroSlide[] = [
     {
       image: "./burgundy.png",
       title: "Premium Roses",
@@ -46,37 +47,48 @@ const Hero: React.FC = () => {
   ];
   const vegetablesIndex = slides.findIndex(slide => slide.title === "Handpicked Excellence, Sustainable Growing");
 
-  slides.splice(vegetablesIndex, 0, 
+  // Use proper type for the slides we're adding
+  const additionalSlides: HeroSlide[] = [
     {
- image: "summerflower.png",
+      image: "summerflower.png",
       title: "Summer Flowers",
-      subtitle: "Explore our vast Summer Flowers" as string,
+      subtitle: "Explore our vast Summer Flowers",
     },
-    { image: "herbs.jpg",
- title: "Herbs",
+    { 
+      image: "herbs.jpg",
+      title: "Herbs",
       subtitle: "Explore our fresh Herbs",
-      buttonText: "Explore Herbs" },
-    { image: "fruits.png",
- title: "Fruits",
+      buttonText: "Explore Herbs" 
+    },
+    { 
+      image: "fruits.png",
+      title: "Fruits",
       subtitle: "Explore our tropical Fruits",
-      buttonText: "Browse Fruits" },
-    { image: "vegetables.png",
- title: "Vegetables",
+      buttonText: "Browse Fruits" 
+    },
+    { 
+      image: "vegetables.png",
+      title: "Vegetables",
       subtitle: "Explore our fresh vegetables",
- buttonText: "Browse Vegetables" },
-  );  
+      buttonText: "Browse Vegetables" 
+    },
+  ];
+
+  // Insert the additional slides
+  slides.splice(vegetablesIndex, 0, ...additionalSlides);  
   slides.splice(6, 2);
 
   const featuredProducts = getFeaturedProducts();
 
   useEffect(() => {
- if (carouselApi) {
+    if (carouselApi) {
       const interval = setInterval(() => {
         carouselApi.scrollNext();
       }, 5000);
       return () => clearInterval(interval);
     }
   }, [carouselApi]);
+
   return (
     <div className="relative h-[550px] md:h-[650px] overflow-hidden ">
       <Carousel
