@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className="relative pb-[100%] overflow-hidden">
           <img
             src={`/${product.image}`}
-                alt={product.name}
+            alt={product.name}
             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
           {product.bestseller && (
@@ -36,7 +36,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
         <div className="p-4 flex flex-col items-center justify-center">
           <h3 className="font-medium text-lg mb-1 text-gray-800 text-center">{product.name}</h3>
-          <p className="text-kranian-700 font-bold mb-2 text-center">USD {product.price.toFixed(2)}</p>
+          <p className="text-kranian-700 mb-2 text-center">Request Quotation</p>
         </div>
       </Link>
       <div className="px-4 pb-4 mt-auto">
