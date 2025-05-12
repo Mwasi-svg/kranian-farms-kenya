@@ -1,17 +1,17 @@
 
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, setSearchParams } from 'react-router-dom';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
-import { products, getProductsByCategory } from '@/data/products';
+import { products as allProducts, getProductsByCategory } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
 
-const Products = () => {
-  const [searchParams] = useSearchParams();
+const Products: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const categoryParam = searchParams.get('category');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(categoryParam);
-  const [displayProducts, setDisplayProducts] = useState(products);
+  const [displayProducts, setDisplayProducts] = useState(allProducts);
   const [sortBy, setSortBy] = useState('default');
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
@@ -22,7 +22,7 @@ const Products = () => {
   }, [categoryParam]);
 
   useEffect(() => {
-    let filtered = selectedCategory ? getProductsByCategory(selectedCategory) : products;
+    let filtered = selectedCategory ? getProductsByCategory(selectedCategory) : allProducts;
     
     // Apply sorting
     switch (sortBy) {
@@ -54,8 +54,12 @@ const Products = () => {
   ];
 
   const handleCategoryChange = (category: string | null) => {
-    setSelectedCategory(category);
-    // This would normally change the URL query param, but for simplicity we'll just set the state
+ if (category === null) {
+      setSearchParams({}); // Remove category param for "All Products"
+    } else {
+      setSearchParams({ category });
+    }
+    setSelectedCategory(category); // Also update local state for immediate UI change
   };
 
   return (
@@ -101,7 +105,7 @@ const Products = () => {
                 <h3 className="font-medium text-lg border-b border-gray-200 pb-4 mb-4 mt-8">Price Range</h3>
                 {/* This would normally be a price range slider or checkboxes, but we'll just show a placeholder */}
                 <p className="text-gray-600 text-sm">
-                  Price filters coming soon...
+                  Price filters coming soon... 
                 </p>
               </div>
             </div>
@@ -143,8 +147,8 @@ const Products = () => {
                     className="w-full p-2 border rounded"
                   >
                     <option value="default">Default</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
+                    <option value="price-low">Price (USD): Low to High</option>
+                    <option value="price-high">Price (USD): High to Low</option>
                     <option value="name">Name</option>
                   </select>
                 </div>
@@ -164,8 +168,8 @@ const Products = () => {
                     className="p-2 border rounded bg-white"
                   >
                     <option value="default">Sort by: Default</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
+                    <option value="price-low">Price (USD): Low to High</option>
+                    <option value="price-high">Price (USD): High to Low</option>
                     <option value="name">Name</option>
                   </select>
                 </div>

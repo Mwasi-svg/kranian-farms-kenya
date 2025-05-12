@@ -10,9 +10,18 @@ import {
   CarouselPrevious
 } from '@/components/ui/carousel';
 
+// Define the type for a slide in the hero carousel
+type HeroSlide = {
+  image: string;
+  title: string;
+  subtitle: string;
+  buttonText?: string;
+};
+
 const Hero: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [carouselApi, setCarouselApi] = useState<any>(null);
+
   const slides = [
     {
       image: "./burgundy.png",
@@ -35,41 +44,39 @@ const Hero: React.FC = () => {
       subtitle: "Experience the beauty of nature with our carefully curated selection of farm-fresh products."
     },
   ];
-
   const vegetablesIndex = slides.findIndex(slide => slide.title === "Handpicked Excellence, Sustainable Growing");
 
   slides.splice(vegetablesIndex, 0, 
     {
-      image: "summerflower.png",
+ image: "summerflower.png",
       title: "Summer Flowers",
-      subtitle: "Explore our vast Summer Flowers"
+      subtitle: "Explore our vast Summer Flowers" as string,
     },
     { image: "herbs.jpg",
-      title: "Herbs",
+ title: "Herbs",
       subtitle: "Explore our fresh Herbs",
-      buttonText: "Explore Herbs"},
+      buttonText: "Explore Herbs" },
     { image: "fruits.png",
-      title: "Fruits",
+ title: "Fruits",
       subtitle: "Explore our tropical Fruits",
-      buttonText: "Browse Fruits"},
+      buttonText: "Browse Fruits" },
     { image: "vegetables.png",
-      title: "Vegetables",
+ title: "Vegetables",
       subtitle: "Explore our fresh vegetables",
-      buttonText: "Browse Vegetables"}
+ buttonText: "Browse Vegetables" },
   );  
   slides.splice(6, 2);
 
   const featuredProducts = getFeaturedProducts();
 
   useEffect(() => {
-    if (carouselApi) {
+ if (carouselApi) {
       const interval = setInterval(() => {
         carouselApi.scrollNext();
       }, 5000);
       return () => clearInterval(interval);
     }
   }, [carouselApi]);
-
   return (
     <div className="relative h-[550px] md:h-[650px] overflow-hidden ">
       <Carousel
@@ -151,6 +158,19 @@ const Hero: React.FC = () => {
                       <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
                         <Link to="/products?category=spray-roses">
                           Browse Spray Roses
+                        </Link>
+                      </Button>
+                    ) : slide.title === "Premium Roses" ? (
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=premium-roses">
+                          Browse Premium Roses
+                        </Link>
+                      </Button>
+
+                    ) : slide.title === "Vegetables" ? (
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=vegetables">
+                          Explore Vegetables
                         </Link>
                       </Button>
                     ) : (

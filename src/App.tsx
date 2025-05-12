@@ -10,9 +10,9 @@ import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Checkout, { CheckoutSuccess } from "./pages/Checkout";
 import Contact from "./pages/Contact"; // Import the Contact component
-import Chatbot from './components/Chatbot';
+import Blog from "./pages/Blog"; // Import the Blog component
+// import Chatbot from './components/Chatbot'; // Removed import
 import NotFound from "./pages/NotFound";
-import ChatAssistant from "@/components/ChatAssistant";
 import Navbar from "@/components/Navbar";
 
 const queryClient = new QueryClient();
@@ -34,14 +34,11 @@ const App = () => (
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/checkout-success" element={<CheckoutSuccess />} />
+            <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} /> {/* Add the route for the Contact page */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-
-          {/* Chat assistant fixed in the corner */}
-          <div className="fixed bottom-4 right-4 z-50">
-            <ChatAssistant />
-          </div>
+          
         </BrowserRouter>
       </TooltipProvider>
     </CartProvider>

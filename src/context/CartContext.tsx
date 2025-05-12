@@ -111,7 +111,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const getCartItemCount = () => {
-    return cart.reduce((count, item) => count + item.quantity, 0);
+    return cart.length;
   };
 
   return (

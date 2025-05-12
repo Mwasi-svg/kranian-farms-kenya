@@ -73,8 +73,14 @@ const Navbar = () => {
                     Spray Roses
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem className="font-geist hover:bg-gray-100 focus:bg-gray-100">
+                  <Link to="/products?category=intermediate-roses" className="w-full">
+                    Intermedieate Roses
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <Link to="/blog" className="text-gray-700 hover:text-kranian-600 transition-colors">Blog</Link>
             
             {/* Products Dropdown */}
             <DropdownMenu>
@@ -114,7 +120,7 @@ const Navbar = () => {
                   {searchResults.map(product => (
                     <li key={product.id}>
                       <Link
-                        to={`/products/${product.id}`}
+                        to={`/product/${product.id}`}
                         onClick={() => handleSearchResultClick(product.id)}
                         className="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm"
                       >
@@ -147,10 +153,11 @@ const Navbar = () => {
               <Link to="/products?category=summer-flowers" className="text-gray-700 hover:text-kranian-600 transition-colors text-lg py-2" onClick={() => setIsMenuOpen(false)}>Summer Flowers</Link>
               <Link to="/products?category=premium-roses" className="text-gray-700 hover:text-kranian-600 transition-colors text-lg py-2" onClick={() => setIsMenuOpen(false)}>Premium Roses</Link>
               <Link to="/products?category=spray-roses" className="text-gray-700 hover:text-kranian-600 transition-colors text-lg py-2" onClick={() => setIsMenuOpen(false)}>Spray Roses</Link>
+              <Link to="/products?category=intermediate-roses" className="text-gray-700 hover:text-kranian-600 transition-colors text-lg py-2" onClick={() => setIsMenuOpen(false)}>Intermedieate Roses</Link>
               <Link to="/products?category=vegetables" className="text-gray-700 hover:text-kranian-600 transition-colors text-lg py-2" onClick={() => setIsMenuOpen(false)}>Vegetables</Link>
               <Link to="/products?category=herbs" className="text-gray-700 hover:text-kranian-600 transition-colors text-lg py-2" onClick={() => setIsMenuOpen(false)}>Herbs</Link>
-              <Link to="/products?category=fruits" className="text-gray-700 hover:text-kranian-600 transition-colors text-lg py-2" onClick={() => setIsMenuOpen(false)}>Fruits</Link>
               <Link to="/contact" className="text-gray-700 hover:text-kranian-600 transition-colors text-lg py-2" onClick={() => setIsMenuOpen(false)}>Contacts</Link>
+              <Link to="/blog" className="text-gray-700 hover:text-kranian-600 transition-colors text-lg py-2" onClick={() => setIsMenuOpen(false)}>Blog</Link>
             </div>
           </div>
         )}
