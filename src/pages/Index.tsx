@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Hero from '@/components/Hero';
 import FeaturedProducts from "@/components/FeaturedProducts";
 import AboutSection from '@/components/AboutSection';
@@ -11,10 +11,30 @@ import ProductCard from '@/components/ProductCard';
 import { Link } from 'react-router-dom';
 import { getRecentBlogPosts } from '@/data/blogPosts';
 import BlogPostCard from '@/components/BlogPostCard';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
+} from '@/components/ui/carousel';
 
 const Index = () => {
   const bestsellers = getBestsellerProducts().slice(0, 3);
-  const recentBlogPosts = getRecentBlogPosts(3);
+  const recentBlogPosts = getRecentBlogPosts(6); // Get more blog posts for scrolling
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [carouselApi, setCarouselApi] = React.useState<any>(null);
+
+  // Auto-scroll the blog posts carousel
+  useEffect(() => {
+    if (carouselApi) {
+      const interval = setInterval(() => {
+        carouselApi.scrollNext();
+      }, 8500); // 8.5 seconds per slide
+      
+      return () => clearInterval(interval);
+    }
+  }, [carouselApi]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -109,7 +129,7 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Latest Blog Posts */}
+      {/* Latest Blog Posts - Updated with Carousel for auto-scroll */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -119,11 +139,22 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {recentBlogPosts.map(post => (
-              <BlogPostCard key={post.id} post={post} />
-            ))}
-          </div>
+          <Carousel
+            setApi={setCarouselApi}
+            className="w-full"
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+          >
+            <CarouselContent>
+              {recentBlogPosts.map((post) => (
+                <CarouselItem key={post.id} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/3">
+                  <BlogPostCard post={post} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
           
           <div className="text-center mt-12">
             <Link 

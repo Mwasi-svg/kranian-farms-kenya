@@ -88,7 +88,7 @@
   }
 }
 
-/* Add custom classes for story links with underline animation */
+/* Updated custom classes for story links with underline animation that only underlines text */
 @layer components {
   .story-link {
     @apply relative inline-block;
@@ -97,6 +97,8 @@
   .story-link::after {
     content: '';
     @apply absolute left-0 bottom-0 w-full h-0.5 bg-kranian-600 transform scale-x-0 origin-bottom-right transition-transform duration-300;
+    width: 100%; /* This ensures the underline only covers the text width */
+    max-width: 100%; /* This ensures the underline doesn't extend past the text */
   }
   
   .story-link:hover::after {
