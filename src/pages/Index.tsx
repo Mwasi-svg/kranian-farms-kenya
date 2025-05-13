@@ -6,7 +6,7 @@ import AboutSection from '@/components/AboutSection';
 import Footer from '@/components/Footer';
 import VideoShowcase from '@/components/VideoShowcase';
 import { Button } from '@/components/ui/button';
-import { Globe, Truck, Clock, Award, ShoppingCart } from 'lucide-react';
+import { Globe, Truck, Clock, Award, ShoppingCart, Target, Telescope, Shield, Star } from 'lucide-react';
 import { getBestsellerProducts } from '@/data/products';
 import ProductCard from '@/components/ProductCard';
 import { Link } from 'react-router-dom';
@@ -41,51 +41,8 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <Hero />
       
-      {/* Company Values Section - Updated as requested */}
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Mission and Vision */}
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Our Mission</h3>
-                <p className="text-gray-600">
-                  To build a long term relationship with our customers and provide top quality products.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Our Vision</h3>
-                <p className="text-gray-600">
-                  To be a partner of choice in providing quality fresh fruits and vegetables and honey.
-                </p>
-              </div>
-            </div>
-            
-            {/* Core Values and Forte */}
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Our Core Values</h3>
-                <p className="text-gray-600">
-                  Integrity, trustworthiness and honesty are integral together with partnership. 
-                  We insist on principles and ethical business practices.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Our Forte</h3>
-                <ul className="list-disc pl-5 space-y-1 text-gray-600">
-                  <li>Strong and viable partnerships</li>
-                  <li>Quality and Timely delivery</li>
-                  <li>Industry knowledge</li>
-                  <li>Excellent Customer Service</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <FeaturedProducts />
+      
       {/* Video Showcase */}
       <VideoShowcase 
         src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" 
@@ -94,7 +51,80 @@ const Index = () => {
         description="Experience our sustainable farming practices and premium quality produce in this short introduction to what makes Kranian Farms special."
       />
       
-      <FeaturedProducts />
+      {/* Why Choose Kranian Farms Section */}
+      <section className="py-10 bg-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-6">Why Choose Kranian Farms?</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Well, the answer is unexpectedly simple: we offer the best produce of the highest quality and at highly competitive prices.
+          </p>
+        </div>
+      </section>
+
+      {/* Company Values Section - Now with icons */}
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Mission and Vision */}
+            <div className="space-y-8">
+              <div className="flex items-start">
+                <div className="mr-4 bg-kranian-100 p-3 rounded-full">
+                  <Target className="h-6 w-6 text-kranian-600" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-3">Our Mission</h3>
+                  <p className="text-gray-600">
+                    To build a long term relationship with our customers and provide top quality products.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <div className="mr-4 bg-kranian-100 p-3 rounded-full">
+                  <Telescope className="h-6 w-6 text-kranian-600" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-3">Our Vision</h3>
+                  <p className="text-gray-600">
+                    To be a partner of choice in providing quality fresh fruits and vegetables and honey.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Core Values and Forte */}
+            <div className="space-y-8">
+              <div className="flex items-start">
+                <div className="mr-4 bg-kranian-100 p-3 rounded-full">
+                  <Shield className="h-6 w-6 text-kranian-600" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-3">Our Core Values</h3>
+                  <p className="text-gray-600">
+                    Integrity, trustworthiness and honesty are integral together with partnership. 
+                    We insist on principles and ethical business practices.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <div className="mr-4 bg-kranian-100 p-3 rounded-full">
+                  <Star className="h-6 w-6 text-kranian-600" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-3">Our Forte</h3>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Strong and viable partnerships</li>
+                    <li>Quality and Timely delivery</li>
+                    <li>Industry knowledge</li>
+                    <li>Excellent Customer Service</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       
       {/* Bestsellers Section */}
       <section className="py-16 bg-white">

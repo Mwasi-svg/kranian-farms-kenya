@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Footer from '@/components/Footer';
@@ -87,7 +88,7 @@ const ProductDetail = () => {
           {/* Product Info */}
           <div>
             <h1 className="text-3xl font-serif font-bold text-gray-800 mb-2">{product.name}</h1>
-            <p className="text-2xl text-kranian-700 font-bold mb-4">USD {product.price.toFixed(2)}</p>
+            {/* Price has been removed as requested */}
 
             <div className="border-t border-b border-gray-200 py-6 my-6">
               <p className="text-gray-700 mb-4">{product.description}</p>
