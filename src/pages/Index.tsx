@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import Hero from '@/components/Hero';
 import FeaturedProducts from "@/components/FeaturedProducts";
@@ -40,52 +41,45 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <Hero />
       
-      {/* Benefits Section */}
+      {/* Company Values Section - Updated as requested */}
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Farm-Fresh Produce */}
-            <div className="flex items-start space-x-4">
-              <div className="p-2 bg-white rounded-md">
-                <Clock className="h-6 w-6 text-kranian-600" />
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Mission and Vision */}
+            <div className="space-y-8">
               <div>
-                <h3 className="text-lg font-medium text-gray-700">Farm-Fresh Produce</h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  Harvested same-day, straight from our fields to your table.
+                <h3 className="text-xl font-bold text-gray-800 mb-3">Our Mission</h3>
+                <p className="text-gray-600">
+                  To build a long term relationship with our customers and provide top quality products.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 mb-3">Our Vision</h3>
+                <p className="text-gray-600">
+                  To be a partner of choice in providing quality fresh fruits and vegetables and honey.
                 </p>
               </div>
             </div>
-            {/* Reliable Delivery */}
-            <div className="flex items-start space-x-4">
-              <div className="p-2 bg-white rounded-md">
-                <Truck className="h-6 w-6 text-kranian-600" />
-              </div>
+            
+            {/* Core Values and Forte */}
+            <div className="space-y-8">
               <div>
-                <h3 className="text-lg font-medium text-gray-700">Reliable Delivery</h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  Free local delivery on orders over KES 5,000.
+                <h3 className="text-xl font-bold text-gray-800 mb-3">Our Core Values</h3>
+                <p className="text-gray-600">
+                  Integrity, trustworthiness and honesty are integral together with partnership. 
+                  We insist on principles and ethical business practices.
                 </p>
               </div>
-            </div>
-            {/* Trusted Quality */}
-            <div className="flex items-start space-x-4">
-              <div className="p-2 bg-white rounded-md">
-                <Award className="h-6 w-6 text-kranian-600" />
-              </div>
+              
               <div>
-                <h3 className="text-lg font-medium text-gray-700">Trusted Quality</h3>
-                <p className="mt-1 text-sm text-gray-500">Grown with care. 100% natural, no shortcuts.</p>
-              </div>
-            </div>
-            {/* Sustainable Practices */}
-            <div className="flex items-start space-x-4">
-              <div className="p-2 bg-white rounded-md">
-                <Globe className="h-6 w-6 text-kranian-600" />
-              </div>
-              <div>
-                <h3 className="text-lg font-medium text-gray-700">Sustainable Practices</h3>
-                <p className="mt-1 text-sm text-gray-500">We farm with the planet in mind.</p>
+                <h3 className="text-xl font-bold text-gray-800 mb-3">Our Forte</h3>
+                <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                  <li>Strong and viable partnerships</li>
+                  <li>Quality and Timely delivery</li>
+                  <li>Industry knowledge</li>
+                  <li>Excellent Customer Service</li>
+                </ul>
               </div>
             </div>
           </div>
