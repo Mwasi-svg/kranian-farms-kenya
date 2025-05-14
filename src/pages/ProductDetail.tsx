@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import Footer from '@/components/Footer';
 import { getProductById, getProductsByCategory, Product } from '@/data/products';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,7 @@ import ProductCard from '@/components/ProductCard';
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const { addToCart } = useCart();
 
   const product = id ? getProductById(Number(id)) : null;
@@ -64,13 +65,15 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="container mx-auto px-4 py-8">
-        <button 
-          onClick={() => navigate(-1)} 
-          className="flex items-center text-gray-600 mb-6 hover:text-kranian-600 transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4 mr-1" /> Back to Products
-        </button>
+      <div className="container mx-auto px-4 py-8 relative">
+        {location.pathname !== '/' && (
+          <button
+            onClick={() => navigate(-1)}
+            className="absolute top-4 left-4 flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
+          >
+            <ArrowLeft className="h-5 w-5 text-gray-700" />
+          </button>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           {/* Product Image */}
@@ -86,7 +89,6 @@ const ProductDetail = () => {
 
           {/* Product Info */}
           <div>
-            <h1 className="text-3xl font-serif font-bold text-gray-800 mb-2">{product.name}</h1>
             <p className="text-2xl text-kranian-700 font-bold mb-4">USD {product.price.toFixed(2)}</p>
 
             <div className="border-t border-b border-gray-200 py-6 my-6">

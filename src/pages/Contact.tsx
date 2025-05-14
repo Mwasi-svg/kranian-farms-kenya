@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, MessageCircle, Instagram, Facebook, Send, Clock } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Mail, Phone, MapPin, MessageCircle, Instagram, Facebook, Send, Clock, ArrowLeft } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -24,6 +24,8 @@ type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
 
   const form = useForm<ContactFormValues>({
@@ -54,6 +56,16 @@ const Contact: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
+      {location.pathname !== '/' && (
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-4 left-4 z-10"
+          onClick={() => navigate(-1)}
+        >
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+      )}
       {/* Hero Section */}
       <section className="bg-kranian-100 py-16">
         <div className="container mx-auto px-4 text-center">

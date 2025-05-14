@@ -1,9 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
 import { products as allProducts, getProductsByCategory } from '@/data/products';
+import { Button as ShadButton } from '@/components/ui/button'; // Rename to avoid conflict
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
 
@@ -14,6 +15,8 @@ const Products: React.FC = () => {
   const [displayProducts, setDisplayProducts] = useState(allProducts);
   const [sortBy, setSortBy] = useState('default');
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (categoryParam) {
@@ -64,7 +67,20 @@ const Products: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      
+      {/* Add relative positioning to the main container */}
+      {/* Back Button - Conditionally rendered */}
+      {location.pathname !== '/' && (
+        <div className="absolute top-4 left-4 z-10">
+          <ShadButton // Use the renamed ShadButton
+            variant="outline"
+            size="icon"
+            onClick={() => navigate(-1)}
+          >
+            {/* You'll need to import an icon component, e.g., from lucide-react */}
+             <ChevronDown className="h-4 w-4 rotate-90" /> {/* Example icon, replace as needed */}
+          </ShadButton>
+        </div>
+      )}
       {/* Page Header */}
       <div className="bg-kranian-100 py-8">
         <div className="container mx-auto px-4">
@@ -112,14 +128,14 @@ const Products: React.FC = () => {
             
             {/* Mobile Filters */}
             <div className="md:hidden mb-4">
-              <Button 
+              <ShadButton // Use the renamed ShadButton
                 onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)} 
                 variant="outline" 
                 className="w-full flex items-center justify-between"
               >
                 <span>Filters</span>
                 <ChevronDown className={`h-4 w-4 transition-transform ${mobileFiltersOpen ? 'rotate-180' : ''}`} />
-              </Button>
+              </ShadButton>
               
               {mobileFiltersOpen && (
                 <div className="mt-2 p-4 bg-white shadow rounded-lg animate-fade-in">

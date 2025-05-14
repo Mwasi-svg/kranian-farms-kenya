@@ -1,12 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, Link, useLocation } from 'react-router-dom';
+import { useSearchParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import { blogPosts, BlogPost } from '@/data/blogPosts';
+import { ArrowLeft, ChevronRight, Calendar } from 'lucide-react';
 import BlogPostCard from '@/components/BlogPostCard';
 import BlogSidebar from '@/components/BlogSidebar';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
-import { ChevronRight, Calendar } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Blog: React.FC = () => {
@@ -16,39 +15,42 @@ const Blog: React.FC = () => {
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
   const [activeFilter, setActiveFilter] = useState<string>('');
   const location = useLocation();
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (categoryParam) {
-      setFilteredPosts(blogPosts.filter(post => 
-        post.category.toLowerCase().replace(/\s+/g, '-') === categoryParam
-      ));
-      setActiveFilter(`Category: ${categoryParam}`);
+      setFilteredPosts(
+        blogPosts.filter(
+          (post) => post.category.toLowerCase().replace(/\s+/g, '-') === categoryParam
+        )
+      );
     } else if (tagParam) {
-      setFilteredPosts(blogPosts.filter(post => 
-        post.tags.some(tag => tag.toLowerCase() === tagParam)
-      ));
-      setActiveFilter(`Tag: ${tagParam}`);
+      setFilteredPosts(
+        blogPosts.filter((post) => post.tags.some((tag) => tag.toLowerCase() === tagParam))
+      );
     } else {
       setFilteredPosts(blogPosts);
-      setActiveFilter('');
     }
-    
-    // Scroll to top on filter change
+
+    setActiveFilter(
+      categoryParam ? `Category: ${categoryParam}` :
+      tagParam ? `Tag: ${tagParam}` : ''
+    );
+
     window.scrollTo(0, 0);
   }, [categoryParam, tagParam, location.search]);
 
-  // Generate categories dynamically from blogPosts
   const categories = React.useMemo(() => {
     return Array.from(
-      new Set(blogPosts.map(post => post.category))
-    ).map(category => ({
+      new Set(blogPosts.map((post) => post.category))
+    ).map((category) => ({
       name: category,
-      count: blogPosts.filter(post => post.category === category).length
+      count: blogPosts.filter((post) => post.category === category).length,
     }));
   }, [blogPosts]);
 
-  // Generate tags dynamically from blogPosts
-  const allTags: string[] = React.useMemo(() => blogPosts.flatMap(post => post.tags), []);
+  const allTags = React.useMemo(() => blogPosts.flatMap((post) => post.tags), [blogPosts]);
+
   const tagsWithCounts = React.useMemo(() => {
     return Array.from(
       allTags.reduce((acc, tag) => {
@@ -58,38 +60,45 @@ const Blog: React.FC = () => {
     ).map(([name, count]) => ({ name, count }));
   }, [allTags]);
 
-  // Variants for animation
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
-      transition: { 
-        staggerChildren: 0.1 
-      } 
-    }
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 260,
-        damping: 20
-      }
-    }
+        damping: 20,
+      },
+    },
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      
-      {/* Page Header */}
+      {location.pathname !== '/' && (
+        <button
+          onClick={() => navigate(-1)}
+          className="absolute top-4 left-4 z-10 p-2 rounded-full bg-white bg-opacity-70 hover:bg-opacity-90 transition-colors duration-200 shadow-md"
+          aria-label="Go back"
+        >
+          <ArrowLeft className="h-5 w-5 text-gray-700" />
+        </button>
+      )}
+
       <div className="bg-kranian-100 py-10">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto">
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -97,7 +106,7 @@ const Blog: React.FC = () => {
             >
               Kranian Farms Blog
             </motion.h1>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -105,9 +114,8 @@ const Blog: React.FC = () => {
             >
               Insights, stories, and tips about sustainable farming, floriculture, and agricultural practices
             </motion.p>
-            
-            {/* Breadcrumb */}
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -129,25 +137,22 @@ const Blog: React.FC = () => {
 
       <div className="container mx-auto px-4 py-12 flex-grow">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Main Content */}
           <div className="lg:w-2/3">
             {activeFilter && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="mb-6"
               >
                 <h2 className="text-2xl font-semibold mb-2">{activeFilter}</h2>
                 <p className="text-gray-600">
-                  Showing {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''} 
-                  {' '} for {activeFilter}
+                  Showing {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''} for {activeFilter}
                 </p>
               </motion.div>
             )}
-            
-            {/* Featured Post */}
+
             {!activeFilter && filteredPosts.length > 0 && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -160,30 +165,26 @@ const Blog: React.FC = () => {
                 <BlogPostCard post={filteredPosts[0]} featured={true} />
               </motion.div>
             )}
-            
-            {/* Blog Posts Grid */}
+
             <AnimatePresence>
-              <motion.div 
+              <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
                 className="grid grid-cols-1 md:grid-cols-2 gap-6"
               >
                 {filteredPosts.length === 0 ? (
-                  <motion.div 
+                  <motion.div
                     variants={itemVariants}
                     className="md:col-span-2 p-8 text-center bg-white rounded-lg shadow"
                   >
                     <p className="text-gray-600 mb-2">No posts found matching your criteria.</p>
-                    <Link 
-                      to="/blog" 
-                      className="text-kranian-600 hover:text-kranian-700 font-medium"
-                    >
+                    <Link to="/blog" className="text-kranian-600 hover:text-kranian-700 font-medium">
                       View all blog posts
                     </Link>
                   </motion.div>
                 ) : (
-                  filteredPosts.slice(activeFilter ? 0 : 1).map(post => (
+                  filteredPosts.slice(activeFilter ? 0 : 1).map((post) => (
                     <motion.div key={post.id} variants={itemVariants}>
                       <BlogPostCard post={post} />
                     </motion.div>
@@ -192,16 +193,15 @@ const Blog: React.FC = () => {
               </motion.div>
             </AnimatePresence>
           </div>
-          
-          {/* Sidebar */}
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:w-1/3 mt-8 lg:mt-0"
           >
-            <BlogSidebar 
-              recentPosts={blogPosts.slice(0, 3)} 
+            <BlogSidebar
+              recentPosts={blogPosts.slice(0, 3)}
               categories={categories}
               tags={tagsWithCounts}
             />

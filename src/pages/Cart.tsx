@@ -1,7 +1,8 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { ArrowLeft } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
 import { Trash2, Plus, Minus, ShoppingCart } from 'lucide-react';
@@ -9,6 +10,8 @@ import { Trash2, Plus, Minus, ShoppingCart } from 'lucide-react';
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
 
+  const navigate = useNavigate();
+  const location = useLocation();
   // State to manage input values for each item
   const [itemInputQuantities, setItemInputQuantities] = useState<{ [key: number]: string }>({});
 
@@ -51,6 +54,18 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      {location.pathname !== '/' && (
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-4 left-4 z-10 rounded-full"
+          onClick={() => navigate(-1)}
+          aria-label="Go back"
+        >
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+      )}
+
 
       <div className="container mx-auto px-4 py-8 flex-grow">
         <h1 className="text-3xl font-serif font-bold text-gray-800 mb-8">Your Cart</h1>
