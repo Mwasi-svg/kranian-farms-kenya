@@ -159,7 +159,6 @@ const ProductDetail = () => {
               <h3 className="font-medium text-lg mb-2">Delivery Information</h3>
               <ul className="space-y-2 text-gray-700">
                 <li>• Local delivery available within 24 hours</li>
-                <li>• Free shipping on orders over USD 50</li>
                 <li>• International shipping to select countries</li>
                 <li>• All flowers are fresh-cut and arranged the day of delivery</li>
               </ul>
