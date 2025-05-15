@@ -141,8 +141,6 @@ const Checkout = () => {
   
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
-      
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-serif font-bold text-gray-800 mb-8">Checkout</h1>
         
@@ -324,7 +322,7 @@ const Checkout = () => {
                       <span className="block text-sm font-medium text-gray-900">Standard Delivery</span>
                       <span className="block text-sm text-gray-500">3-5 business days</span>
                       <span className="block text-sm font-medium text-gray-900">
-                        {subtotal >= 50 ? 'Free' : '$5.00'}
+                        {subtotal >= 50 ? 'Free' : 'KES 5.00'}
                       </span>
                     </label>
                   </div>
@@ -342,7 +340,7 @@ const Checkout = () => {
                     <label htmlFor="delivery-express" className="ml-3 flex flex-col">
                       <span className="block text-sm font-medium text-gray-900">Express Delivery</span>
                       <span className="block text-sm text-gray-500">1-2 business days</span>
-                      <span className="block text-sm font-medium text-gray-900">$15.00</span>
+                      <span className="block text-sm font-medium text-gray-900">KES 15.00</span>
                     </label>
                   </div>
                 </div>
@@ -528,7 +526,7 @@ const Checkout = () => {
                       <div>
                         <div className="flex justify-between text-base font-medium text-gray-900">
                           <h3 className="line-clamp-1">{item.product.name}</h3>
-                          <p className="ml-4">${item.product.price.toFixed(2)}</p>
+                          <p className="ml-4">KES {item.product.price.toFixed(2)}</p>
                         </div>
                       </div>
                       <div className="flex-1 flex items-end justify-between text-sm">
@@ -543,7 +541,7 @@ const Checkout = () => {
               <dl className="space-y-2">
                 <div className="flex justify-between">
                   <dt className="text-sm text-gray-600">Subtotal</dt>
-                  <dd className="text-sm font-medium">${subtotal.toFixed(2)}</dd>
+                  <dd className="text-sm font-medium">KES {subtotal.toFixed(2)}</dd>
                 </div>
                 <div className="flex justify-between">
                   <dt className="text-sm text-gray-600">
@@ -553,17 +551,17 @@ const Checkout = () => {
                     {shipping === 0 ? (
                       <span className="text-green-600">Free</span>
                     ) : (
-                      `$${shipping.toFixed(2)}`
+                      `KES ${shipping.toFixed(2)}`
                     )}
                   </dd>
                 </div>
                 <div className="flex justify-between">
                   <dt className="text-sm text-gray-600">Tax (7%)</dt>
-                  <dd className="text-sm font-medium">${tax.toFixed(2)}</dd>
+                  <dd className="text-sm font-medium">KES {tax.toFixed(2)}</dd>
                 </div>
                 <div className="border-t border-gray-200 pt-4 flex justify-between">
                   <dt className="text-base font-medium">Total</dt>
-                  <dd className="text-base font-medium">${total.toFixed(2)}</dd>
+                  <dd className="text-base font-medium">KES {total.toFixed(2)}</dd>
                 </div>
               </dl>
             </div>

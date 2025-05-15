@@ -11,13 +11,28 @@ import {
   CarouselPrevious
 } from '@/components/ui/carousel';
 
+// Define the type for a slide in the hero carousel
+type HeroSlide = {
+  image: string;
+  title: string;
+  subtitle: string;
+  buttonText?: string;  // Added optional buttonText property
+};
+
 const Hero: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState(0);
-  const slides = [
+  const [carouselApi, setCarouselApi] = useState<any>(null);
+
+  const slides: HeroSlide[] = [
     {
-      image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      title: "Beautiful Blooms, Fresh from Our Farm",
-      subtitle: "Kranian Farms delivers the freshest flowers, herbs, and vegetables locally and internationally. Grown with love, delivered with care."
+      image: "./burgundy.png",
+      title: "Premium Roses",
+      subtitle: "Explore our fine roses"
+    },
+    {
+      image: "reflex.png",
+      title: "Spray Roses",
+      subtitle: "Explore our Spray Roses"
     },
     {
       image: "https://images.unsplash.com/photo-1500673922987-e212871fec22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
@@ -28,17 +43,58 @@ const Hero: React.FC = () => {
       image: "https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       title: "From Our Gardens to Your Doorstep",
       subtitle: "Experience the beauty of nature with our carefully curated selection of farm-fresh products."
-    }
+    },
   ];
+  const vegetablesIndex = slides.findIndex(slide => slide.title === "Handpicked Excellence, Sustainable Growing");
+
+  // Use proper type for the slides we're adding
+  const additionalSlides: HeroSlide[] = [
+    {
+      image: "summerflower.png",
+      title: "Summer Flowers",
+      subtitle: "Explore our vast Summer Flowers",
+    },
+    { 
+      image: "herbs.jpg",
+      title: "Herbs",
+      subtitle: "Explore our fresh Herbs",
+      buttonText: "Explore Herbs" 
+    },
+    { 
+      image: "fruits.png",
+      title: "Fruits",
+      subtitle: "Explore our tropical Fruits",
+      buttonText: "Browse Fruits" 
+    },
+    { 
+      image: "vegetables.png",
+      title: "Vegetables",
+      subtitle: "Explore our fresh vegetables",
+      buttonText: "Browse Vegetables" 
+    },
+  ];
+
+  // Insert the additional slides
+  slides.splice(vegetablesIndex, 0, ...additionalSlides);  
+  slides.splice(6, 2);
 
   const featuredProducts = getFeaturedProducts();
 
+  useEffect(() => {
+    if (carouselApi) {
+      const interval = setInterval(() => {
+        carouselApi.scrollNext();
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [carouselApi]);
+
   return (
-    <section className="relative h-[550px] md:h-[650px] overflow-hidden">
+    <div className="relative h-[550px] md:h-[650px] overflow-hidden ">
       <Carousel
         className="w-full h-full"
         opts={{ loop: true }}
-        setApi={(api) => {
+        setApi={(api) => { setCarouselApi(api);
           api?.on('select', () => {
             setActiveSlide(api.selectedScrollSnap());
           });
@@ -49,13 +105,16 @@ const Hero: React.FC = () => {
             <CarouselItem key={index} className="h-full">
               <div className="relative w-full h-full">
                 <div 
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-[2000ms] transform scale-105"
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat object-cover w-full h-full transition-transform duration-[2000ms]"
                   style={{
+                    ...(slide.title === "Premium Roses" && {
+                      backgroundPosition: 'left center',
+                    }),
                     backgroundImage: `url('${slide.image}')`,
                     animation: activeSlide === index ? 'heroZoom 8s ease-out forwards' : '',
                   }}
                 >
-                  <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+                   <div className="absolute inset-0 bg-black bg-opacity-40"></div>
                 </div>
                 
                 <div className="relative container mx-auto px-4 py-24 md:py-36 lg:py-48 h-full flex flex-col items-center justify-center text-center">
@@ -89,13 +148,53 @@ const Hero: React.FC = () => {
                         Shop Our Collection
                       </Link>
                     </Button>
-                    <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
-                      <Link to="/products?category=bouquet">
-                        Browse Bouquets
-                      </Link>
-                    </Button>
+                    { slide.title === "Herbs" ? (
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=herbs">
+                          Explore Herbs
+                        </Link>
+                      </Button>
+                    ) : slide.title === "Fruits" ? (
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=fruits">
+                          Browse Fruits
+                        </Link>
+                      </Button>
+                    ) : slide.title === "Summer Flowers" ? (
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=summer-flowers">
+                          Explore Summer Flowers
+                        </Link>
+                      </Button>
+                    ) : slide.title === "Spray Roses" ? ( //For the Spray Roses slide
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=spray-roses">
+                          Browse Spray Roses
+                        </Link>
+                      </Button>
+                    ) : slide.title === "Premium Roses" ? (
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=premium-roses">
+                          Browse Premium Roses
+                        </Link>
+                      </Button>
+
+                    ) : slide.title === "Vegetables" ? (
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=vegetables">
+                          Explore Vegetables
+                        </Link>
+                      </Button>
+                    ) : (
+                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
+                        <Link to="/products?category=bouquet">
+                          Browse Premium Roses
+                        </Link>
+                      </Button> 
+                    )}
                   </div>
                 </div>
+
               </div>
             </CarouselItem>
           ))}
@@ -123,18 +222,19 @@ const Hero: React.FC = () => {
         </div>
       </Carousel>
 
-      {/* CSS for animations */}
-      <style jsx>{`
-        @keyframes heroZoom {
-          0% {
-            transform: scale(1.05);
-          }
-          100% {
-            transform: scale(1);
-          }
-        }
-      `}</style>
-    </section>
+      <style>
+      {`
+       @keyframes heroZoom {
+         0% {
+           transform: scale(1.05);
+         }
+         100% {
+           transform: scale(1);
+         }
+       }
+      `}
+      </style>
+    </div>
   );
 };
 
