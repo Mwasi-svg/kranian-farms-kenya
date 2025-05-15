@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { getBlogPostBySlug, getRelatedPosts } from '@/data/blogPosts';
@@ -97,10 +96,10 @@ const BlogPost = () => {
       initial="initial"
       animate="animate"
       variants={pageVariants}
-      className="min-h-screen flex flex-col bg-gray-50"
+      className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900"
     >
       {/* Post Header */}
-      <div className="bg-kranian-100 pt-16 pb-14">
+      <div className="bg-kranian-100 dark:bg-gray-800 pt-16 pb-14">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Breadcrumbs */}
           <div className="flex items-center text-sm text-gray-500 mb-6">
@@ -204,12 +203,12 @@ const BlogPost = () => {
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
           </motion.article>
           
-          {/* Author Bio */}
+          {/* Author Bio - Updated with link to contact page */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
-            className="bg-white p-6 rounded-lg shadow mb-10"
+            className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow mb-10"
           >
             <div className="flex items-center">
               <img 
@@ -218,8 +217,12 @@ const BlogPost = () => {
                 className="w-16 h-16 rounded-full mr-4 object-cover"
               />
               <div>
-                <h3 className="font-bold text-lg mb-1">About {post.author.name}</h3>
-                <p className="text-gray-600">
+                <Link to="/contact#team" className="story-link">
+                  <h3 className="font-bold text-lg mb-1 text-gray-800 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400">
+                    About {post.author.name}
+                  </h3>
+                </Link>
+                <p className="text-gray-600 dark:text-gray-400">
                   {post.author.name} is a director at Kranian Farms with over 10 years of experience in sustainable agriculture.
                   Their passion for innovative farming methods and environmental conservation drives the company's vision.
                 </p>
@@ -266,14 +269,14 @@ const BlogPost = () => {
             </motion.div>
           )}
           
-          {/* Post Navigation */}
+          {/* Post Navigation - Change button text */}
           <div className="flex justify-between mt-10 mb-16">
             <Button variant="outline" onClick={() => navigate('/blog')}>
               <ChevronLeft className="mr-1" /> Back to Blog
             </Button>
             <Link to="#comments">
-              <Button className="bg-kranian-600 hover:bg-kranian-700">
-                Leave a Comment
+              <Button className="bg-kranian-600 hover:bg-kranian-700 dark:bg-kranian-500 dark:hover:bg-kranian-600">
+                Request Quotation
               </Button>
             </Link>
           </div>

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -15,12 +16,25 @@ import NotFound from '@/pages/NotFound';
 import { CartProvider } from '@/context/CartContext';
 import Vegetables from '@/pages/Vegetables';
 import Herbs from '@/pages/Herbs';
+import { Toaster } from '@/components/ui/toaster';
 
 function App() {
+  // Add an effect to check and set the initial theme
+  React.useEffect(() => {
+    // Check if the user has a theme preference
+    if (localStorage.theme === 'dark' || 
+        (!('theme' in localStorage) && 
+          window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
   return (
     <Router>
       <CartProvider>
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
           <Navbar />
           <main className="flex-grow">
             <Routes>
@@ -39,6 +53,7 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
+          <Toaster />
         </div>
       </CartProvider>
     </Router>

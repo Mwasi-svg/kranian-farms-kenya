@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CartIcon from './CartIcon';
+import ThemeToggle from './ThemeToggle';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { products } from '@/data/products';
 
@@ -32,7 +33,7 @@ const Navbar = () => {
     setSearchResults([]);
   };
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50">
+    <nav className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50">
       <div className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
@@ -42,18 +43,18 @@ const Navbar = () => {
                 alt="Kranian Farms Logo" 
                 className="h-10 w-10 object-contain"
               />
-              <span className="text-kranian-700 font-serif text-2xl font-bold">Kranian Farms</span>
+              <span className="text-kranian-700 dark:text-white font-serif text-2xl font-bold">Kranian Farms</span>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-kranian-600 transition-colors">Home</Link>
+            <Link to="/" className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">Home</Link>
 
             {/* Flowers Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="text-gray-700 hover:text-kranian-600 hover:underline transition-colors flex items-center">
+                <button className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 hover:underline transition-colors flex items-center">
                   Flowers <ChevronDown className="ml-1 h-4 w-4" />
                 </button>
               </DropdownMenuTrigger>
@@ -80,12 +81,12 @@ const Navbar = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Link to="/blog" className="text-gray-700 hover:text-kranian-600 transition-colors">Blog</Link>
+            <Link to="/blog" className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">Blog</Link>
             
             {/* Products Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="text-gray-700 hover:text-kranian-600 hover:underline transition-colors flex items-center">
+                <button className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 hover:underline transition-colors flex items-center">
                   Products <ChevronDown className="ml-1 h-4 w-4" />
                 </button>
               </DropdownMenuTrigger>
@@ -102,11 +103,11 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Link to="/contact" className="text-gray-700 hover:text-kranian-600 transition-colors">Contacts</Link>
+            <Link to="/contact" className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">Contacts</Link>
           </div>
 
           {/* Search */}
-          <div className="hidden md:flex items-center relative">
+          <div className="hidden md:flex items-center relative space-x-2">
             <div className="relative">
               <input
                 type="text"
@@ -132,12 +133,13 @@ const Navbar = () => {
               )}
             </div>
 
-            
+            <ThemeToggle />
             <CartIcon />
           </div>
 
           {/* Mobile Navigation Button */}
           <div className="flex md:hidden items-center space-x-2">
+            <ThemeToggle />
             <CartIcon />
             <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

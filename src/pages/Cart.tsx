@@ -1,7 +1,5 @@
-
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ArrowLeft } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
@@ -14,6 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import { motion } from 'framer-motion';
 
 // Create a schema for form validation
 const formSchema = z.object({
@@ -34,9 +33,9 @@ const restrictedRegions = [
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
   const { toast } = useToast();
-
   const navigate = useNavigate();
   const location = useLocation();
+  
   // State to manage input values for each item
   const [itemInputQuantities, setItemInputQuantities] = useState<{ [key: number]: string }>({});
   const [isLocationRestricted, setIsLocationRestricted] = useState(false);
@@ -122,15 +121,24 @@ const Cart = () => {
       return;
     }
 
-    // Here you would normally send the quotation request to the server
+    // Display success toast and redirect to contact page
     toast({
-      title: "Quotation Request Sent!",
-      description: "We'll get back to you with a custom quotation soon.",
+      title: "Received!",
+      description: "Your quotation request has been submitted successfully.",
     });
 
-    // Clear the form and cart after successful submission
+    // Clear the form and cart
     form.reset();
     clearCart();
+    
+    // Redirect to contact page with a slight delay for the toast to be visible
+    setTimeout(() => {
+      navigate('/contact', { 
+        state: { 
+          fromQuotation: true 
+        } 
+      });
+    }, 1500);
   };
 
   return (
