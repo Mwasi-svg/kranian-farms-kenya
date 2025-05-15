@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -6,14 +7,51 @@ import { ArrowLeft } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
 import { Trash2, Plus, Minus, ShoppingCart } from 'lucide-react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { useToast } from '@/hooks/use-toast';
+import { Input } from '@/components/ui/input';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Textarea } from '@/components/ui/textarea';
+
+// Create a schema for form validation
+const formSchema = z.object({
+  name: z.string().min(2, { message: 'Name must be at least 2 characters' }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  phone: z.string().min(6, { message: 'Phone number is required' }),
+  location: z.string().min(2, { message: 'Location is required' }),
+  message: z.string().optional(),
+});
+
+// List of restricted regions
+const restrictedRegions = [
+  'united states', 'usa', 'u.s.', 'u.s.a', 'america', 'canada', 'mexico', 'brazil', 
+  'argentina', 'chile', 'colombia', 'peru', 'venezuela', 'ecuador', 'bolivia', 
+  'paraguay', 'uruguay', 'guyana', 'suriname', 'french guiana', 'north america', 'south america'
+];
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
+  const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
+  const { toast } = useToast();
 
   const navigate = useNavigate();
   const location = useLocation();
   // State to manage input values for each item
   const [itemInputQuantities, setItemInputQuantities] = useState<{ [key: number]: string }>({});
+  const [isLocationRestricted, setIsLocationRestricted] = useState(false);
+
+  // Initialize react-hook-form
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      location: '',
+      message: '',
+    },
+  });
 
   // Initialize local state when cart changes
   useEffect(() => {
@@ -51,24 +89,55 @@ const Cart = () => {
     }));
   };
 
+  // Check if location is in restricted regions
+  const checkLocation = (location: string) => {
+    const normalizedLocation = location.toLowerCase().trim();
+    return restrictedRegions.some(region => normalizedLocation.includes(region));
+  };
+
+  // Handle location input change
+  const handleLocationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const location = event.target.value;
+    form.setValue('location', location);
+    setIsLocationRestricted(checkLocation(location));
+  };
+
+  // Handle form submission
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    if (isLocationRestricted) {
+      toast({
+        title: "Location Restricted",
+        description: "Sorry, we currently don't provide services to North and South America.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (cart.length === 0) {
+      toast({
+        title: "Cart is Empty",
+        description: "Please add items to your cart before requesting a quotation.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Here you would normally send the quotation request to the server
+    toast({
+      title: "Quotation Request Sent!",
+      description: "We'll get back to you with a custom quotation soon.",
+    });
+
+    // Clear the form and cart after successful submission
+    form.reset();
+    clearCart();
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
-      {location.pathname !== '/' && (
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute top-4 left-4 z-10 rounded-full"
-          onClick={() => navigate(-1)}
-          aria-label="Go back"
-        >
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-      )}
-
 
       <div className="container mx-auto px-4 py-8 flex-grow">
-        <h1 className="text-3xl font-serif font-bold text-gray-800 mb-8">Your Cart</h1>
+        <h1 className="text-3xl font-serif font-bold text-gray-800 mb-8">Request a Quotation</h1>
 
         {cart.length === 0 ? (
           <div className="text-center py-16">
@@ -106,9 +175,6 @@ const Cart = () => {
                               {item.product.name}
                             </Link>
                           </h3>
-                          <p className="font-medium text-gray-900">
-                            USD {Number(item.product.price).toFixed(2)}
-                          </p>
                         </div>
                         <p className="mt-1 text-sm text-gray-500 line-clamp-1">
                           {item.product.description}
@@ -177,44 +243,106 @@ const Cart = () => {
               </div>
             </div>
 
-            {/* Order Summary */}
+            {/* Quotation Request Form */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-lg shadow p-6 sticky top-24">
-                <h2 className="text-lg font-medium text-gray-900 mb-6">Order Summary</h2>
-
-                <dl className="space-y-4">
-                  <div className="flex justify-between">
-                    <dt className="text-gray-600">Subtotal</dt>
-                    <dd className="font-medium">USD {Number(getCartTotal()).toFixed(2)}</dd>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <dt className="text-gray-600">Shipping</dt>
-                    <dd className="font-medium">
-                      {getCartTotal() >= 50 ? (
-                        <span className="text-green-600">Free</span>
-                      ) : (
-                        'USD 5.00'
+                <h2 className="text-lg font-medium text-gray-900 mb-6">Request Quotation</h2>
+                
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Name</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Your name" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
                       )}
-                    </dd>
-                  </div>
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input type="email" placeholder="Your email address" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phone</FormLabel>
+                          <FormControl>
+                            <Input type="tel" placeholder="Your phone number" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="location"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Location</FormLabel>
+                          <FormControl>
+                            <Input 
+                              placeholder="Your country/region" 
+                              {...field} 
+                              onChange={handleLocationChange}
+                              className={isLocationRestricted ? "border-red-500" : ""}
+                            />
+                          </FormControl>
+                          {isLocationRestricted && (
+                            <p className="text-sm text-red-500 mt-1">
+                              Sorry, we currently don't provide services to North and South America.
+                            </p>
+                          )}
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Additional Information (Optional)</FormLabel>
+                          <FormControl>
+                            <Textarea 
+                              placeholder="Any specific requirements or questions?" 
+                              className="resize-none" 
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-                  <div className="border-t border-gray-200 pt-4 flex justify-between">
-                    <dt className="text-base font-medium">Total</dt>
-                    <dd className="text-base font-medium">
-                      USD {Number(getCartTotal() + (getCartTotal() >= 50 ? 0 : 5)).toFixed(2)}
-                    </dd>
-                  </div>
-                </dl>
-
-                <Button
-                  asChild
-                  className="w-full mt-6 bg-kranian-600 hover:bg-kranian-700 text-white"
-                >
-                  <Link to="/checkout">
-                    Proceed to Checkout
-                  </Link>
-                </Button>
+                    <Button 
+                      type="submit" 
+                      className="w-full mt-6 bg-kranian-600 hover:bg-kranian-700 text-white"
+                      disabled={isLocationRestricted || cart.length === 0}
+                    >
+                      Submit Quotation Request
+                    </Button>
+                  </form>
+                </Form>
               </div>
             </div>
           </div>

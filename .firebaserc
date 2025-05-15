@@ -1,8 +1,5 @@
 {
   "projects": {
-    "default": "kranian-farms",
-    "kranian": "kranian-farms"
-  },
-  "targets": {},
-  "etags": {}
+    "default": "kranian-farms"
+  }
 }
