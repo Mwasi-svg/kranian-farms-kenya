@@ -91,7 +91,7 @@ const ProductDetail = () => {
           {/* Product Info */}
           <div>
             <h1 className="text-3xl font-serif font-bold text-gray-800 mb-2">{product.name}</h1>
-            <p className="text-2xl text-kranian-700 font-bold mb-4">USD {product.price.toFixed(2)}</p>
+            <p className="text-2xl text-kranian-700 font-bold mb-4">Request Quotation</p>
 
             <div className="border-t border-b border-gray-200 py-6 my-6">
               <p className="text-gray-700 mb-4">{product.description}</p>
@@ -126,7 +126,7 @@ const ProductDetail = () => {
                     min="300"
                     max="30000"
                     className="w-12 text-center font-medium border-none focus:ring-0"
-                    style={{ pointerEvents: 'auto' }} // Ensure input is clickable
+                    style={{ pointerEvents: 'auto' }}
                     value={inputQuantity}
                     onChange={handleInputChange}
                     onBlur={() => {

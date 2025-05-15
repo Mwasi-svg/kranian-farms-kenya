@@ -41,8 +41,6 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <Hero />
       
-      <FeaturedProducts />
-      
       {/* Video Showcase */}
       <VideoShowcase 
         src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" 
@@ -125,6 +123,8 @@ const Index = () => {
           </div>
         </div>
       </section>
+      
+      <FeaturedProducts />
       
       {/* Bestsellers Section */}
       <section className="py-16 bg-white">
