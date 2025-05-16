@@ -59,8 +59,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       } else {
         // Item doesn't exist, add new item
         toast({
-          title: "Added to cart",
-          description: `${product.name} has been added to your cart.`,
+          title: "Added to Quote",
+          description: `${product.name} has been added to your quote.`,
         });
         return [...prevCart, { product, quantity }];
       }
