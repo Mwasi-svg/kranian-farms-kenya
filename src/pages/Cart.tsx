@@ -15,13 +15,25 @@ import { Textarea } from '@/components/ui/textarea';
 import { motion } from 'framer-motion';
 
 // Create a schema for form validation
+const sourceOptions = ['Instagram', 'Referral', 'Facebook', 'Google', 'Other'] as const;
+
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters' }),
   email: z.string().email({ message: 'Invalid email address' }),
   phone: z.string().min(6, { message: 'Phone number is required' }),
   location: z.string().min(2, { message: 'Location is required' }),
   message: z.string().optional(),
-});
+  howDidYouHear: z.enum(sourceOptions, {
+    required_error: 'Please select how you heard about us',
+  }),
+  otherSource: z.string().optional(),
+}).refine(
+  (data) => data.howDidYouHear !== 'Other' || (data.otherSource && data.otherSource.length > 1),
+  {
+    message: 'Please specify how you heard about us',
+    path: ['otherSource'],
+  }
+);
 
 // List of restricted regions
 const restrictedRegions = [
@@ -49,6 +61,8 @@ const Cart = () => {
       phone: '',
       location: '',
       message: '',
+      howDidYouHear: undefined,
+      otherSource: '',
     },
   });
 
@@ -100,6 +114,47 @@ const Cart = () => {
     form.setValue('location', location);
     setIsLocationRestricted(checkLocation(location));
   };
+  <FormField
+  control={form.control}
+  name="howDidYouHear"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>How did you hear about us?</FormLabel>
+      <FormControl>
+        <select
+          {...field}
+          className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+        >
+          <option value="">-- Select an option --</option>
+          {sourceOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+
+{/* Conditionally show "Other" text input */}
+{form.watch('howDidYouHear') === 'Other' && (
+  <FormField
+    control={form.control}
+    name="otherSource"
+    render={({ field }) => (
+      <FormItem>
+        <FormLabel>Please specify</FormLabel>
+        <FormControl>
+          <Input placeholder="e.g. Friend told me" {...field} />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    )}
+  />
+)}
+
 
   // Handle form submission
   const onSubmit = (values: z.infer<typeof formSchema>) => {
