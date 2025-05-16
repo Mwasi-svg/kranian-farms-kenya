@@ -114,47 +114,7 @@ const Cart = () => {
     form.setValue('location', location);
     setIsLocationRestricted(checkLocation(location));
   };
-  <FormField
-  control={form.control}
-  name="howDidYouHear"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>How did you hear about us?</FormLabel>
-      <FormControl>
-        <select
-          {...field}
-          className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
-        >
-          <option value="">-- Select an option --</option>
-          {sourceOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </FormControl>
-      <FormMessage />
-    </FormItem>
-  )}
-/>
-
-{/* Conditionally show "Other" text input */}
-{form.watch('howDidYouHear') === 'Other' && (
-  <FormField
-    control={form.control}
-    name="otherSource"
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel>Please specify</FormLabel>
-        <FormControl>
-          <Input placeholder="e.g. Friend told me" {...field} />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    )}
-  />
-)}
-
+  
 
   // Handle form submission
   const onSubmit = (values: z.infer<typeof formSchema>) => {
@@ -378,6 +338,52 @@ const Cart = () => {
                         </FormItem>
                       )}
                     />
+
+<FormField
+  control={form.control}
+  name="howDidYouHear"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>How did you hear about us?</FormLabel>
+      <FormControl>
+        <select
+          {...field}
+          className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+        >
+          <option value="">-- Select an option --</option>
+          {sourceOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+
+{form.watch('howDidYouHear') === 'Other' && (
+  <FormField
+    control={form.control}
+    name="otherSource"
+    render={({ field }) => (
+      <FormItem>
+        <FormLabel>Please specify</FormLabel>
+        <FormControl>
+          <Input placeholder="e.g. Friend told me" {...field} />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    )}
+  />
+)}
+                     
+
+
+
+
+
                     
                     <FormField
                       control={form.control}
@@ -394,6 +400,8 @@ const Cart = () => {
                           </FormControl>
                           <FormMessage />
                         </FormItem>
+
+
                       )}
                     />
 
