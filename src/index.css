@@ -102,13 +102,17 @@
 /* Improved story links with better underline animation that only underlines text */
 @layer components {
   .story-link {
-    @apply relative inline;
-    display: inline;
     position: relative;
+    display: inline;
     text-decoration: none;
   }
   
-  .story-link::after {
+  .story-link span {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .story-link span::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -121,11 +125,11 @@
     transition: transform 0.3s ease-out;
   }
   
-  .dark .story-link::after {
+  .dark .story-link span::after {
     background-color: theme('colors.kranian.400');
   }
   
-  .story-link:hover::after {
+  .story-link:hover span::after {
     transform: scaleX(1);
   }
 }

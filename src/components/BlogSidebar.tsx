@@ -14,17 +14,21 @@ interface BlogSidebarProps {
 }
 
 const BlogSidebar: React.FC<BlogSidebarProps> = ({ recentPosts, categories, tags }) => {
+  // Common card styling class for consistency
+  const cardClasses = "bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-lg";
+  const headerClasses = "text-lg font-bold text-gray-800 dark:text-gray-100 mb-4";
+
   return (
     <div className="space-y-8">
       {/* Search */}
-      <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 border border-gray-100 dark:border-gray-700">
-        <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4">Search</h3>
+      <div className={cardClasses}>
+        <h3 className={headerClasses}>Search</h3>
         <BlogSearch />
       </div>
 
       {/* Recent Posts */}
-      <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 border border-gray-100 dark:border-gray-700">
-        <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4">Recent Posts</h3>
+      <div className={cardClasses}>
+        <h3 className={headerClasses}>Recent Posts</h3>
         <div className="space-y-4">
           {recentPosts.map(post => (
             <div key={post.id} className="flex items-start">
@@ -34,9 +38,9 @@ const BlogSidebar: React.FC<BlogSidebarProps> = ({ recentPosts, categories, tags
               <div className="ml-3">
                 <Link 
                   to={`/blog/${post.slug}`} 
-                  className="text-sm font-medium hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors line-clamp-2 story-link"
+                  className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors line-clamp-2 story-link"
                 >
-                  {post.title}
+                  <span>{post.title}</span>
                 </Link>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{post.date}</p>
               </div>
@@ -46,8 +50,8 @@ const BlogSidebar: React.FC<BlogSidebarProps> = ({ recentPosts, categories, tags
       </div>
 
       {/* Categories */}
-      <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 border border-gray-100 dark:border-gray-700">
-        <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4">Categories</h3>
+      <div className={cardClasses}>
+        <h3 className={headerClasses}>Categories</h3>
         <div className="space-y-2">
           {categories.map(category => (
             <div key={category.name} className="flex justify-between items-center">
@@ -55,7 +59,7 @@ const BlogSidebar: React.FC<BlogSidebarProps> = ({ recentPosts, categories, tags
                 to={`/blog?category=${category.name.toLowerCase().replace(/\s+/g, '-')}`}
                 className="text-gray-700 dark:text-gray-300 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors story-link"
               >
-                {category.name}
+                <span>{category.name}</span>
               </Link>
               <span className="text-sm text-gray-500 dark:text-gray-400">{category.count}</span>
             </div>
@@ -64,8 +68,8 @@ const BlogSidebar: React.FC<BlogSidebarProps> = ({ recentPosts, categories, tags
       </div>
 
       {/* Tags */}
-      <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 border border-gray-100 dark:border-gray-700">
-        <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4">Tags</h3>
+      <div className={cardClasses}>
+        <h3 className={headerClasses}>Tags</h3>
         <div className="flex flex-wrap gap-2">
           {tags.map(tag => (
             <Link key={tag.name} to={`/blog?tag=${tag.name.toLowerCase()}`}>
@@ -77,10 +81,10 @@ const BlogSidebar: React.FC<BlogSidebarProps> = ({ recentPosts, categories, tags
         </div>
       </div>
 
-      {/* Social Stats - Updated for dark mode consistency */}
+      {/* Social Stats */}
       <SocialStats />
 
-      {/* Newsletter - Already has consistent styling */}
+      {/* Newsletter */}
       <Newsletter />
     </div>
   );

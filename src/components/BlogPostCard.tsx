@@ -46,7 +46,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, featured = false }) =
         <Link to={`/blog/${post.slug}`} className="inline-block">
           <h3 className={`font-bold text-gray-800 dark:text-gray-100 mb-2 group-hover:text-kranian-600 dark:group-hover:text-kranian-400 transition-colors 
                          ${featured ? 'text-2xl' : 'text-xl'}`}>
-            <span className="story-link">{post.title}</span>
+            <span className="story-link"><span>{post.title}</span></span>
           </h3>
         </Link>
         

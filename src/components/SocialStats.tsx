@@ -36,10 +36,10 @@ const SocialStats: React.FC = () => {
   ];
 
   return (
-    <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 border border-gray-100 dark:border-gray-700">
+    <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-lg">
       <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4">Follow Us</h3>
       <div className="space-y-4">
-        {stats.map((stat, index) => (
+        {stats.map((stat) => (
           <motion.a 
             key={stat.platform}
             href={`https://${stat.platform.toLowerCase()}.com/${stat.username.slice(1)}`}
@@ -49,16 +49,15 @@ const SocialStats: React.FC = () => {
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center">
-              <div className="p-2 rounded-full" 
+              <div 
+                className="p-2 rounded-full" 
                 style={{ 
                   backgroundColor: `${document.documentElement.classList.contains('dark') ? `${stat.colorDark}20` : `${stat.color}20`}`
                 }}
               >
-                <div style={{ 
-                  color: document.documentElement.classList.contains('dark') ? stat.colorDark : stat.color 
-                }}>
+                <span className="text-gray-800 dark:text-gray-200">
                   {stat.icon}
-                </div>
+                </span>
               </div>
               <div className="ml-3">
                 <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{stat.username}</p>
@@ -66,13 +65,7 @@ const SocialStats: React.FC = () => {
               </div>
             </div>
             <div className="text-right">
-              <p className="text-sm font-bold" 
-                style={{ 
-                  color: document.documentElement.classList.contains('dark') ? stat.colorDark : stat.color 
-                }}
-              >
-                {stat.followers}
-              </p>
+              <p className="text-sm font-bold text-kranian-600 dark:text-kranian-400">{stat.followers}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">followers</p>
             </div>
           </motion.a>
