@@ -158,24 +158,24 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-
+      
       <div className="container mx-auto px-4 py-8 flex-grow">
-        <h1 className="text-3xl font-serif font-bold text-gray-800 mb-8">Request a Quotation</h1>
-
+        <h1 className="text-3xl font-serif font-bold text-gray-800 dark:text-gray-200 mb-8">Request a Quotation</h1>
+        
         {cart.length === 0 ? (
           <div className="text-center py-16">
             <div className="mb-6 flex justify-center">
               <ShoppingCart className="h-16 w-16 text-gray-300" />
             </div>
             <h2 className="text-2xl font-medium mb-4">Your cart is empty</h2>
-            <p className="text-gray-600 mb-8">Looks like you haven't added anything to your cart yet.</p>
+            <p className="text-gray-600 dark:text-gray-400 mb-8">Looks like you haven't added anything to your cart yet.</p>
             <Button asChild>
               <Link to="/products">Start Shopping</Link>
             </Button>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Cart Items */}
+            {/* Cart Items */} 
             <div className="lg:col-span-2">
               <div className="bg-white rounded-lg shadow overflow-hidden">
                 <ul role="list" className="divide-y divide-gray-200">
@@ -192,15 +192,15 @@ const Cart = () => {
 
                       {/* Product Info */}
                       <div className="mt-4 sm:mt-0 sm:ml-6 flex-1">
-                        <div className="flex justify-between">
-                          <h3 className="text-lg font-medium text-gray-900">
+                        <div className="flex justify-between text-gray-900">
+                          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
                             <Link to={`/product/${item.product.id}`} className="hover:text-kranian-600">
                               {item.product.name}
                             </Link>
                           </h3>
                         </div>
                         <p className="mt-1 text-sm text-gray-500 line-clamp-1">
-                          {item.product.description}
+ {item.product.description}
                         </p>
 
                         <div className="mt-4 flex justify-between items-center">
@@ -208,8 +208,8 @@ const Cart = () => {
                           <div className="flex items-center border border-gray-300 rounded">
                             <button
                               onClick={() => handleQuantityChange(item.product.id, item.quantity - 1)}
-                              className="p-1 hover:bg-gray-100"
-                              disabled={item.quantity <= 300}
+                              className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700"
+ disabled={item.quantity <= 300}
                             >
                               <Minus className="h-4 w-4" />
                             </button>
@@ -218,23 +218,26 @@ const Cart = () => {
                               type="number"
                               min="300"
                               max="30000"
-                              className="w-12 text-center font-medium border-none focus:ring-0"
+                              className="w-12 text-center font-medium border-none focus:ring-0 dark:bg-gray-800 dark:text-gray-100"
                               value={itemInputQuantities[item.product.id] || ''}
+                              style={{
+                                WebkitAppearance: 'none', // Hide spin buttons in Chrome/Safari
+                                MozAppearance: 'textfield', // Hide spin buttons in Firefox
+                              }}
                               onChange={(e) => handleInputChange(item.product.id, e.target.value)}
                               onBlur={(e) => handleBlur(item.product.id, e.target.value)}
                             />
                             <button
                               onClick={() => handleQuantityChange(item.product.id, item.quantity + 1)}
-                              className="p-1 hover:bg-gray-100"
-                              disabled={item.quantity >= 30000}
-                            >
+                              className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700">
+            disabled={item.quantity >= 30000} 
                               <Plus className="h-4 w-4" />
                             </button>
                           </div>
-
+                          
                           {/* Remove Button */}
                           <button
-                            onClick={() => removeFromCart(item.product.id)}
+                            onClick={() => removeFromCart(item.product.id)} 
                             className="text-red-500 hover:text-red-600 flex items-center"
                           >
                             <Trash2 className="h-4 w-4 mr-1" />
@@ -247,16 +250,16 @@ const Cart = () => {
                 </ul>
 
                 {/* Cart Controls */}
-                <div className="p-6 border-t border-gray-200">
+                <div className="p-6 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex justify-between">
                     <Button
                       variant="outline"
                       onClick={clearCart}
-                      className="text-gray-600"
-                    >
+                      className="text-gray-600 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-800 dark:hover:text-white"
+                    > 
                       Clear Cart
                     </Button>
-                    <Button asChild variant="ghost">
+                    <Button asChild variant="ghost" className="dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white">
                       <Link to="/products">
                         Continue Shopping
                       </Link>
@@ -269,16 +272,16 @@ const Cart = () => {
             {/* Quotation Request Form */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-lg shadow p-6 sticky top-24">
-                <h2 className="text-lg font-medium text-gray-900 mb-6">Request Quotation</h2>
+                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-6">Request Quotation</h2>
                 
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <FormField
-                      control={form.control}
+                      control={form.control} 
                       name="name"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Name</FormLabel>
+                        <FormItem> 
+ <FormLabel>Name</FormLabel>
                           <FormControl>
                             <Input placeholder="Your name" {...field} />
                           </FormControl>
@@ -288,11 +291,11 @@ const Cart = () => {
                     />
                     
                     <FormField
-                      control={form.control}
+                      control={form.control} 
                       name="email"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
+                        <FormItem> 
+ <FormLabel>Email</FormLabel>
                           <FormControl>
                             <Input type="email" placeholder="Your email address" {...field} />
                           </FormControl>
@@ -302,11 +305,11 @@ const Cart = () => {
                     />
                     
                     <FormField
-                      control={form.control}
+                      control={form.control} 
                       name="phone"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Phone</FormLabel>
+                        <FormItem> 
+ <FormLabel>Phone</FormLabel>
                           <FormControl>
                             <Input type="tel" placeholder="Your phone number" {...field} />
                           </FormControl>
@@ -316,17 +319,18 @@ const Cart = () => {
                     />
                     
                     <FormField
-                      control={form.control}
+                      control={form.control} 
                       name="location"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Location</FormLabel>
+                        <FormItem> 
+ <FormLabel>Location</FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="Your country/region" 
                               {...field} 
+                              className={`dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 dark:placeholder-gray-500 ${isLocationRestricted ? "border-red-500" : ""}`}
                               onChange={handleLocationChange}
-                              className={isLocationRestricted ? "border-red-500" : ""}
+                              // className={isLocationRestricted ? "border-red-500" : ""}
                             />
                           </FormControl>
                           {isLocationRestricted && (
@@ -340,17 +344,16 @@ const Cart = () => {
                     />
 
 <FormField
-  control={form.control}
+  control={form.control} 
   name="howDidYouHear"
   render={({ field }) => (
     <FormItem>
-      <FormLabel>How did you hear about us?</FormLabel>
+      <FormLabel className="dark:text-gray-200">How did you hear about us?</FormLabel> {/* Added dark mode text color */}
       <FormControl>
         <select
-          {...field}
-          className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+          {...field} className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100"
         >
-          <option value="">-- Select an option --</option>
+          <option value="">-- Select an option --</option> {/* Consider styling this option as well */}
           {sourceOptions.map((option) => (
             <option key={option} value={option}>
               {option}
@@ -366,14 +369,14 @@ const Cart = () => {
 {form.watch('howDidYouHear') === 'Other' && (
   <FormField
     control={form.control}
-    name="otherSource"
+    name="otherSource" 
     render={({ field }) => (
       <FormItem>
-        <FormLabel>Please specify</FormLabel>
+        <FormLabel className="dark:text-gray-200">Please specify</FormLabel> {/* Added dark mode text color */}
         <FormControl>
-          <Input placeholder="e.g. Friend told me" {...field} />
+          <Input placeholder="e.g. Friend told me" className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 dark:placeholder-gray-500" {...field} /> {/* Added dark mode styles */}
         </FormControl>
-        <FormMessage />
+ <FormMessage />
       </FormItem>
     )}
   />
@@ -384,11 +387,11 @@ const Cart = () => {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Additional Information (Optional)</FormLabel>
+                          <FormLabel className="dark:text-gray-200">Additional Information (Optional)</FormLabel> {/* Added dark mode text color */}
                           <FormControl>
                             <Textarea 
-                              placeholder="Any specific requirements or questions?" 
-                              className="resize-none" 
+ placeholder="Any specific requirements or questions?"
+ className="resize-none dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 dark:placeholder-gray-500" /* Added dark mode styles for text and placeholder */
                               {...field} 
                             />
                           </FormControl>

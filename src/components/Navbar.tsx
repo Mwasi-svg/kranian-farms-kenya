@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CartIcon from './CartIcon';
 import ThemeToggle from './ThemeToggle';
@@ -141,9 +141,16 @@ const Navbar = () => {
           </div>
 
           {/* Search */}
-          <div className="hidden md:flex items-center relative space-x-2">
-            <div className="relative">
+          <div className="hidden md:flex items-center space-x-2">
+            {/* Search Icon and Search Bar Container */}
+            <div className="relative group">
+            {/* Search Icon */}
+            <Search className="h-6 w-6 text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors cursor-pointer group-hover:hidden" />
+            
+            {/* Search Bar and Results (hidden initially, visible on hover) */}
+            <div className="relative hidden group-hover:block">
               <input
+ style={{ minWidth: '200px' }} // Ensure input has a minimum width when shown
                 type="text"
                 placeholder="Search products..."
                 value={searchQuery}
@@ -151,20 +158,20 @@ const Navbar = () => {
                 className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-kranian-500 text-sm w-64"
               />
               {searchResults.length > 0 && (
-                <ul className="absolute left-0 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-10">
+                <ul className="absolute left-0 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-20">
                   {searchResults.map(product => (
                     <li key={product.id}>
                       <Link
                         to={`/product/${product.id}`}
                         onClick={() => handleSearchResultClick(product.id)}
-                        className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm"
-                      >
+                        className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">
                         {product.name}
                       </Link>
                     </li>
                   ))}
                 </ul>
               )}
+            </div>
             </div>
 
             <ThemeToggle />

@@ -40,7 +40,6 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Hero />
-      
       {/* Video Showcase */}
       <VideoShowcase 
         src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" 
@@ -70,7 +69,7 @@ const Index = () => {
                   <Target className="h-6 w-6 text-kranian-600" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-3">Our Mission</h3>
+                  <h3 className="text-xl  font-bold text-gray-800 mb-3">Our Mission</h3>
                   <p className="text-gray-600">
                     To build a long term relationship with our customers and provide top quality products.
                   </p>
@@ -111,11 +110,11 @@ const Index = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-gray-800 mb-3">Our Forte</h3>
-                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
-                    <li>Strong and viable partnerships</li>
-                    <li>Quality and Timely delivery</li>
-                    <li>Industry knowledge</li>
-                    <li>Excellent Customer Service</li>
+                  <ul className="list-disc space-y-1 text-gray-600">
+                    <p>Strong and viable partnerships,
+                    Quality and Timely delivery,
+                    Industry knowledge,
+                    Excellent Customer Service</p>
                   </ul>
                 </div>
               </div>

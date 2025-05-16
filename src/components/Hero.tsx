@@ -1,9 +1,8 @@
-
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { getFeaturedProducts } from '@/data/products';
-import { 
+import {
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -54,28 +53,28 @@ const Hero: React.FC = () => {
       title: "Summer Flowers",
       subtitle: "Explore our vast Summer Flowers",
     },
-    { 
+    {
       image: "herbs.jpg",
       title: "Herbs",
       subtitle: "Explore our fresh Herbs",
-      buttonText: "Explore Herbs" 
+      buttonText: "Explore Herbs"
     },
-    { 
+    {
       image: "fruits.png",
       title: "Fruits",
       subtitle: "Explore our tropical Fruits",
-      buttonText: "Browse Fruits" 
+      buttonText: "Browse Fruits"
     },
-    { 
+    {
       image: "vegetables.png",
       title: "Vegetables",
       subtitle: "Explore our fresh vegetables",
-      buttonText: "Browse Vegetables" 
+      buttonText: "Browse Vegetables"
     },
   ];
 
   // Insert the additional slides
-  slides.splice(vegetablesIndex, 0, ...additionalSlides);  
+  slides.splice(vegetablesIndex, 0, ...additionalSlides);
   slides.splice(6, 2);
 
   const featuredProducts = getFeaturedProducts();
@@ -90,7 +89,7 @@ const Hero: React.FC = () => {
   }, [carouselApi]);
 
   return (
- <div className="relative min-h-screen overflow-hidden -mt-[74px] flex flex-col">
+ <div className="relative min-h-screen overflow-hidden -mt-[74px] flex flex-col mb-0"> {/* Added mb-12 for 48px margin-bottom (closest Tailwind class to 50px) */}
       <Carousel
         className="w-full h-full relative z-0"
         opts={{ loop: true }}
@@ -116,7 +115,7 @@ const Hero: React.FC = () => {
                 >
                    <div className="absolute inset-0 bg-black bg-opacity-40"></div>
                 </div>
-                
+
                 <div className="relative container mx-auto px-4 py-24 md:py-36 lg:py-48 h-full flex flex-col items-center justify-center text-center z-10">
  <h1
                     className="text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif transform transition-all duration-700 drop-shadow-lg"
@@ -189,7 +188,7 @@ const Hero: React.FC = () => {
                         <Link to="/products?category=bouquet">
                           Browse Premium Roses
                         </Link>
-                      </Button> 
+                      </Button>
                     )}
                   </div>
                 </div>
@@ -200,11 +199,11 @@ const Hero: React.FC = () => {
         </CarouselContent>
         <CarouselPrevious className="left-4 bg-white/30 hover:bg-white/50" />
         <CarouselNext className="right-4 bg-white/30 hover:bg-white/50" />
-        
+
         {/* Slideshow Indicators */}
         <div className="absolute bottom-4 left-0 right-0 z-10 flex justify-center gap-2">
           {slides.map((_, index) => (
-            <button 
+            <button
               key={index}
               className={`w-3 h-3 rounded-full transition-all ${
                 activeSlide === index ? 'bg-white scale-125' : 'bg-white/50'
