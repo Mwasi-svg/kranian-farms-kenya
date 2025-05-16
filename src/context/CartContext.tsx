@@ -53,7 +53,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         newCart[existingItemIndex].quantity += quantity;
         toast({
           title: "Quote updated",
-          description: `Updated quantity of ${product.name} in your cart.`,
+          description: `Updated quantity of ${product.name} in your quotation.`,
         });
         return newCart;
       } else {
