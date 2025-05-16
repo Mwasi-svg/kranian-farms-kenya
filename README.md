@@ -1,73 +1,84 @@
-# Welcome to your Lovable project
+# 🌿 Kranian Farms Website
 
-## Project info
+Welcome to the official repository for **Kranian Farms** — a modern and responsive website built to showcase the products, values, and operations of Kranian Farms.
 
-**URL**: https://lovable.dev/projects/3385c77d-ebd4-4788-a85f-3d191bf5bb57
+![Kranian Farms Banner](https://kranianfarms.com/banner-image.png) <!-- Replace with actual image if available -->
 
-## How can I edit this code?
+## 🧑‍🌾 About Kranian Farms
 
-There are several ways of editing your application.
+Kranian Farms is a Kenyan agribusiness committed to sustainable, organic, and efficient farming practices. Our goal is to deliver fresh and healthy produce while promoting environmental stewardship.
 
-**Use Lovable**
+This website acts as our digital hub, connecting us to clients, distributors, and community partners.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3385c77d-ebd4-4788-a85f-3d191bf5bb57) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🚀 Features
 
-**Use your preferred IDE**
+- 🌾 Home page with mission & hero section  
+- 🛍️ Product showcase with photos and descriptions  
+- 📞 Contact form with email integration  
+- 🧠 Blog or insights section (optional, for SEO & education)  
+- 📱 Fully responsive (mobile/tablet/desktop)  
+- 🔒 Secure & fast performance (optimized for Core Web Vitals)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🛠️ Tech Stack
 
-Follow these steps:
+- **Frontend**: HTML5, CSS3, JavaScript (or React if applicable)  
+- **Hosting**: Firebase Hosting  
+- **Assets**: Custom icons, compressed farm photos  
+- **Forms**: Firebase functions or third-party form handler (e.g., Formspree)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 📂 Project Structure
 
-# Step 3: Install the necessary dependencies.
-npm i
+kranianfarms/
+├── public/ # Static assets
+├── src/ # Main source files (if using React)
+│ ├── components/ # Reusable UI components
+│ ├── pages/ # Home, About, Products, Contact
+│ └── App.js # Entry point
+├── firebase.json # Firebase hosting config
+└── README.md # This file
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+yaml
+Copy
+Edit
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 💻 Getting Started (Development)
 
-**Use GitHub Codespaces**
+To clone and run locally:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```bash
+git clone https://github.com/Mwasi-Svg/kranianfarms.git
+cd kranianfarms
+npm install
+npm start
+🚢 Deployment
 
-## What technologies are used for this project?
+If you're using Firebase Hosting:
 
-This project is built with:
+bash
+Copy
+Edit
+firebase login
+firebase init
+firebase deploy
+Make sure firebase.json is configured with the correct public directory and rewrites (if using SPA like React).
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+📬 Contact
+For questions, feedback, or partnerships:
 
-## How can I deploy this project?
+📧 Email: info@kranianfarms.com
+🌐 Website: https://kranianfarms.com
+📍 Location: Kenya
 
-Simply open [Lovable](https://lovable.dev/projects/3385c77d-ebd4-4788-a85f-3d191bf5bb57) and click on Share -> Publish.
+✅ License
+This project is proprietary and maintained by Kranian Farms.
+© 2025 Kranian Farms. All rights reserved.
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Let me know if you want a version tailored for a **React**, **Next.js**, or **static-only** version of the site. I can also generate the live README styling for GitHub.
