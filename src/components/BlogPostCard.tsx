@@ -14,7 +14,7 @@ interface BlogPostCardProps {
 const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, featured = false }) => {
   return (
     <motion.div 
-      className={`group bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full
+      className={`group bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full
                  ${featured ? 'md:col-span-2' : ''}`}
       whileHover={{ y: -5 }}
       transition={{ type: "spring", stiffness: 300 }}
@@ -27,12 +27,12 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, featured = false }) =
             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute top-0 left-0 p-2">
-            <Badge className="bg-kranian-600 hover:bg-kranian-700">{post.category}</Badge>
+            <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white">{post.category}</Badge>
           </div>
         </div>
       </Link>
       <div className="p-5 flex flex-col flex-grow">
-        <div className="flex items-center text-sm text-gray-500 mb-3">
+        <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
           <div className="flex items-center mr-4">
             <Calendar size={14} className="mr-1" />
             <span>{post.date}</span>
@@ -44,13 +44,13 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, featured = false }) =
         </div>
         
         <Link to={`/blog/${post.slug}`} className="inline-block">
-          <h3 className={`font-bold text-gray-800 mb-2 group-hover:text-kranian-600 transition-colors story-link 
+          <h3 className={`font-bold text-gray-800 dark:text-gray-100 mb-2 group-hover:text-kranian-600 dark:group-hover:text-kranian-400 transition-colors story-link 
                          ${featured ? 'text-2xl' : 'text-xl'}`}>
             {post.title}
           </h3>
         </Link>
         
-        <p className="text-gray-600 mb-4 flex-grow">{post.excerpt}</p>
+        <p className="text-gray-600 dark:text-gray-300 mb-4 flex-grow leading-relaxed">{post.excerpt}</p>
         
         <div className="flex items-center mt-auto">
           <img 
@@ -58,7 +58,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, featured = false }) =
             alt={post.author.name} 
             className="w-8 h-8 rounded-full mr-2 object-cover"
           />
-          <span className="text-sm font-medium">{post.author.name}</span>
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{post.author.name}</span>
         </div>
       </div>
     </motion.div>

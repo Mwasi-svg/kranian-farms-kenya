@@ -102,26 +102,26 @@ const BlogPost = () => {
       <div className="bg-kranian-100 dark:bg-gray-800 pt-16 pb-14">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Breadcrumbs */}
-          <div className="flex items-center text-sm text-gray-500 mb-6">
-            <Link to="/" className="hover:text-kranian-600 transition-colors">Home</Link>
+          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-6">
+            <Link to="/" className="hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">Home</Link>
             <ChevronRight className="h-4 w-4 mx-1" />
-            <Link to="/blog" className="hover:text-kranian-600 transition-colors">Blog</Link>
+            <Link to="/blog" className="hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">Blog</Link>
             <ChevronRight className="h-4 w-4 mx-1" />
             <Link 
               to={`/blog?category=${post.category.toLowerCase().replace(/\s+/g, '-')}`}
-              className="hover:text-kranian-600 transition-colors"
+              className="hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors"
             >
               {post.category}
             </Link>
             <ChevronRight className="h-4 w-4 mx-1" />
-            <span className="text-gray-700 font-medium">{post.title}</span>
+            <span className="text-gray-700 dark:text-gray-300 font-medium">{post.title}</span>
           </div>
           
           <motion.h1 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-gray-800 mb-4 leading-tight"
+            className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-gray-800 dark:text-gray-100 mb-4 leading-tight"
           >
             {post.title}
           </motion.h1>
@@ -130,7 +130,7 @@ const BlogPost = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="flex flex-wrap items-center gap-4 text-sm text-gray-600"
+            className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400"
           >
             <div className="flex items-center">
               <User size={16} className="mr-1" />
@@ -171,7 +171,7 @@ const BlogPost = () => {
           
           {/* Social Share Buttons - Top */}
           <div className="flex justify-between items-center mb-8">
-            <div className="text-sm text-gray-500 flex items-center">
+            <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
               <span className="mr-2">Share this article:</span>
               <SocialShareButtons 
                 title={post.title} 
@@ -180,11 +180,11 @@ const BlogPost = () => {
               />
             </div>
             <div className="flex items-center">
-              <span className="text-sm text-gray-500 mr-2">Tags:</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400 mr-2">Tags:</span>
               <div className="flex flex-wrap gap-2">
                 {post.tags.map(tag => (
                   <Link key={tag} to={`/blog?tag=${tag}`}>
-                    <Badge variant="outline" className="text-xs bg-gray-100 hover:bg-gray-200">
+                    <Badge variant="outline" className="text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 dark:text-gray-300">
                       {tag}
                     </Badge>
                   </Link>
@@ -198,7 +198,10 @@ const BlogPost = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="prose lg:prose-lg max-w-none mb-10 bg-white p-8 rounded-lg shadow"
+            className="prose lg:prose-lg prose-headings:font-serif prose-headings:text-gray-800 dark:prose-headings:text-gray-100 
+                      prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-a:text-kranian-600 dark:prose-a:text-kranian-400 
+                      prose-img:rounded-lg prose-li:text-gray-600 dark:prose-li:text-gray-300 
+                      max-w-none mb-10 bg-white dark:bg-gray-800 p-8 rounded-lg shadow"
           >
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
           </motion.article>
@@ -231,15 +234,15 @@ const BlogPost = () => {
           </motion.div>
           
           {/* Social Share Buttons - Bottom */}
-          <div className="flex justify-between items-center border-t border-b py-6 mb-10">
+          <div className="flex justify-between items-center border-t border-b border-gray-200 dark:border-gray-700 py-6 mb-10">
             <div>
-              <h3 className="font-bold text-lg mb-3">Share this article</h3>
+              <h3 className="font-bold text-lg mb-3 text-gray-800 dark:text-gray-100">Share this article</h3>
               <SocialShareButtons 
                 title={post.title} 
                 url={window.location.href} 
               />
             </div>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-gray-500 dark:text-gray-400">
               <span className="block mb-2">Comments: {commentCount}</span>
               <span>Read time: {post.readTime} min</span>
             </div>
@@ -260,7 +263,7 @@ const BlogPost = () => {
               transition={{ delay: 0.6, duration: 0.5 }}
               className="mt-12"
             >
-              <h2 className="text-2xl font-serif font-bold mb-6">Related Articles</h2>
+              <h2 className="text-2xl font-serif font-bold mb-6 text-gray-800 dark:text-gray-100">Related Articles</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {relatedPosts.map(relatedPost => (
                   <BlogPostCard key={relatedPost.id} post={relatedPost} />
@@ -271,7 +274,7 @@ const BlogPost = () => {
           
           {/* Post Navigation - Change button text */}
           <div className="flex justify-between mt-10 mb-16">
-            <Button variant="outline" onClick={() => navigate('/blog')}>
+            <Button variant="outline" onClick={() => navigate('/blog')} className="dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700">
               <ChevronLeft className="mr-1" /> Back to Blog
             </Button>
             <Link to="#comments">
