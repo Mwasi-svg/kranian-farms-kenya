@@ -15,7 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { motion } from 'framer-motion';
 
 // Create a schema for form validation
-const sourceOptions = ['Instagram', 'Referral', 'Facebook', 'Google', 'Other'] as const;
+const sourceOptions = ['Google', 'Instagram', 'Twitter', 'Facebook', 'Referral', 'Other'] as const;
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters' }),
