@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import Footer from '@/components/Footer';
@@ -79,10 +78,11 @@ const Products: React.FC = () => {
         </Button>
       )}
       
-      {/* Page Header - Now using standardized PageHeading */}
+      {/* Page Header - Using standardized PageHeading with centered text */}
       <PageHeading 
         title={selectedCategory ? categories.find(c => c.id === selectedCategory)?.name || "Products" : "All Products"}
         description="Explore our handpicked selection of fresh, quality products"
+        centered={true}
       />
       
       {/* Products Section */}

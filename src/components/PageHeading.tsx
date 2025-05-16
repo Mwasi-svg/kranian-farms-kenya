@@ -19,7 +19,7 @@ const PageHeading: React.FC<PageHeadingProps> = ({
           {title}
         </h1>
         {description && (
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             {description}
           </p>
         )}

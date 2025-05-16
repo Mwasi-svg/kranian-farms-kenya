@@ -1,240 +1,67 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
-import { getFeaturedProducts } from '@/data/products';
-import { 
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious
-} from '@/components/ui/carousel';
-
-// Define the type for a slide in the hero carousel
-type HeroSlide = {
-  image: string;
-  title: string;
-  subtitle: string;
-  buttonText?: string;  // Added optional buttonText property
-};
+import { ArrowRight } from 'lucide-react';
 
 const Hero: React.FC = () => {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [carouselApi, setCarouselApi] = useState<any>(null);
-
-  const slides: HeroSlide[] = [
-    {
-      image: "./burgundy.png",
-      title: "Premium Roses",
-      subtitle: "Explore our fine roses"
-    },
-    {
-      image: "reflex.png",
-      title: "Spray Roses",
-      subtitle: "Explore our Spray Roses"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1500673922987-e212871fec22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      title: "Handpicked Excellence, Sustainable Growing",
-      subtitle: "Our farm follows eco-friendly practices to ensure sustainable harvests and premium quality products."
-    },
-    {
-      image: "https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      title: "From Our Gardens to Your Doorstep",
-      subtitle: "Experience the beauty of nature with our carefully curated selection of farm-fresh products."
-    },
-  ];
-  const vegetablesIndex = slides.findIndex(slide => slide.title === "Handpicked Excellence, Sustainable Growing");
-
-  // Use proper type for the slides we're adding
-  const additionalSlides: HeroSlide[] = [
-    {
-      image: "summerflower.png",
-      title: "Summer Flowers",
-      subtitle: "Explore our vast Summer Flowers",
-    },
-    { 
-      image: "herbs.jpg",
-      title: "Herbs",
-      subtitle: "Explore our fresh Herbs",
-      buttonText: "Explore Herbs" 
-    },
-    { 
-      image: "fruits.png",
-      title: "Fruits",
-      subtitle: "Explore our tropical Fruits",
-      buttonText: "Browse Fruits" 
-    },
-    { 
-      image: "vegetables.png",
-      title: "Vegetables",
-      subtitle: "Explore our fresh vegetables",
-      buttonText: "Browse Vegetables" 
-    },
-  ];
-
-  // Insert the additional slides
-  slides.splice(vegetablesIndex, 0, ...additionalSlides);  
-  slides.splice(6, 2);
-
-  const featuredProducts = getFeaturedProducts();
-
-  useEffect(() => {
-    if (carouselApi) {
-      const interval = setInterval(() => {
-        carouselApi.scrollNext();
-      }, 5000);
-      return () => clearInterval(interval);
-    }
-  }, [carouselApi]);
+  const navigate = useNavigate();
 
   return (
-    <div className="relative h-[550px] md:h-[650px] overflow-hidden ">
-      <Carousel
-        className="w-full h-full"
-        opts={{ loop: true }}
-        setApi={(api) => { setCarouselApi(api);
-          api?.on('select', () => {
-            setActiveSlide(api.selectedScrollSnap());
-          });
-        }}
-      >
-        <CarouselContent className="h-full">
-          {slides.map((slide, index) => (
-            <CarouselItem key={index} className="h-full">
-              <div className="relative w-full h-full">
-                <div 
-                  className="absolute inset-0 bg-cover bg-center bg-no-repeat object-cover w-full h-full transition-transform duration-[2000ms]"
-                  style={{
-                    ...(slide.title === "Premium Roses" && {
-                      backgroundPosition: 'left center',
-                    }),
-                    backgroundImage: `url('${slide.image}')`,
-                    animation: activeSlide === index ? 'heroZoom 8s ease-out forwards' : '',
-                  }}
-                >
-                   <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-                </div>
-                
-                <div className="relative container mx-auto px-4 py-24 md:py-36 lg:py-48 h-full flex flex-col items-center justify-center text-center">
-                  <h1 
-                    className="text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif transform transition-all duration-700"
-                    style={{
-                      opacity: activeSlide === index ? 1 : 0,
-                      transform: activeSlide === index ? 'translateY(0)' : 'translateY(20px)',
-                    }}
-                  >
-                    {slide.title}
-                  </h1>
-                  <p 
-                    className="text-white text-lg md:text-xl max-w-2xl mb-8 transform transition-all duration-700 delay-300"
-                    style={{
-                      opacity: activeSlide === index ? 1 : 0,
-                      transform: activeSlide === index ? 'translateY(0)' : 'translateY(20px)',
-                    }}
-                  >
-                    {slide.subtitle}
-                  </p>
-                  <div 
-                    className="flex flex-col sm:flex-row gap-4 transform transition-all duration-700 delay-500"
-                    style={{
-                      opacity: activeSlide === index ? 1 : 0,
-                      transform: activeSlide === index ? 'translateY(0)' : 'translateY(20px)',
-                    }}
-                  >
-                    <Button asChild size="lg" className="bg-kranian-600 hover:bg-kranian-700 text-white">
-                      <Link to="/products">
-                        Shop Our Collection
-                      </Link>
-                    </Button>
-                    { slide.title === "Herbs" ? (
-                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
-                        <Link to="/products?category=herbs">
-                          Explore Herbs
-                        </Link>
-                      </Button>
-                    ) : slide.title === "Fruits" ? (
-                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
-                        <Link to="/products?category=fruits">
-                          Browse Fruits
-                        </Link>
-                      </Button>
-                    ) : slide.title === "Summer Flowers" ? (
-                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
-                        <Link to="/products?category=summer-flowers">
-                          Explore Summer Flowers
-                        </Link>
-                      </Button>
-                    ) : slide.title === "Spray Roses" ? ( //For the Spray Roses slide
-                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
-                        <Link to="/products?category=spray-roses">
-                          Browse Spray Roses
-                        </Link>
-                      </Button>
-                    ) : slide.title === "Premium Roses" ? (
-                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
-                        <Link to="/products?category=premium-roses">
-                          Browse Premium Roses
-                        </Link>
-                      </Button>
-
-                    ) : slide.title === "Vegetables" ? (
-                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
-                        <Link to="/products?category=vegetables">
-                          Explore Vegetables
-                        </Link>
-                      </Button>
-                    ) : (
-                      <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
-                        <Link to="/products?category=bouquet">
-                          Browse Premium Roses
-                        </Link>
-                      </Button> 
-                    )}
-                  </div>
-                </div>
-
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="left-4 bg-white/30 hover:bg-white/50" />
-        <CarouselNext className="right-4 bg-white/30 hover:bg-white/50" />
+    <section className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <div className="absolute inset-0 z-0">
+        <img 
+          src="/placeholder.svg" 
+          alt="Background" 
+          className="w-full h-full object-cover opacity-10 dark:opacity-5"
+        />
+      </div>
+      
+      <div className="container mx-auto px-4 h-full flex flex-col justify-center items-center text-center relative z-10">
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-gray-800 dark:text-white mb-4"
+        >
+          Growing Quality, <br />Harvesting Success
+        </motion.h1>
         
-        {/* Slideshow Indicators */}
-        <div className="absolute bottom-4 left-0 right-0 z-10 flex justify-center gap-2">
-          {slides.map((_, index) => (
-            <button 
-              key={index}
-              className={`w-3 h-3 rounded-full transition-all ${
-                activeSlide === index ? 'bg-white scale-125' : 'bg-white/50'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-              onClick={() => {
-                const api = document.querySelector('[data-embla-api]') as any;
-                if (api?.__emblaApi) {
-                  api.__emblaApi.scrollTo(index);
-                }
-              }}
-            />
-          ))}
-        </div>
-      </Carousel>
-
-      <style>
-      {`
-       @keyframes heroZoom {
-         0% {
-           transform: scale(1.05);
-         }
-         100% {
-           transform: scale(1);
-         }
-       }
-      `}
-      </style>
-    </div>
+        <motion.p 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl"
+        >
+          At Kranian Farms, we're committed to sustainable farming practices that produce the finest crops while respecting our environment and local communities.
+        </motion.p>
+        
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="flex flex-col sm:flex-row gap-4 w-full justify-center"
+        >
+          <Button 
+            onClick={() => navigate('/products')}
+            className="bg-kranian-600 hover:bg-kranian-700 text-white dark:bg-kranian-500 dark:hover:bg-kranian-600 px-8 py-6 text-lg"
+          >
+            Explore Products
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+          <Button 
+            variant="outline"
+            onClick={() => navigate('/about')}
+            className="border-kranian-600 text-kranian-600 hover:bg-kranian-50 dark:border-kranian-400 dark:text-kranian-400 dark:hover:bg-kranian-900/50 px-8 py-6 text-lg"
+          >
+            About Us
+          </Button>
+        </motion.div>
+      </div>
+      
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-gray-900 to-transparent z-10"></div>
+    </section>
   );
 };
 

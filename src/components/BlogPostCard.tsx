@@ -14,7 +14,7 @@ interface BlogPostCardProps {
 const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, featured = false }) => {
   return (
     <motion.div 
-      className={`group bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full
+      className={`group bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full border border-gray-100 dark:border-gray-700
                  ${featured ? 'md:col-span-2' : ''}`}
       whileHover={{ y: -5 }}
       transition={{ type: "spring", stiffness: 300 }}
@@ -44,9 +44,9 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({ post, featured = false }) =
         </div>
         
         <Link to={`/blog/${post.slug}`} className="inline-block">
-          <h3 className={`font-bold text-gray-800 dark:text-gray-100 mb-2 group-hover:text-kranian-600 dark:group-hover:text-kranian-400 transition-colors story-link 
+          <h3 className={`font-bold text-gray-800 dark:text-gray-100 mb-2 group-hover:text-kranian-600 dark:group-hover:text-kranian-400 transition-colors 
                          ${featured ? 'text-2xl' : 'text-xl'}`}>
-            {post.title}
+            <span className="story-link">{post.title}</span>
           </h3>
         </Link>
         

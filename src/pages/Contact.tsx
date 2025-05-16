@@ -79,11 +79,11 @@ const Contact: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8">
             {/* Contact Information */}
             <div className="md:col-span-1 space-y-6">
-              {/* Map */}
+              {/* Map - Updated the iframe src to the correct location */}
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
                 <div className="aspect-square">
                   <iframe 
-                    src="https://maps.app.goo.gl/iRTB1UTwPcEw9yxp9"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.736547542354!2d36.91592861475807!3d-1.334545536015023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f12868e2de63f%3A0x2f32a1c09e437acc!2sKQ%20Cargo!5e0!3m2!1sen!2sus!4v1716221525067!5m2!1sen!2sus"
                     width="100%" 
                     height="100%" 
                     style={{ border: 0 }}
