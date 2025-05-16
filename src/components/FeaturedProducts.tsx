@@ -17,13 +17,13 @@ const FeaturedProducts: React.FC = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:max-w-7xl mx-auto">
           {featuredProducts.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
         
-        <div className="text-center mt-12">
+        <div className="text-center mt-10">
           <Link 
             to="/products" 
             className="inline-block px-6 py-3 bg-transparent border-2 border-kranian-600 text-kranian-600 font-medium rounded-md hover:bg-kranian-50 transition-colors duration-200"

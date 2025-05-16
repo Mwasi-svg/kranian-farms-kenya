@@ -89,7 +89,7 @@ const Hero: React.FC = () => {
   }, [carouselApi]);
 
   return (
- <div className="relative min-h-screen overflow-hidden -mt-[74px] flex flex-col mb-0"> {/* Added mb-12 for 48px margin-bottom (closest Tailwind class to 50px) */}
+ <div className="relative min-h-[500px] md:min-h-screen overflow-hidden -mt-[74px] flex flex-col"> {/* Added mb-12 for 48px margin-bottom (closest Tailwind class to 50px) */}
       <Carousel
         className="w-full h-full relative z-0"
         opts={{ loop: true }}
