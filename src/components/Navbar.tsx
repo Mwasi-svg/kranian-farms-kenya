@@ -88,7 +88,7 @@ const Navbar = () => {
   };
   
   return (
-    <nav className="bg-white bg-opacity-80 dark:bg-gray-900 dark:bg-opacity-80 shadow-sm sticky top-0 z-50 backdrop-blur-sm">
+    <nav className="bg-white bg-opacity-80 dark:bg-gray-900 dark:bg-opacity-90 shadow-sm sticky top-0 z-50 backdrop-blur-sm">
       <div className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center">

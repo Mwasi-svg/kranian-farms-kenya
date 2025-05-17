@@ -38,10 +38,11 @@ const Index = () => {
   }, [carouselApi]);
 
   return (
-    <div className="h-50 flex flex-col">
+    <div className="h-50 flex flex-col dark:bg-gray-900">
       <Hero />
       {/* Video Showcase */}
-      <VideoShowcase 
+      
+      <VideoShowcase
         src="https://www.youtube.com/watch?v=fyqttjeM8Ps" 
         poster="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
         title="Welcome to Kranian Farms" 
@@ -49,17 +50,17 @@ const Index = () => {
       />
       
       {/* Why Choose Kranian Farms Section */}
-      <section className="py-10 bg-white">
+      <section className="py-10 bg-white dark:bg-gray-900 dark:bg-opacity-90 shadow-sm">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-6">Why Choose Kranian Farms?</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold  dark:text-white text-gray-800 mb-6">Why Choose Kranian Farms?</h2>
+          <p className="text-xl text-gray-600 max-w-3xl  dark:text-gray-300 mx-auto">
             Well, the answer is unexpectedly simple: we offer the best produce of the highest quality and at highly competitive prices.
           </p>
         </div>
       </section>
 
       {/* Company Values Section - Now with icons */}
-      <section className="py-12 bg-gray-50">
+      <section className="py-12 bg-gray-50 dark:bg-gray-900 dark:bg-opacity-90 dark:text-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Mission and Vision */}
@@ -69,8 +70,8 @@ const Index = () => {
                   <Target className="h-6 w-6 text-kranian-600" />
                 </div>
                 <div>
-                  <h3 className="text-xl  font-bold text-gray-800 mb-3">Our Mission</h3>
-                  <p className="text-gray-600">
+                  <h3 className="text-xl  font-bold dark:text-white text-gray-800 mb-3">Our Mission</h3>
+                  <p className="text-gray-600 dark:text-gray-300">
                     To build a long term relationship with our customers and provide top quality products.
                   </p>
                 </div>
@@ -81,8 +82,8 @@ const Index = () => {
                   <Telescope className="h-6 w-6 text-kranian-600" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-3">Our Vision</h3>
-                  <p className="text-gray-600">
+                  <h3 className="text-xl font-bold text-gray-800 dark:text-white  mb-3">Our Vision</h3>
+                  <p className="text-gray-600 dark:text-gray-300">
                     To be a partner of choice in providing quality fresh fruits and vegetables and honey.
                   </p>
                 </div>
@@ -96,8 +97,8 @@ const Index = () => {
                   <Shield className="h-6 w-6 text-kranian-600" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-3">Our Core Values</h3>
-                  <p className="text-gray-600">
+                  <h3 className="text-xl font-bold text-gray-800 dark:text-white  mb-3">Our Core Values</h3>
+                  <p className="text-gray-600 dark:text-gray-300">
                     Integrity, trustworthiness and honesty are integral together with partnership. 
                     We insist on principles and ethical business practices.
                   </p>
@@ -109,8 +110,8 @@ const Index = () => {
                   <Star className="h-6 w-6 text-kranian-600" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-3">Our Forte</h3>
-                  <ul className="list-disc space-y-1 text-gray-600">
+                  <h3 className="text-xl font-bold text-gray-800 dark:text-white  mb-3">Our Forte</h3>
+                  <ul className="list-disc space-y-1 text-gray-600 dark:text-gray-300">
                     <p>Strong and viable partnerships,
                     Quality and Timely delivery,
                     Industry knowledge,
@@ -130,7 +131,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4">Customer Favorites</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 max-w-2xl dark:text-gray-300 mx-auto">
               Our most popular products that customers love and purchase again and again.
             </p>
           </div>

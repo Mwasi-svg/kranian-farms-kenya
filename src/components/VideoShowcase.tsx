@@ -52,11 +52,11 @@ const VideoShowcase: React.FC<VideoShowcaseProps> = ({ src, poster, title, descr
   };
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-gray-50 dark:bg-gray-900 dark:bg-opacity-90">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4">{title}</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-8">{description}</p>
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 dark:text-gray-100 mb-4">{title}</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-8  dark:text-gray-300">{description}</p>
         </div>
         
         <div className="max-w-4xl mx-auto relative rounded-lg overflow-hidden shadow-xl">
