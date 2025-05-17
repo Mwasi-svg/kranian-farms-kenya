@@ -1,0 +1,62 @@
+
+/* Blog underline animation fix */
+.story-link {
+  position: relative;
+  display: inline-block;
+}
+
+.story-link::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.story-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+h1.blog-title, h2.blog-title, h3.blog-title, h4.blog-title {
+  position: relative;
+  display: inline-block;
+}
+
+h1.blog-title::after, h2.blog-title::after, h3.blog-title::after, h4.blog-title::after {
+  content: '';
+  position: absolute;
+  width: 60%;
+  height: 3px;
+  bottom: -8px;
+  left: 0;
+  background-color: #9b87f5; /* kranian color */
+}
+
+@media (prefers-color-scheme: dark) {
+  h1.blog-title::after, h2.blog-title::after, h3.blog-title::after, h4.blog-title::after {
+    background-color: #7E69AB; /* darker kranian color for dark mode */
+  }
+}
+
+/* Auto-scroll animation for product carousels */
+.autoscroll-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.autoscroll-track {
+  display: flex;
+  animation: scroll 30s linear infinite;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-250px * 4)); }
+}

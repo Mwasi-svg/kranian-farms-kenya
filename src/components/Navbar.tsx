@@ -40,7 +40,7 @@ const NavMenuItem: React.FC<NavMenuItemProps> = ({ label, children }) => {
       onMouseLeave={() => setIsOpen(false)}
     >
       <button 
-        className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors flex items-center"
+        className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors flex items-center font-medium"
       >
         {label} <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
@@ -88,7 +88,7 @@ const Navbar = () => {
   };
   
   return (
-    <nav className="bg-white bg-opacity-80 dark:bg-gray-900 dark:bg-opacity-90 shadow-sm sticky top-0 z-50 backdrop-blur-sm">
+    <nav className="bg-white bg-opacity-90 dark:bg-gray-900 dark:bg-opacity-90 shadow-sm sticky top-0 z-50 backdrop-blur-sm">
       <div className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
@@ -103,8 +103,8 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">Home</Link>
+          <div className="hidden md:flex items-center justify-center flex-1 space-x-8 px-4">
+            <Link to="/" className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors font-medium">Home</Link>
 
             {/* Flowers Dropdown */}
             <NavMenuItem label="Flowers">
@@ -122,7 +122,7 @@ const Navbar = () => {
               </Link>
             </NavMenuItem>
             
-            <Link to="/blog" className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">Blog</Link>
+            <Link to="/blog" className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors font-medium">Blog</Link>
             
             {/* Products Dropdown */}
             <NavMenuItem label="Products">
@@ -137,41 +137,41 @@ const Navbar = () => {
               </Link>
             </NavMenuItem>
 
-            <Link to="/contact" className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">Contacts</Link>
+            <Link to="/contact" className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors font-medium">Contacts</Link>
           </div>
 
-          {/* Search */}
-          <div className="hidden md:flex items-center space-x-2">
+          {/* Search and Controls */}
+          <div className="hidden md:flex items-center space-x-4">
             {/* Search Icon and Search Bar Container */}
             <div className="relative group">
-            {/* Search Icon */}
-            <Search className="h-6 w-6 text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors cursor-pointer group-hover:hidden" />
-            
-            {/* Search Bar and Results (hidden initially, visible on hover) */}
-            <div className="relative hidden group-hover:block">
-              <input
- style={{ minWidth: '200px' }} // Ensure input has a minimum width when shown
-                type="text"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={handleSearchChange}
-                className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-kranian-500 text-sm w-64"
-              />
-              {searchResults.length > 0 && (
-                <ul className="absolute left-0 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-20">
-                  {searchResults.map(product => (
-                    <li key={product.id}>
-                      <Link
-                        to={`/product/${product.id}`}
-                        onClick={() => handleSearchResultClick(product.id)}
-                        className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">
-                        {product.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+              {/* Search Icon */}
+              <Search className="h-5 w-5 text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors cursor-pointer group-hover:hidden" />
+              
+              {/* Search Bar and Results (hidden initially, visible on hover) */}
+              <div className="relative hidden group-hover:block">
+                <input
+                  style={{ minWidth: '200px' }}
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-kranian-500 text-sm w-64 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100"
+                />
+                {searchResults.length > 0 && (
+                  <ul className="absolute left-0 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-20">
+                    {searchResults.map(product => (
+                      <li key={product.id}>
+                        <Link
+                          to={`/product/${product.id}`}
+                          onClick={() => handleSearchResultClick(product.id)}
+                          className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">
+                          {product.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
 
             <ThemeToggle />
@@ -208,6 +208,34 @@ const Navbar = () => {
                 <Link to="/products?category=herbs" className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors text-lg py-2" onClick={() => setIsMenuOpen(false)}>Herbs</Link>
                 <Link to="/contact" className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors text-lg py-2" onClick={() => setIsMenuOpen(false)}>Contacts</Link>
                 <Link to="/blog" className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors text-lg py-2" onClick={() => setIsMenuOpen(false)}>Blog</Link>
+                
+                {/* Mobile Search */}
+                <div className="pt-2 pb-4">
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-kranian-500 text-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100"
+                  />
+                  {searchResults.length > 0 && (
+                    <ul className="mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg">
+                      {searchResults.map(product => (
+                        <li key={product.id}>
+                          <Link
+                            to={`/product/${product.id}`}
+                            onClick={() => {
+                              handleSearchResultClick(product.id);
+                              setIsMenuOpen(false);
+                            }}
+                            className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">
+                            {product.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </div>
             </motion.div>
           )}

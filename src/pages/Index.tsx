@@ -25,6 +25,7 @@ const Index = () => {
   const recentBlogPosts = getRecentBlogPosts(6); // Get more blog posts for scrolling
   const carouselRef = useRef<HTMLDivElement>(null);
   const [carouselApi, setCarouselApi] = React.useState<any>(null);
+  const [bestsellerCarouselApi, setBestsellerCarouselApi] = React.useState<any>(null);
 
   // Auto-scroll the blog posts carousel
   useEffect(() => {
@@ -36,6 +37,17 @@ const Index = () => {
       return () => clearInterval(interval);
     }
   }, [carouselApi]);
+
+  // Auto-scroll the bestseller products carousel
+  useEffect(() => {
+    if (bestsellerCarouselApi) {
+      const interval = setInterval(() => {
+        bestsellerCarouselApi.scrollNext();
+      }, 5000); // 5 seconds per slide
+      
+      return () => clearInterval(interval);
+    }
+  }, [bestsellerCarouselApi]);
 
   return (
     <div className="h-50 flex flex-col dark:bg-gray-900">
@@ -126,7 +138,7 @@ const Index = () => {
       
       <FeaturedProducts />
       
-      {/* Bestsellers Section */}
+      {/* Bestsellers Section - Updated with auto-scroll */}
       <section className="py-16 bg-white dark:bg-gray-900 dark:bg-opacity-90">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -136,10 +148,25 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {bestsellers.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+          <div className="mx-auto max-w-7xl">
+            <Carousel
+              setApi={setBestsellerCarouselApi}
+              className="w-full"
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+            >
+              <CarouselContent>
+                {bestsellers.map(product => (
+                  <CarouselItem key={product.id} className="pl-4 sm:basis-1/2 lg:basis-1/3">
+                    <ProductCard product={product} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="bg-white/70 hover:bg-white" />
+              <CarouselNext className="bg-white/70 hover:bg-white" />
+            </Carousel>
           </div>
           
           <div className="text-center mt-12">
@@ -178,6 +205,8 @@ const Index = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
+            <CarouselPrevious className="bg-white/70 hover:bg-white" />
+            <CarouselNext className="bg-white/70 hover:bg-white" />
           </Carousel>
           
           <div className="text-center mt-12">

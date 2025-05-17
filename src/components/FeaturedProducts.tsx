@@ -1,14 +1,33 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import { getFeaturedProducts } from '@/data/products';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 
 const FeaturedProducts: React.FC = () => {
-  const featuredProducts = getFeaturedProducts();
+  const featuredProducts = getFeaturedProducts().slice(0, 4); // Only show 4 products
+  const [carouselApi, setCarouselApi] = useState<any>(null);
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    if (carouselApi) {
+      const interval = setInterval(() => {
+        carouselApi.scrollNext();
+      }, 4000);
+      
+      return () => clearInterval(interval);
+    }
+  }, [carouselApi]);
 
   return (
-    <section className="py-16 bg-gray-50  dark:bg-gray-900 dark:bg-opacity-90 ">
+    <section className="py-16 bg-gray-50 dark:bg-gray-900 dark:bg-opacity-90">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4 dark:text-gray-100">Featured Products</h2>
@@ -17,10 +36,26 @@ const FeaturedProducts: React.FC = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:max-w-7xl mx-auto">
-          {featuredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+        {/* Auto-scroll Carousel */}
+        <div className="mx-auto lg:max-w-7xl">
+          <Carousel
+            className="w-full"
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            setApi={setCarouselApi}
+          >
+            <CarouselContent>
+              {featuredProducts.map(product => (
+                <CarouselItem key={product.id} className="pl-4 md:basis-1/2 lg:basis-1/4">
+                  <ProductCard product={product} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="bg-white/70 hover:bg-white" />
+            <CarouselNext className="bg-white/70 hover:bg-white" />
+          </Carousel>
         </div>
         
         <div className="text-center mt-10">

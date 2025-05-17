@@ -6,13 +6,17 @@ import { useToast } from "@/components/ui/use-toast";
 type CartItem = {
   product: Product;
   quantity: number;
+  stemLength?: number;
+  headSize?: string;
 };
 
 type CartContextType = {
   cart: CartItem[];
-  addToCart: (product: Product, quantity: number) => void;
+  addToCart: (product: Product, quantity: number, stemLength?: number, headSize?: string) => void;
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
+  updateStemLength: (productId: number, stemLength: number) => void;
+  updateHeadSize: (productId: number, headSize: string) => void;
   clearCart: () => void;
   getCartTotal: () => number;
   getCartItemCount: () => number;
@@ -41,7 +45,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem("kranianCart", JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (product: Product, quantity: number) => {
+  const addToCart = (product: Product, quantity: number, stemLength?: number, headSize?: string) => {
     setCart((prevCart) => {
       const existingItemIndex = prevCart.findIndex(
         (item) => item.product.id === product.id
@@ -51,6 +55,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         // Item already exists in cart, update quantity
         const newCart = [...prevCart];
         newCart[existingItemIndex].quantity += quantity;
+        
+        // Update stem length and head size if provided
+        if (stemLength) newCart[existingItemIndex].stemLength = stemLength;
+        if (headSize) newCart[existingItemIndex].headSize = headSize;
+        
         toast({
           title: "Quote updated",
           description: `Updated quantity of ${product.name} in your quotation.`,
@@ -62,7 +71,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
           title: "Added to Quote",
           description: `${product.name} has been added to your quote.`,
         });
-        return [...prevCart, { product, quantity }];
+        return [...prevCart, { 
+          product, 
+          quantity, 
+          stemLength: stemLength || 60, 
+          headSize: headSize || 'Medium'
+        }];
       }
     });
   };
@@ -95,6 +109,26 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
   };
 
+  const updateStemLength = (productId: number, stemLength: number) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.product.id === productId
+          ? { ...item, stemLength }
+          : item
+      )
+    );
+  };
+
+  const updateHeadSize = (productId: number, headSize: string) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.product.id === productId
+          ? { ...item, headSize }
+          : item
+      )
+    );
+  };
+
   const clearCart = () => {
     setCart([]);
     toast({
@@ -121,6 +155,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         addToCart,
         removeFromCart,
         updateQuantity,
+        updateStemLength,
+        updateHeadSize,
         clearCart,
         getCartTotal,
         getCartItemCount,

@@ -17,6 +17,7 @@ import {
 import { Card, CardContent } from '@/components/ui/card';
 
 const stemLengths = [50, 60, 70, 80, 90, 100];
+const headSizes = ['Small', 'Medium', 'Large'];
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -28,6 +29,7 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(300);
   const [inputQuantity, setInputQuantity] = useState(String(300));
   const [stemLength, setStemLength] = useState<number>(60); // Default to 60cm
+  const [headSize, setHeadSize] = useState<string>('Medium'); // Default to Medium
 
   if (!product) {
     return (
@@ -59,7 +61,7 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    addToCart(product, quantity, stemLength, headSize);
   };
 
   const capitalizeFirstLetter = (string: string) => {
@@ -133,6 +135,28 @@ const ProductDetail = () => {
                     {product.inStock ? 'In Stock' : 'Out of Stock'}
                   </span>
                 </div>
+              </div>
+
+              {/* Head Size Selector */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Flower Head Size
+                </label>
+                <Select 
+                  value={headSize} 
+                  onValueChange={(value) => setHeadSize(value)}
+                >
+                  <SelectTrigger className="w-full sm:w-40 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200">
+                    <SelectValue placeholder="Select size" />
+                  </SelectTrigger>
+                  <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
+                    {headSizes.map(size => (
+                      <SelectItem key={size} value={size} className="dark:text-gray-200 dark:hover:bg-gray-700">
+                        {size}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
               {/* Stem Length Selector */}

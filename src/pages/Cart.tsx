@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Footer from '@/components/Footer';
@@ -13,6 +14,13 @@ import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { motion } from 'framer-motion';
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue
+} from '@/components/ui/select';
 
 // Create a schema for form validation
 const sourceOptions = ['Google', 'Instagram', 'Twitter', 'Facebook', 'Referral', 'Other'] as const;
@@ -42,8 +50,11 @@ const restrictedRegions = [
   'paraguay', 'uruguay', 'guyana', 'suriname', 'french guiana', 'north america', 'south america'
 ];
 
+const stemLengths = [50, 60, 70, 80, 90, 100];
+const headSizes = ['Small', 'Medium', 'Large'];
+
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
+  const { cart, removeFromCart, updateQuantity, updateStemLength, updateHeadSize, clearCart } = useCart();
   const { toast } = useToast();
   const navigate = useNavigate();
   const location = useLocation();
@@ -102,6 +113,14 @@ const Cart = () => {
     }));
   };
 
+  const handleStemLengthChange = (productId: number, stemLength: number) => {
+    updateStemLength(productId, stemLength);
+  };
+
+  const handleHeadSizeChange = (productId: number, headSize: string) => {
+    updateHeadSize(productId, headSize);
+  };
+
   // Check if location is in restricted regions
   const checkLocation = (location: string) => {
     const normalizedLocation = location.toLowerCase().trim();
@@ -115,7 +134,6 @@ const Cart = () => {
     setIsLocationRestricted(checkLocation(location));
   };
   
-
   // Handle form submission
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (isLocationRestricted) {
@@ -200,8 +218,55 @@ const Cart = () => {
                           </h3>
                         </div>
                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 line-clamp-1">
- {item.product.description}
+                          {item.product.description}
                         </p>
+
+                        {/* Options section - Stem Length and Head Size */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+                          {/* Stem Length Option */}
+                          <div>
+                            <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
+                              Stem Length
+                            </label>
+                            <Select 
+                              value={String(item.stemLength || 60)} 
+                              onValueChange={(value) => handleStemLengthChange(item.product.id, parseInt(value))}
+                            >
+                              <SelectTrigger className="w-full sm:w-32 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 h-8 text-sm">
+                                <SelectValue placeholder="Select length" />
+                              </SelectTrigger>
+                              <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
+                                {stemLengths.map(length => (
+                                  <SelectItem key={length} value={String(length)} className="dark:text-gray-200 dark:hover:bg-gray-700">
+                                    {length} cm
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+
+                          {/* Head Size Option */}
+                          <div>
+                            <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
+                              Head Size
+                            </label>
+                            <Select 
+                              value={item.headSize || 'Medium'} 
+                              onValueChange={(value) => handleHeadSizeChange(item.product.id, value)}
+                            >
+                              <SelectTrigger className="w-full sm:w-32 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 h-8 text-sm">
+                                <SelectValue placeholder="Select size" />
+                              </SelectTrigger>
+                              <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
+                                {headSizes.map(size => (
+                                  <SelectItem key={size} value={size} className="dark:text-gray-200 dark:hover:bg-gray-700">
+                                    {size}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
 
                         <div className="mt-4 flex justify-between items-center">
                           {/* Quantity Controls */}
@@ -209,7 +274,7 @@ const Cart = () => {
                             <button
                               onClick={() => handleQuantityChange(item.product.id, item.quantity - 1)}
                               className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:text-gray-300 dark:disabled:text-gray-600"
- disabled={item.quantity <= 300}
+                              disabled={item.quantity <= 300}
                             >
                               <Minus className="h-4 w-4" />
                             </button>
