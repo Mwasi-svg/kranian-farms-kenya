@@ -52,7 +52,7 @@ const Index = () => {
       {/* Why Choose Kranian Farms Section */}
       <section className="py-10 bg-white dark:bg-gray-900 dark:bg-opacity-90 shadow-sm">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold  dark:text-white text-gray-800 mb-6">Why Choose Kranian Farms?</h2>
+          <h2 className="text-3xl md:text-4xl font-serif font-bold  dark:text-gray-100 text-gray-800 mb-6">Why Choose Kranian Farms?</h2>
           <p className="text-xl text-gray-600 max-w-3xl  dark:text-gray-300 mx-auto">
             Well, the answer is unexpectedly simple: we offer the best produce of the highest quality and at highly competitive prices.
           </p>
@@ -127,10 +127,10 @@ const Index = () => {
       <FeaturedProducts />
       
       {/* Bestsellers Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-gray-900 dark:bg-opacity-90">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4">Customer Favorites</h2>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4 dark:text-gray-100">Customer Favorites</h2>
             <p className="text-gray-600 max-w-2xl dark:text-gray-300 mx-auto">
               Our most popular products that customers love and purchase again and again.
             </p>

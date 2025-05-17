@@ -8,11 +8,11 @@ const FeaturedProducts: React.FC = () => {
   const featuredProducts = getFeaturedProducts();
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-gray-50  dark:bg-gray-900 dark:bg-opacity-90 ">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4">Featured Products</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4 dark:text-gray-100">Featured Products</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto dark:text-gray-300">
             Discover our handpicked selection of seasonal favorites, expertly curated for their beauty and freshness.
           </p>
         </div>
@@ -26,7 +26,7 @@ const FeaturedProducts: React.FC = () => {
         <div className="text-center mt-10">
           <Link 
             to="/products" 
-            className="inline-block px-6 py-3 bg-transparent border-2 border-kranian-600 text-kranian-600 font-medium rounded-md hover:bg-kranian-50 transition-colors duration-200"
+            className="inline-block px-6 py-3 bg-transparent border-2 border-kranian-400 text-kranian-400 font-medium rounded-md hover:bg-kranian-50 transition-colors duration-200 dark:hover:bg-kranian-600 dark:hover:text-white"
           >
             View All Products
           </Link>

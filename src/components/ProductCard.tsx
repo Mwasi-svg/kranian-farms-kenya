@@ -21,7 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <div className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col h-full ">
+    <div className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col h-full dark:bg-gray-900 dark:bg-opacity-90 dark:hover:shadow-lg dark:text-gray-300">
       <Link to={`/product/${product.id}`} className="flex-grow">
         <div className="relative pb-[100%] overflow-hidden ">
           <img
@@ -36,7 +36,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           )}
         </div>
         <div className="p-4 flex flex-col items-center justify-center">
-          <h3 className="font-medium text-lg mb-1 text-gray-800 text-center">{product.name}</h3>
+          <h3 className="font-medium text-lg mb-1 text-gray-800 dark:text-gray-100 text-center">{product.name}</h3>
         </div>
       </Link>
       <div className="px-4 pb-4 mt-auto">
