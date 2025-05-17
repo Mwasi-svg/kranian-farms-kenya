@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -91,7 +90,9 @@ const Hero: React.FC = () => {
 
   return (
     <div className="relative min-h-[100vh] overflow-hidden -mt-[74px] flex flex-col scrollbar-none"> 
-      <style jsx>{`
+      {/* Fixed the style tag by removing jsx attribute */}
+      <style>
+        {`
         body {
           overflow-y: scroll;
           scrollbar-width: none; /* Firefox */
@@ -110,7 +111,8 @@ const Hero: React.FC = () => {
             transform: scale(1);
           }
         }
-      `}</style>
+      `}
+      </style>
 
       <Carousel
         className="w-full h-full relative z-0"
