@@ -8,9 +8,15 @@ interface SocialShareButtonsProps {
   title: string;
   url: string;
   compact?: boolean;
+  className?: string;  // Added className prop
 }
 
-const SocialShareButtons: React.FC<SocialShareButtonsProps> = ({ title, url, compact = false }) => {
+const SocialShareButtons: React.FC<SocialShareButtonsProps> = ({ 
+  title, 
+  url, 
+  compact = false,
+  className = ''  // Added default value
+}) => {
   const { toast } = useToast();
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
@@ -39,7 +45,7 @@ const SocialShareButtons: React.FC<SocialShareButtonsProps> = ({ title, url, com
   const iconSize = compact ? 16 : 18;
   
   return (
-    <div className={`flex ${compact ? 'gap-2' : 'gap-3'}`}>
+    <div className={`flex ${compact ? 'gap-2' : 'gap-3'} ${className}`}>
       <Button 
         variant="outline" 
         size="sm" 
