@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -80,7 +81,7 @@ const Hero: React.FC = () => {
   const featuredProducts = getFeaturedProducts();
 
   useEffect(() => {
- if (carouselApi) {
+    if (carouselApi) {
       const interval = setInterval(() => {
         carouselApi.scrollNext();
       }, 5000);
@@ -89,7 +90,28 @@ const Hero: React.FC = () => {
   }, [carouselApi]);
 
   return (
- <div className="relative min-h-[500px] md:min-h-screen overflow-hidden -mt-[74px] flex flex-col"> {/* Added mb-12 for 48px margin-bottom (closest Tailwind class to 50px) */}
+    <div className="relative min-h-[100vh] overflow-hidden -mt-[74px] flex flex-col scrollbar-none"> 
+      <style jsx>{`
+        body {
+          overflow-y: scroll;
+          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none; /* IE and Edge */
+        }
+        
+        body::-webkit-scrollbar {
+          display: none; /* Chrome, Safari, Opera */
+        }
+        
+        @keyframes heroZoom {
+          0% {
+            transform: scale(1.05);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+      `}</style>
+
       <Carousel
         className="w-full h-full relative z-0"
         opts={{ loop: true }}
@@ -102,22 +124,22 @@ const Hero: React.FC = () => {
         <CarouselContent className="h-full">
           {slides.map((slide, index) => (
             <CarouselItem key={index} className="h-full">
-              <div className="relative w-full h-full">
- <div
+              <div className="relative w-full h-screen">
+                <div
                   className="absolute inset-0 w-full h-full transition-transform duration-[2000ms] z-0 bg-cover bg-center bg-no-repeat object-cover"
                   style={{
                     ...(slide.title === "Premium Roses" && {
                       backgroundPosition: 'left center',
                     }),
- backgroundImage: `url('${slide.image}')`,
+                    backgroundImage: `url('${slide.image}')`,
                     animation: activeSlide === index ? 'heroZoom 8s ease-out forwards' : '',
                   }}
                 >
-                   <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+                  <div className="absolute inset-0 bg-black bg-opacity-40"></div>
                 </div>
 
                 <div className="relative container mx-auto px-4 py-24 md:py-36 lg:py-48 h-full flex flex-col items-center justify-center text-center z-10">
- <h1
+                  <h1
                     className="text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif transform transition-all duration-700 drop-shadow-lg"
                     style={{
                       opacity: activeSlide === index ? 1 : 0,
@@ -126,7 +148,7 @@ const Hero: React.FC = () => {
                   >
                     {slide.title}
                   </h1>
- <p
+                  <p
                     className="text-white text-lg md:text-xl max-w-2xl mb-8 transform transition-all duration-700 delay-300 drop-shadow-lg"
                     style={{
                       opacity: activeSlide === index ? 1 : 0,
@@ -135,7 +157,7 @@ const Hero: React.FC = () => {
                   >
                     {slide.subtitle}
                   </p>
- <div
+                  <div
                     className="flex flex-col sm:flex-row gap-4 transform transition-all duration-700 delay-500"
                     style={{
                       opacity: activeSlide === index ? 1 : 0,
@@ -143,37 +165,37 @@ const Hero: React.FC = () => {
                     }}
                   >
                     <Button asChild size="lg" className="bg-kranian-600 hover:bg-kranian-700 text-white">
- <Link to="/products">
+                      <Link to="/products">
                         Shop Our Collection
                       </Link>
                     </Button>
                     { slide.title === "Herbs" ? (
                       <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
- <Link to="/products?category=herbs">
+                        <Link to="/products?category=herbs">
                           Explore Herbs
                         </Link>
                       </Button>
                     ) : slide.title === "Fruits" ? (
                       <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
- <Link to="/products?category=fruits">
+                        <Link to="/products?category=fruits">
                           Browse Fruits
                         </Link>
                       </Button>
                     ) : slide.title === "Summer Flowers" ? (
                       <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
- <Link to="/products?category=summer-flowers">
+                        <Link to="/products?category=summer-flowers">
                           Explore Summer Flowers
                         </Link>
                       </Button>
-                    ) : slide.title === "Spray Roses" ? ( //For the Spray Roses slide
+                    ) : slide.title === "Spray Roses" ? (
                       <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
- <Link to="/products?category=spray-roses">
+                        <Link to="/products?category=spray-roses">
                           Browse Spray Roses
                         </Link>
                       </Button>
                     ) : slide.title === "Premium Roses" ? (
                       <Button asChild size="lg" variant="outline" className="bg-white bg-opacity-20 border-white text-white hover:bg-white hover:bg-opacity-30">
- <Link to="/products?category=premium-roses">
+                        <Link to="/products?category=premium-roses">
                           Browse Premium Roses
                         </Link>
                       </Button>
@@ -192,7 +214,6 @@ const Hero: React.FC = () => {
                     )}
                   </div>
                 </div>
-
               </div>
             </CarouselItem>
           ))}
@@ -210,28 +231,14 @@ const Hero: React.FC = () => {
               }`}
               aria-label={`Go to slide ${index + 1}`}
               onClick={() => {
-                const api = document.querySelector('[data-embla-api]') as any;
-                if (api?.__emblaApi) {
-                  api.__emblaApi.scrollTo(index);
+                if (carouselApi) {
+                  carouselApi.scrollTo(index);
                 }
               }}
             />
           ))}
         </div>
       </Carousel>
-
-      <style>
-      {`
-       @keyframes heroZoom {
-         0% {
-           transform: scale(1.05);
-         }
-         100% {
-           transform: scale(1);
-         }
-       }
-      `}
-      </style>
     </div>
   );
 };
