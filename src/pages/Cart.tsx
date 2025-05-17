@@ -157,9 +157,9 @@ const Cart = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col dark:bg-gray-900 dark:bg-opacity-90">
       
-      <div className="container mx-auto px-4 py-8 flex-grow">
+      <div className="container mx-auto px-4 py-8 flex-grow ">
         <h1 className="text-3xl font-serif font-bold text-gray-800 dark:text-gray-200 mb-8">Request a Quotation</h1>
         
         {cart.length === 0 ? (
@@ -174,10 +174,10 @@ const Cart = () => {
             </Button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 ">
             {/* Cart Items */} 
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-lg shadow overflow-hidden">
+              <div className="bg-white rounded-lg shadow overflow-hidden dark:bg-gray-900 dark:bg-opacity-90">
                 <ul role="list" className="divide-y divide-gray-200">
                   {cart.map((item) => (
                     <li key={item.product.id} className="p-6 flex flex-col sm:flex-row">
@@ -271,7 +271,7 @@ const Cart = () => {
 
             {/* Quotation Request Form */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-lg shadow p-6 sticky top-24">
+              <div className="bg-white rounded-lg shadow p-6 sticky top-24 dark:bg-gray-900 dark:bg-opacity-90">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-6">Request Quotation</h2>
                 
                 <Form {...form}>

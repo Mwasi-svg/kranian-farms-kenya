@@ -154,11 +154,11 @@ const Index = () => {
       </section>
       
       {/* Latest Blog Posts - Updated with Carousel for auto-scroll */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-gray-900 dark:bg-opacity-90">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4">From Our Blog</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 dark:text-gray-100 mb-4">From Our Blog</h2>
+            <p className="text-gray-600 max-w-2xl dark:text-gray-300 mx-auto">
               Discover farming tips, sustainability insights, and the latest news from Kranian Farms.
             </p>
           </div>
