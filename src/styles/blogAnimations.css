@@ -39,6 +39,7 @@ h1.blog-title::after, h2.blog-title::after, h3.blog-title::after, h4.blog-title:
   left: 0;
   background-color: #9b87f5; /* kranian color */
   transition: width 0.3s ease;
+  display: block; /* Ensure the underline is always visible */
 }
 
 h1.blog-title:hover::after, h2.blog-title:hover::after, h3.blog-title:hover::after, h4.blog-title:hover::after {

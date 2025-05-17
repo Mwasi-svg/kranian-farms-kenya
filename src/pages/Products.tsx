@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import Footer from '@/components/Footer';
@@ -8,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronDown, ArrowLeft } from 'lucide-react';
 import PageHeading from '@/components/PageHeading';
 import SocialShareButtons from '@/components/SocialShareButtons';
+import SocialStats from '@/components/SocialStats';
 
 const Products: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -118,6 +118,11 @@ const Products: React.FC = () => {
                   Price filters coming soon... 
                 </p>
                 
+                {/* Social Stats Section */}
+                <div className="mt-8">
+                  <SocialStats />
+                </div>
+                
                 {/* Social Share Buttons */}
                 <div className="mt-8">
                   <h3 className="font-medium text-lg border-b border-gray-200 dark:border-gray-700 pb-4 mb-4 text-gray-800 dark:text-gray-100">Share</h3>
@@ -170,6 +175,11 @@ const Products: React.FC = () => {
                     <option value="price-high">Price (USD): High to Low</option>
                     <option value="name">Name</option>
                   </select>
+                  
+                  {/* Mobile Social Stats */}
+                  <div className="mt-6 mb-4">
+                    <SocialStats />
+                  </div>
                   
                   {/* Mobile Social Share Buttons */}
                   <h3 className="font-medium text-base mt-4 mb-2 text-gray-800 dark:text-gray-100">Share</h3>
