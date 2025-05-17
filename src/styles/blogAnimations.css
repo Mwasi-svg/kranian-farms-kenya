@@ -23,19 +23,26 @@
   transform-origin: bottom left;
 }
 
+/* Blog headline underlines - improved styling */
 h1.blog-title, h2.blog-title, h3.blog-title, h4.blog-title {
   position: relative;
   display: inline-block;
+  margin-bottom: 1.5rem;
 }
 
 h1.blog-title::after, h2.blog-title::after, h3.blog-title::after, h4.blog-title::after {
   content: '';
   position: absolute;
-  width: 60%;
+  width: 80px;
   height: 3px;
-  bottom: -8px;
+  bottom: -10px;
   left: 0;
   background-color: #9b87f5; /* kranian color */
+  transition: width 0.3s ease;
+}
+
+h1.blog-title:hover::after, h2.blog-title:hover::after, h3.blog-title:hover::after, h4.blog-title:hover::after {
+  width: 100%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -44,7 +51,7 @@ h1.blog-title::after, h2.blog-title::after, h3.blog-title::after, h4.blog-title:
   }
 }
 
-/* Auto-scroll animation for product carousels */
+/* Remove auto-scroll animation for product carousels */
 .autoscroll-container {
   overflow: hidden;
   position: relative;
@@ -53,10 +60,5 @@ h1.blog-title::after, h2.blog-title::after, h3.blog-title::after, h4.blog-title:
 
 .autoscroll-track {
   display: flex;
-  animation: scroll 30s linear infinite;
-}
-
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-250px * 4)); }
+  /* Animation removed */
 }

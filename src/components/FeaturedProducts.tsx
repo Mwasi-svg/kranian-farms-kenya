@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import { getFeaturedProducts } from '@/data/products';
@@ -13,18 +13,6 @@ import {
 
 const FeaturedProducts: React.FC = () => {
   const featuredProducts = getFeaturedProducts().slice(0, 4); // Only show 4 products
-  const [carouselApi, setCarouselApi] = useState<any>(null);
-
-  // Auto-scroll functionality
-  useEffect(() => {
-    if (carouselApi) {
-      const interval = setInterval(() => {
-        carouselApi.scrollNext();
-      }, 4000);
-      
-      return () => clearInterval(interval);
-    }
-  }, [carouselApi]);
 
   return (
     <section className="py-16 bg-gray-50 dark:bg-gray-900 dark:bg-opacity-90">
@@ -36,16 +24,9 @@ const FeaturedProducts: React.FC = () => {
           </p>
         </div>
         
-        {/* Auto-scroll Carousel */}
+        {/* Non-auto-scrolling Carousel */}
         <div className="mx-auto lg:max-w-7xl">
-          <Carousel
-            className="w-full"
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            setApi={setCarouselApi}
-          >
+          <Carousel className="w-full">
             <CarouselContent>
               {featuredProducts.map(product => (
                 <CarouselItem key={product.id} className="pl-4 md:basis-1/2 lg:basis-1/4">
