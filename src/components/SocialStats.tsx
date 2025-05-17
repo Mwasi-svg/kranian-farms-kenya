@@ -37,20 +37,20 @@ const SocialStats: React.FC = () => {
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-lg">
-      <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4">Follow Us</h3>
-      <div className="space-y-4">
+      <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4 text-center">Follow Us</h3>
+      <div className="space-y-3">
         {stats.map((stat) => (
           <motion.a 
             key={stat.platform}
             href={`https://${stat.platform.toLowerCase()}.com/${stat.username.slice(1)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded transition-colors"
+            className="flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 p-3 rounded transition-colors"
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center">
               <div 
-                className="p-2 rounded-full" 
+                className="p-2 rounded-full flex items-center justify-center" 
                 style={{ 
                   backgroundColor: `${document.documentElement.classList.contains('dark') ? `${stat.colorDark}20` : `${stat.color}20`}`
                 }}

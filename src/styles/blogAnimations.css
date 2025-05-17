@@ -33,7 +33,7 @@ h1.blog-title, h2.blog-title, h3.blog-title, h4.blog-title {
 h1.blog-title::after, h2.blog-title::after, h3.blog-title::after, h4.blog-title::after {
   content: '';
   position: absolute;
-  width: 80px;
+  width: 100%;  /* Changed from fixed 80px to match text width */
   height: 3px;
   bottom: -10px;
   left: 0;
@@ -42,8 +42,9 @@ h1.blog-title::after, h2.blog-title::after, h3.blog-title::after, h4.blog-title:
   display: block; /* Ensure the underline is always visible */
 }
 
+/* Remove hover effect since we want fixed width underlines */
 h1.blog-title:hover::after, h2.blog-title:hover::after, h3.blog-title:hover::after, h4.blog-title:hover::after {
-  width: 100%;
+  width: 100%; /* Keep the same width on hover */
 }
 
 @media (prefers-color-scheme: dark) {
