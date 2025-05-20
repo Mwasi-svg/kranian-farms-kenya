@@ -231,7 +231,7 @@ const Index = () => {
           </p>
           <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-100">
             <Link to="/products">
-              Learn About Our Shipping
+              Request Quotation
             </Link>
           </Button>
         </div>

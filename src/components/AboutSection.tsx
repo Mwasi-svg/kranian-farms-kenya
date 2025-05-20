@@ -16,7 +16,7 @@ const AboutSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           <div className="rounded-lg overflow-hidden shadow-lg">
             <img 
-              src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+              src="./public/image.png" 
               alt="Kranian Farms" 
               className="w-full h-80 object-cover"
             />
@@ -24,10 +24,13 @@ const AboutSection: React.FC = () => {
           <div className="flex flex-col justify-center">
             <h3 className="text-2xl font-serif font-bold text-gray-800 mb-4">Our Story</h3>
             <p className="text-gray-600 mb-6">
-              Kranian Farms was founded with a simple mission: to share the joy of beautiful flowers and fresh produce with our community. What began as a small family garden has grown into a thriving farm that serves customers locally and internationally.
+              Kranian Farms was founded with a simple mission:
+             </p>
+             <p className="text-gray-700 mb-6"> 
+              To share the joy of beautiful flowers and fresh produce with our community. What began as a small family garden has grown into a thriving farm that serves customers locally and internationally.
             </p>
             <p className="text-gray-600">
-              We pride ourselves on sustainable growing practices that respect both nature and our customers. Every bouquet is arranged with care, and every vegetable is harvested at peak freshness—because we believe quality matters.
+              We pride ourselves on sustainable growing practices that respect both nature and our customers. Every flower bouquet is arranged with care, and every vegetable is harvested at peak freshness—because we believe quality matters.
             </p>
           </div>
         </div>
@@ -46,7 +49,7 @@ const AboutSection: React.FC = () => {
               <Truck className="h-8 w-8 text-kranian-600" />
             </div>
             <h3 className="text-xl font-medium mb-2">Local Delivery</h3>
-            <p className="text-gray-600">Same-day delivery available for local customers.</p>
+            <p className="text-gray-600">Delivery available for local customers.</p>
           </div>
           
           <div className="text-center p-6">

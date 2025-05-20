@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
               <h3 className="text-2xl font-serif">Kranian Farms</h3>
             </div>
             <p className="text-gray-400 mb-6 leading-relaxed">
-              Growing the finest flowers, herbs, and vegetables with dedication and care since 2010. From seed to bouquet, we bring nature's beauty to your doorstep.
+              Growing the finest flowers, herbs, and vegetables with dedication and care since 2015. From seed to flower, we bring nature's beauty to your doorstep.
             </p>
             <div className="flex space-x-4">
               <motion.a href="#" whileHover={{ y: -3 }} className="text-gray-400 hover:text-kranian-400 transition-colors">
@@ -80,13 +80,13 @@ const Footer: React.FC = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/products" className="text-gray-400 hover:text-white transition-colors flex items-center group">
+                  <Link to="/products?category=fruits" className="text-gray-400 hover:text-white transition-colors flex items-center group">
                     <span className="inline-block w-0 group-hover:w-2 transition-all duration-300 h-0.5 bg-kranian-400 mr-0 group-hover:mr-2"></span>
-                    Shop
+                    Fruits
                   </Link>
                 </li>
                 <li>
-                  <Link to="/products?category=intermediate-roses" className="text-gray-400 hover:text-white transition-colors flex items-center group">
+                  <Link to="/products?category=premium-roses" className="text-gray-400 hover:text-white transition-colors flex items-center group">
                     <span className="inline-block w-0 group-hover:w-2 transition-all duration-300 h-0.5 bg-kranian-400 mr-0 group-hover:mr-2"></span>
                     Roses
                   </Link>
@@ -94,7 +94,7 @@ const Footer: React.FC = () => {
                 <li>
                   <Link to="/products?category=herbs" className="text-gray-400 hover:text-white transition-colors flex items-center group">
                     <span className="inline-block w-0 group-hover:w-2 transition-all duration-300 h-0.5 bg-kranian-400 mr-0 group-hover:mr-2"></span>
-                    Herbs & Vegetables
+                    Herbs
                   </Link>
                 </li>
                 <li>
@@ -119,16 +119,11 @@ const Footer: React.FC = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors flex items-center group">
-                    <span className="inline-block w-0 group-hover:w-2 transition-all duration-300 h-0.5 bg-kranian-400 mr-0 group-hover:mr-2"></span>
-                    Returns & Refunds
-                    <ExternalLink size={14} className="ml-1 opacity-70" />
-                  </a>
                 </li>
                 <li>
-                  <Link to="/help" className="text-gray-400 hover:text-white transition-colors flex items-center group">
+                  <Link to="/blog" className="text-gray-400 hover:text-white transition-colors flex items-center group">
                     <span className="inline-block w-0 group-hover:w-2 transition-all duration-300 h-0.5 bg-kranian-400 mr-0 group-hover:mr-2"></span>
-                    FAQs
+                    Blog
                   </Link>
                 </li>
                 <li>
@@ -144,7 +139,7 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="font-medium text-lg mb-5 pb-2 border-b border-gray-800">Stay Connected</h4>
             <form onSubmit={handleSubscribe} className="mb-6">
-              <p className="text-gray-400 mb-3">Subscribe for garden tips and exclusive offers</p>
+              <p className="text-gray-400 mb-3">Subscribe for exclusive offers & floral tips!</p>
               <div className="flex gap-2">
                 <Input
                   type="email"
@@ -164,11 +159,11 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               <li className="flex items-center text-gray-400">
                 <MapPin size={18} className="mr-2 text-kranian-400 flex-shrink-0" />
-                <span>123 Farm Road, Countryside, Country</span>
+                <span>KQ Cargo Centre, Nairobi, Kenya</span>
               </li>
               <li className="flex items-center text-gray-400">
                 <Phone size={18} className="mr-2 text-kranian-400 flex-shrink-0" />
-                <span>+1 (555) 123-4567</span>
+                <span>+254 701 640 801</span>
               </li>
               <li className="flex items-center text-gray-400">
                 <Mail size={18} className="mr-2 text-kranian-400 flex-shrink-0" />

@@ -68,27 +68,7 @@ const SocialShareButtons: React.FC<SocialShareButtonsProps> = ({
         {!compact && <span className="ml-1">Twitter</span>}
       </Button>
       
-      <Button 
-        variant="outline" 
-        size="sm" 
-        onClick={shareByEmail}
-        className={`hover:bg-amber-100 hover:text-amber-600 hover:border-amber-200 ${buttonClass}`}
-        title="Share via Email"
-      >
-        <Mail size={iconSize} />
-        {!compact && <span className="ml-1">Email</span>}
-      </Button>
       
-      <Button 
-        variant="outline" 
-        size="sm" 
-        onClick={copyLink}
-        className={`hover:bg-violet-100 hover:text-violet-600 hover:border-violet-200 ${buttonClass}`}
-        title="Copy link"
-      >
-        <Link size={iconSize} />
-        {!compact && <span className="ml-1">Copy Link</span>}
-      </Button>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronDown, ArrowLeft } from 'lucide-react';
 import PageHeading from '@/components/PageHeading';
 import SocialShareButtons from '@/components/SocialShareButtons';
-import SocialStats from '@/components/SocialStats';
+
 
 const Products: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -118,19 +118,7 @@ const Products: React.FC = () => {
                   Price filters coming soon... 
                 </p>
                 
-                {/* Social Stats Section */}
-                <div className="mt-8">
-                  <SocialStats />
-                </div>
                 
-                {/* Social Share Buttons */}
-                <div className="mt-8">
-                  <h3 className="font-medium text-lg border-b border-gray-200 dark:border-gray-700 pb-4 mb-4 text-gray-800 dark:text-gray-100">Share</h3>
-                  <SocialShareButtons 
-                    title="Check out these amazing products from Kranian Farms" 
-                    url={window.location.href} 
-                  />
-                </div>
               </div>
             </div>
             
