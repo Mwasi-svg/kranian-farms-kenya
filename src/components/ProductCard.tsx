@@ -41,7 +41,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </Link>
       <div className="px-4 pb-4 mt-auto">
         <Button onClick={handleAddToCart} className="w-full bg-kranian-600 hover:bg-kranian-700 text-white">
-          <Receipt className="mr-2 h-4 w-4" /> Get a Quote
+          <Receipt className="mr-2 h-4 w-4" /> Add to Quote
         </Button>
       </div>
     </div>
