@@ -166,7 +166,7 @@ const Products: React.FC = () => {
                   
                   {/* Mobile Social Stats */}
                   <div className="mt-6 mb-4">
-                    <SocialStats />
+                    
                   </div>
                   
                   {/* Mobile Social Share Buttons */}
