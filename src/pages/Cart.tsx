@@ -53,6 +53,9 @@ const restrictedRegions = [
 const stemLengths = [50, 60, 70, 80, 90, 100];
 const headSizes = ['Small', 'Medium', 'Large'];
 
+// Define flower categories
+const flowerCategories = ['summer-flowers', 'premium-roses', 'spray-roses', 'intermediate-roses'];
+
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, updateStemLength, updateHeadSize, clearCart } = useCart();
   const { toast } = useToast();
@@ -174,8 +177,13 @@ const Cart = () => {
     }, 1500);
   };
 
+  // Check if product is a flower category
+  const isFlowerCategory = (categoryName: string) => {
+    return flowerCategories.includes(categoryName);
+  };
+
   return (
-    <div className="min-h-screen flex flex-col dark:bg-gray-900 dark:bg-opacity-90">
+    <div className="min-h-screen flex flex-col dark:bg-gray-900 dark:bg-opacity-90 pt-20">
       
       <div className="container mx-auto px-4 py-8 flex-grow">
         <h1 className="text-3xl font-serif font-bold text-gray-800 dark:text-gray-200 mb-8">Request a Quotation</h1>
@@ -211,62 +219,64 @@ const Cart = () => {
                       {/* Product Info */}
                       <div className="mt-4 sm:mt-0 sm:ml-6 flex-1">
                         <div className="flex justify-between">
-                          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 text-overflow-visible">
                             <Link to={`/product/${item.product.id}`} className="hover:text-kranian-600 dark:hover:text-kranian-400">
                               {item.product.name}
                             </Link>
                           </h3>
                         </div>
-                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 line-clamp-1">
+                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 text-overflow-visible">
                           {item.product.description}
                         </p>
 
-                        {/* Options section - Stem Length and Head Size */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
-                          {/* Stem Length Option */}
-                          <div>
-                            <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
-                              Stem Length
-                            </label>
-                            <Select 
-                              value={String(item.stemLength || 60)} 
-                              onValueChange={(value) => handleStemLengthChange(item.product.id, parseInt(value))}
-                            >
-                              <SelectTrigger className="w-full sm:w-32 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 h-8 text-sm">
-                                <SelectValue placeholder="Select length" />
-                              </SelectTrigger>
-                              <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
-                                {stemLengths.map(length => (
-                                  <SelectItem key={length} value={String(length)} className="dark:text-gray-200 dark:hover:bg-gray-700">
-                                    {length} cm
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </div>
+                        {/* Only show flower-specific options for flower categories */}
+                        {isFlowerCategory(item.product.category) && (
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+                            {/* Stem Length Option */}
+                            <div>
+                              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
+                                Stem Length
+                              </label>
+                              <Select 
+                                value={String(item.stemLength || 60)} 
+                                onValueChange={(value) => handleStemLengthChange(item.product.id, parseInt(value))}
+                              >
+                                <SelectTrigger className="w-full sm:w-32 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 h-8 text-sm">
+                                  <SelectValue placeholder="Select length" />
+                                </SelectTrigger>
+                                <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
+                                  {stemLengths.map(length => (
+                                    <SelectItem key={length} value={String(length)} className="dark:text-gray-200 dark:hover:bg-gray-700">
+                                      {length} cm
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
 
-                          {/* Head Size Option */}
-                          <div>
-                            <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
-                              Head Size
-                            </label>
-                            <Select 
-                              value={item.headSize || 'Medium'} 
-                              onValueChange={(value) => handleHeadSizeChange(item.product.id, value)}
-                            >
-                              <SelectTrigger className="w-full sm:w-32 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 h-8 text-sm">
-                                <SelectValue placeholder="Select size" />
-                              </SelectTrigger>
-                              <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
-                                {headSizes.map(size => (
-                                  <SelectItem key={size} value={size} className="dark:text-gray-200 dark:hover:bg-gray-700">
-                                    {size}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
+                            {/* Head Size Option */}
+                            <div>
+                              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
+                                Head Size
+                              </label>
+                              <Select 
+                                value={item.headSize || 'Medium'} 
+                                onValueChange={(value) => handleHeadSizeChange(item.product.id, value)}
+                              >
+                                <SelectTrigger className="w-full sm:w-32 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 h-8 text-sm">
+                                  <SelectValue placeholder="Select size" />
+                                </SelectTrigger>
+                                <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
+                                  {headSizes.map(size => (
+                                    <SelectItem key={size} value={size} className="dark:text-gray-200 dark:hover:bg-gray-700">
+                                      {size}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
                           </div>
-                        </div>
+                        )}
 
                         <div className="mt-4 flex justify-between items-center">
                           {/* Quantity Controls */}
@@ -286,8 +296,8 @@ const Cart = () => {
                               className="w-12 text-center font-medium border-none focus:ring-0 dark:bg-gray-800 dark:text-gray-100"
                               value={itemInputQuantities[item.product.id] || ''}
                               style={{
-                                WebkitAppearance: 'none', // Hide spin buttons in Chrome/Safari
-                                MozAppearance: 'textfield', // Hide spin buttons in Firefox
+                                WebkitAppearance: 'none',
+                                MozAppearance: 'textfield',
                               }}
                               onChange={(e) => handleInputChange(item.product.id, e.target.value)}
                               onBlur={(e) => handleBlur(item.product.id, e.target.value)}

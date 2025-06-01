@@ -1,13 +1,14 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import { blogPosts, BlogPost } from '@/data/blogPosts';
-import { ArrowLeft, Calendar, Clock } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Search, TrendingUp, Star } from 'lucide-react';
 import BlogSidebar from '@/components/BlogSidebar';
 import Footer from '@/components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 
 const Blog: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -15,34 +16,42 @@ const Blog: React.FC = () => {
   const tagParam = searchParams.get('tag');
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
   const [activeFilter, setActiveFilter] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Get featured posts (first 3 posts for hero cards)
-  const featuredPosts = blogPosts.slice(0, 3);
+  // Get featured posts (first 4 posts for hero cards)
+  const featuredPosts = blogPosts.slice(0, 4);
+  const trendingPosts = blogPosts.slice(0, 6);
 
   useEffect(() => {
+    let posts = blogPosts;
+    
+    if (searchQuery) {
+      posts = posts.filter(post => 
+        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.category.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    
     if (categoryParam) {
-      setFilteredPosts(
-        blogPosts.filter(
-          (post) => post.category.toLowerCase().replace(/\s+/g, '-') === categoryParam
-        )
+      posts = posts.filter(
+        (post) => post.category.toLowerCase().replace(/\s+/g, '-') === categoryParam
       );
     } else if (tagParam) {
-      setFilteredPosts(
-        blogPosts.filter((post) => post.tags.some((tag) => tag.toLowerCase() === tagParam))
-      );
-    } else {
-      setFilteredPosts(blogPosts.slice(3)); // Skip featured posts in main grid
+      posts = posts.filter((post) => post.tags.some((tag) => tag.toLowerCase() === tagParam));
     }
 
+    setFilteredPosts(posts);
     setActiveFilter(
       categoryParam ? `Category: ${categoryParam}` :
-      tagParam ? `Tag: ${tagParam}` : ''
+      tagParam ? `Tag: ${tagParam}` : 
+      searchQuery ? `Search: "${searchQuery}"` : ''
     );
 
     window.scrollTo(0, 0);
-  }, [categoryParam, tagParam, location.search]);
+  }, [categoryParam, tagParam, searchQuery, location.search]);
 
   const categories = React.useMemo(() => {
     return Array.from(
@@ -51,9 +60,9 @@ const Blog: React.FC = () => {
       name: category,
       count: blogPosts.filter((post) => post.category === category).length,
     }));
-  }, [blogPosts]);
+  }, []);
 
-  const allTags = React.useMemo(() => blogPosts.flatMap((post) => post.tags), [blogPosts]);
+  const allTags = React.useMemo(() => blogPosts.flatMap((post) => post.tags), []);
 
   const tagsWithCounts = React.useMemo(() => {
     return Array.from(
@@ -65,176 +74,249 @@ const Blog: React.FC = () => {
   }, [allTags]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
-      {/* Add top padding to account for fixed navbar */}
-      <div className="pt-20">
-        {location.pathname !== '/' && (
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-24 left-4 z-10 bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800"
-            onClick={() => navigate(-1)}
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-        )}
-
-        {/* Hero Section with Featured Posts Cards */}
-        {!activeFilter && (
-          <section className="relative py-20 bg-gradient-to-br from-kranian-50 to-white dark:from-gray-800 dark:to-gray-900">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-16">
-                <motion.h1 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6"
-                >
-                  Latest Stories
-                </motion.h1>
-                <motion.p 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
-                >
-                  Discover insights, stories, and tips about sustainable farming and agricultural practices
-                </motion.p>
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 pt-20">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-kranian-600 to-kranian-800 dark:from-kranian-700 dark:to-kranian-900 text-white py-24">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-5xl md:text-7xl font-serif font-bold mb-6"
+            >
+              Stories & Insights
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-12"
+            >
+              Discover the latest trends in sustainable agriculture and farming innovation
+            </motion.p>
+            
+            {/* Search Bar */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="max-w-2xl mx-auto relative"
+            >
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <Input
+                  type="text"
+                  placeholder="Search articles, topics, or categories..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-12 pr-4 py-4 text-lg bg-white/95 backdrop-blur-sm border-0 rounded-xl shadow-lg focus:ring-2 focus:ring-white/30"
+                />
               </div>
+            </motion.div>
+          </div>
 
-              {/* Featured Posts Scrolling Animation */}
-              <div className="relative overflow-hidden">
-                <motion.div 
-                  className="flex space-x-8"
-                  animate={{ x: [0, -120, 0] }}
-                  transition={{ 
-                    duration: 25, 
-                    repeat: Infinity, 
-                    repeatType: "loop",
-                    ease: "linear"
-                  }}
+          {/* Featured Posts Scrolling Animation */}
+          <div className="relative overflow-hidden">
+            <motion.div 
+              className="flex space-x-8"
+              animate={{ x: [0, -120, 0] }}
+              transition={{ 
+                duration: 30, 
+                repeat: Infinity, 
+                repeatType: "loop",
+                ease: "linear"
+              }}
+            >
+              {[...featuredPosts, ...featuredPosts].map((post, index) => (
+                <motion.div
+                  key={`${post.id}-${index}`}
+                  className="flex-shrink-0 w-80 bg-white/95 backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500"
+                  whileHover={{ y: -10, scale: 1.02 }}
                 >
-                  {[...featuredPosts, ...featuredPosts].map((post, index) => (
-                    <motion.div
-                      key={`${post.id}-${index}`}
-                      className="flex-shrink-0 w-96 bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
-                      whileHover={{ y: -8 }}
+                  <Link to={`/blog/${post.slug}`}>
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={post.image} 
+                        alt={post.title} 
+                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+                      />
+                      <div className="absolute top-4 left-4">
+                        <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white px-3 py-1 text-sm">
+                          {post.category}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center text-sm text-gray-500 mb-3">
+                        <Calendar size={14} className="mr-2" />
+                        <span>{post.date}</span>
+                        <span className="mx-2">•</span>
+                        <Clock size={14} className="mr-2" />
+                        <span>{post.readTime} min</span>
+                      </div>
+                      <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">
+                        {post.title}
+                      </h3>
+                      <p className="text-gray-600 line-clamp-2 text-sm leading-relaxed">
+                        {post.excerpt}
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-16 flex-grow">
+        <div className="flex flex-col lg:flex-row gap-12">
+          {/* Main Content Area */}
+          <div className="lg:w-2/3">
+            {/* Filter Header */}
+            {activeFilter && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm"
+              >
+                <h2 className="text-2xl font-bold mb-2 text-gray-800 dark:text-gray-100">{activeFilter}</h2>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Showing {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''}
+                </p>
+              </motion.div>
+            )}
+
+            {/* Trending Section */}
+            {!activeFilter && (
+              <div className="mb-12">
+                <div className="flex items-center mb-8">
+                  <TrendingUp className="h-6 w-6 text-kranian-600 mr-3" />
+                  <h2 className="text-3xl font-serif font-bold text-gray-800 dark:text-gray-100">Trending Now</h2>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                  {trendingPosts.slice(0, 3).map((post, index) => (
+                    <motion.article
+                      key={post.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
                     >
                       <Link to={`/blog/${post.slug}`}>
-                        <div className="relative h-64 overflow-hidden">
+                        <div className="relative h-48 overflow-hidden">
                           <img 
                             src={post.image} 
                             alt={post.title} 
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
-                          <div className="absolute top-6 left-6">
-                            <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white px-3 py-1 text-sm">
-                              {post.category}
+                          <div className="absolute top-3 left-3">
+                            <Badge className="bg-red-500 text-white px-2 py-1 text-xs">
+                              <Star className="w-3 h-3 mr-1" />
+                              Trending
                             </Badge>
                           </div>
                         </div>
-                        <div className="p-8">
-                          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
-                            <Calendar size={16} className="mr-2" />
+                        <div className="p-5">
+                          <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-3">
+                            <Calendar size={12} className="mr-1" />
                             <span>{post.date}</span>
-                            <span className="mx-3">•</span>
-                            <Clock size={16} className="mr-2" />
-                            <span>{post.readTime} min read</span>
+                            <span className="mx-2">•</span>
+                            <Clock size={12} className="mr-1" />
+                            <span>{post.readTime} min</span>
                           </div>
-                          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 line-clamp-2">
+                          <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-2 group-hover:text-kranian-600 dark:group-hover:text-kranian-400 transition-colors line-clamp-2">
                             {post.title}
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-300 line-clamp-3 text-base leading-relaxed">
+                          <p className="text-gray-600 dark:text-gray-300 line-clamp-2 text-sm">
                             {post.excerpt}
                           </p>
                         </div>
                       </Link>
-                    </motion.div>
+                    </motion.article>
                   ))}
-                </motion.div>
+                </div>
               </div>
-            </div>
-          </section>
-        )}
+            )}
 
-        {/* Main Content */}
-        <div className="container mx-auto px-4 py-16 flex-grow">
-          {activeFilter && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-12 text-center"
-            >
-              <h1 className="text-4xl font-bold mb-4 text-gray-800 dark:text-gray-100">{activeFilter}</h1>
-              <p className="text-gray-600 dark:text-gray-300">
-                Showing {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''}
-              </p>
-            </motion.div>
-          )}
-
-          <div className="flex flex-col lg:flex-row gap-16">
-            {/* Main Content Grid */}
-            <div className="lg:w-2/3">
+            {/* Main Articles */}
+            <div className="mb-8">
+              <h2 className="text-3xl font-serif font-bold mb-8 text-gray-800 dark:text-gray-100">
+                {activeFilter ? 'Results' : 'Latest Articles'}
+              </h2>
+              
               {filteredPosts.length === 0 ? (
                 <div className="text-center py-20 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
                   <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">No posts found matching your criteria.</p>
-                  <Link to="/blog" className="text-kranian-600 dark:text-kranian-400 hover:text-kranian-700 dark:hover:text-kranian-300 font-medium">
-                    View all blog posts
-                  </Link>
+                  <Button asChild variant="outline">
+                    <Link to="/blog" onClick={() => setSearchQuery('')}>
+                      View all blog posts
+                    </Link>
+                  </Button>
                 </div>
               ) : (
-                <>
+                <div className="space-y-8">
                   {/* First post - Large featured */}
                   {filteredPosts.length > 0 && (
                     <motion.article
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="mb-12 bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group"
                     >
-                      <Link to={`/blog/${filteredPosts[0].slug}`}>
-                        <div className="relative h-96 overflow-hidden">
-                          <img 
-                            src={filteredPosts[0].image} 
-                            alt={filteredPosts[0].title} 
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                          />
-                          <div className="absolute top-8 left-8">
-                            <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white px-4 py-2">
-                              {filteredPosts[0].category}
-                            </Badge>
-                          </div>
+                      <div className="md:flex">
+                        <div className="md:w-1/2">
+                          <Link to={`/blog/${filteredPosts[0].slug}`}>
+                            <div className="relative h-64 md:h-full overflow-hidden">
+                              <img 
+                                src={filteredPosts[0].image} 
+                                alt={filteredPosts[0].title} 
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                              />
+                              <div className="absolute top-6 left-6">
+                                <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white px-4 py-2">
+                                  {filteredPosts[0].category}
+                                </Badge>
+                              </div>
+                            </div>
+                          </Link>
                         </div>
-                        <div className="p-10">
-                          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-6">
-                            <Calendar size={18} className="mr-2" />
+                        <div className="md:w-1/2 p-8 flex flex-col justify-center">
+                          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+                            <Calendar size={16} className="mr-2" />
                             <span>{filteredPosts[0].date}</span>
                             <span className="mx-3">•</span>
-                            <Clock size={18} className="mr-2" />
+                            <Clock size={16} className="mr-2" />
                             <span>{filteredPosts[0].readTime} min read</span>
                           </div>
-                          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">
-                            {filteredPosts[0].title}
-                          </h2>
-                          <p className="text-gray-600 dark:text-gray-300 text-xl leading-relaxed mb-8">
+                          <Link to={`/blog/${filteredPosts[0].slug}`}>
+                            <h2 className="text-3xl font-serif font-bold text-gray-900 dark:text-white mb-4 group-hover:text-kranian-600 dark:group-hover:text-kranian-400 transition-colors">
+                              {filteredPosts[0].title}
+                            </h2>
+                          </Link>
+                          <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
                             {filteredPosts[0].excerpt}
                           </p>
                           <div className="flex items-center">
                             <img 
                               src={filteredPosts[0].author.avatar} 
                               alt={filteredPosts[0].author.name} 
-                              className="w-12 h-12 rounded-full mr-4 object-cover"
+                              className="w-10 h-10 rounded-full mr-3 object-cover"
                             />
-                            <span className="font-medium text-gray-700 dark:text-gray-300 text-lg">
+                            <span className="font-medium text-gray-700 dark:text-gray-300">
                               {filteredPosts[0].author.name}
                             </span>
                           </div>
                         </div>
-                      </Link>
+                      </div>
                     </motion.article>
                   )}
 
-                  {/* Remaining posts - 2 column grid */}
+                  {/* Grid of remaining posts */}
                   {filteredPosts.length > 1 && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       {filteredPosts.slice(1).map((post, index) => (
                         <motion.article
                           key={post.id}
@@ -243,7 +325,7 @@ const Blog: React.FC = () => {
                           transition={{ delay: (index + 1) * 0.1 }}
                           className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
                         >
-                          <Link to={`/blog/${post.slug}`} className="block">
+                          <Link to={`/blog/${post.slug}`}>
                             <div className="relative h-56 overflow-hidden">
                               <img 
                                 src={post.image} 
@@ -258,22 +340,22 @@ const Blog: React.FC = () => {
                             </div>
                           </Link>
                           
-                          <div className="p-8">
-                            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
-                              <Calendar size={16} className="mr-2" />
+                          <div className="p-6">
+                            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+                              <Calendar size={14} className="mr-2" />
                               <span>{post.date}</span>
                               <span className="mx-2">•</span>
-                              <Clock size={16} className="mr-2" />
-                              <span>{post.readTime} min read</span>
+                              <Clock size={14} className="mr-2" />
+                              <span>{post.readTime} min</span>
                             </div>
                             
-                            <Link to={`/blog/${post.slug}`} className="block">
-                              <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 group-hover:text-kranian-600 dark:group-hover:text-kranian-400 transition-colors line-clamp-2">
+                            <Link to={`/blog/${post.slug}`}>
+                              <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-3 group-hover:text-kranian-600 dark:group-hover:text-kranian-400 transition-colors line-clamp-2">
                                 {post.title}
                               </h3>
                             </Link>
                             
-                            <p className="text-gray-600 dark:text-gray-300 mb-6 line-clamp-3 leading-relaxed">
+                            <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3 leading-relaxed">
                               {post.excerpt}
                             </p>
                             
@@ -281,7 +363,7 @@ const Blog: React.FC = () => {
                               <img 
                                 src={post.author.avatar} 
                                 alt={post.author.name} 
-                                className="w-10 h-10 rounded-full mr-3 object-cover"
+                                className="w-8 h-8 rounded-full mr-3 object-cover"
                               />
                               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                                 {post.author.name}
@@ -292,28 +374,28 @@ const Blog: React.FC = () => {
                       ))}
                     </div>
                   )}
-                </>
+                </div>
               )}
             </div>
-
-            {/* Sidebar */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="lg:w-1/3"
-            >
-              <BlogSidebar
-                recentPosts={blogPosts.slice(0, 3)}
-                categories={categories}
-                tags={tagsWithCounts}
-              />
-            </motion.div>
           </div>
-        </div>
 
-        <Footer />
+          {/* Sidebar */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:w-1/3"
+          >
+            <BlogSidebar
+              recentPosts={blogPosts.slice(0, 5)}
+              categories={categories}
+              tags={tagsWithCounts}
+            />
+          </motion.div>
+        </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
