@@ -1,7 +1,8 @@
+
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { getBlogPostBySlug, getRelatedPosts } from '@/data/blogPosts';
-import { Calendar, Clock, Tag, ChevronRight, ChevronLeft, User } from 'lucide-react';
+import { Calendar, Clock, Tag, ChevronRight, ChevronLeft, User, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import BlogPostCard from '@/components/BlogPostCard';
 import CommentSection, { Comment } from '@/components/CommentSection';
@@ -98,30 +99,50 @@ const BlogPost = () => {
       variants={pageVariants}
       className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900"
     >
-      {/* Post Header */}
-      <div className="bg-kranian-100 dark:bg-gray-800 pt-16 pb-14">
+      {/* Modern Header with improved spacing */}
+      <div className="relative pt-24 pb-16 bg-gradient-to-br from-white via-kranian-50 to-kranian-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-800">
+        {/* Back button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-28 left-4 z-10 bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800"
+          onClick={() => navigate(-1)}
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
+
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Breadcrumbs */}
-          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-6">
+          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-8">
             <Link to="/" className="hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">Home</Link>
-            <ChevronRight className="h-4 w-4 mx-1" />
+            <ChevronRight className="h-4 w-4 mx-2" />
             <Link to="/blog" className="hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">Blog</Link>
-            <ChevronRight className="h-4 w-4 mx-1" />
+            <ChevronRight className="h-4 w-4 mx-2" />
             <Link 
               to={`/blog?category=${post.category.toLowerCase().replace(/\s+/g, '-')}`}
               className="hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors"
             >
               {post.category}
             </Link>
-            <ChevronRight className="h-4 w-4 mx-1" />
-            <span className="text-gray-700 dark:text-gray-300 font-medium">{post.title}</span>
           </div>
           
-          <motion.h1 
+          {/* Category Badge */}
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-gray-800 dark:text-gray-100 mb-4 leading-tight"
+            transition={{ delay: 0.1 }}
+            className="mb-6"
+          >
+            <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white px-4 py-2 text-sm">
+              {post.category}
+            </Badge>
+          </motion.div>
+          
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-gray-900 dark:text-gray-100 mb-8 leading-tight"
           >
             {post.title}
           </motion.h1>
@@ -130,37 +151,42 @@ const BlogPost = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400"
+            className="flex flex-wrap items-center gap-6 text-gray-600 dark:text-gray-400"
           >
             <div className="flex items-center">
-              <User size={16} className="mr-1" />
-              <span>{post.author.name}</span>
+              <img 
+                src={post.author.avatar} 
+                alt={post.author.name} 
+                className="w-12 h-12 rounded-full mr-3 object-cover"
+              />
+              <div>
+                <div className="flex items-center text-base font-medium text-gray-800 dark:text-gray-200">
+                  <User size={16} className="mr-2" />
+                  <span>{post.author.name}</span>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center">
-              <Calendar size={16} className="mr-1" />
+            <div className="flex items-center text-base">
+              <Calendar size={18} className="mr-2" />
               <span>{post.date}</span>
             </div>
-            <div className="flex items-center">
-              <Clock size={16} className="mr-1" />
+            <div className="flex items-center text-base">
+              <Clock size={18} className="mr-2" />
               <span>{post.readTime} min read</span>
-            </div>
-            <div className="flex items-center">
-              <Tag size={16} className="mr-1" />
-              <span>{post.category}</span>
             </div>
           </motion.div>
         </div>
       </div>
       
-      {/* Post Content */}
-      <div className="container mx-auto px-4 py-8 flex-grow">
+      {/* Content Container */}
+      <div className="container mx-auto px-4 py-12 flex-grow">
         <div className="max-w-4xl mx-auto">
           {/* Featured Image */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="rounded-lg overflow-hidden mb-8 shadow-lg"
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="rounded-2xl overflow-hidden mb-12 shadow-2xl"
           >
             <img 
               src={post.image} 
@@ -170,9 +196,9 @@ const BlogPost = () => {
           </motion.div>
           
           {/* Social Share Buttons - Top */}
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex justify-between items-center mb-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
             <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
-              <span className="mr-2">Share this article:</span>
+              <span className="mr-4 font-medium">Share this article:</span>
               <SocialShareButtons 
                 title={post.title} 
                 url={window.location.href} 
@@ -180,11 +206,11 @@ const BlogPost = () => {
               />
             </div>
             <div className="flex items-center">
-              <span className="text-sm text-gray-500 dark:text-gray-400 mr-2">Tags:</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400 mr-3 font-medium">Tags:</span>
               <div className="flex flex-wrap gap-2">
                 {post.tags.map(tag => (
                   <Link key={tag} to={`/blog?tag=${tag}`}>
-                    <Badge variant="outline" className="text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 dark:text-gray-300">
+                    <Badge variant="outline" className="text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 dark:text-gray-300 transition-colors">
                       {tag}
                     </Badge>
                   </Link>
@@ -197,35 +223,35 @@ const BlogPost = () => {
           <motion.article 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="prose lg:prose-lg prose-headings:font-serif prose-headings:text-gray-800 dark:prose-headings:text-gray-100 
-                      prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-a:text-kranian-600 dark:prose-a:text-kranian-400 
-                      prose-img:rounded-lg prose-li:text-gray-600 dark:prose-li:text-gray-300 
-                      max-w-none mb-10 bg-white dark:bg-gray-800 p-8 rounded-lg shadow"
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="prose lg:prose-xl prose-headings:font-serif prose-headings:text-gray-800 dark:prose-headings:text-gray-100 
+                      prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-kranian-600 dark:prose-a:text-kranian-400 
+                      prose-img:rounded-xl prose-li:text-gray-700 dark:prose-li:text-gray-300 prose-blockquote:border-kranian-500
+                      max-w-none mb-12 bg-white dark:bg-gray-800 p-10 rounded-2xl shadow-lg"
           >
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
           </motion.article>
           
-          {/* Author Bio - Updated with link to contact page */}
+          {/* Author Bio */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow mb-10"
+            transition={{ delay: 0.6, duration: 0.5 }}
+            className="bg-gradient-to-r from-kranian-50 to-white dark:from-gray-800 dark:to-gray-700 p-8 rounded-2xl shadow-lg mb-12"
           >
             <div className="flex items-center">
               <img 
                 src={post.author.avatar} 
                 alt={post.author.name} 
-                className="w-16 h-16 rounded-full mr-4 object-cover"
+                className="w-20 h-20 rounded-full mr-6 object-cover border-4 border-white shadow-lg"
               />
               <div>
                 <Link to="/contact#team" className="story-link">
-                  <h3 className="font-bold text-lg mb-1 text-gray-800 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400">
+                  <h3 className="font-bold text-2xl mb-2 text-gray-800 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">
                     About {post.author.name}
                   </h3>
                 </Link>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
                   {post.author.name} is a director at Kranian Farms with over 10 years of experience in sustainable agriculture.
                   Their passion for innovative farming methods and environmental conservation drives the company's vision.
                 </p>
@@ -233,38 +259,42 @@ const BlogPost = () => {
             </div>
           </motion.div>
           
-          {/* Social Share Buttons - Bottom */}
-          <div className="flex justify-between items-center border-t border-b border-gray-200 dark:border-gray-700 py-6 mb-10">
-            <div>
-              <h3 className="font-bold text-lg mb-3 text-gray-800 dark:text-gray-100">Share this article</h3>
-              <SocialShareButtons 
-                title={post.title} 
-                url={window.location.href} 
-              />
-            </div>
-            <div className="text-sm text-gray-500 dark:text-gray-400">
-              <span className="block mb-2">Comments: {commentCount}</span>
-              <span>Read time: {post.readTime} min</span>
+          {/* Social Share Section */}
+          <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg mb-12">
+            <div className="flex justify-between items-center">
+              <div>
+                <h3 className="font-bold text-2xl mb-4 text-gray-800 dark:text-gray-100">Share this article</h3>
+                <SocialShareButtons 
+                  title={post.title} 
+                  url={window.location.href} 
+                />
+              </div>
+              <div className="text-right text-gray-500 dark:text-gray-400">
+                <div className="text-lg font-medium mb-2">Comments: {commentCount}</div>
+                <div className="text-base">Read time: {post.readTime} min</div>
+              </div>
             </div>
           </div>
           
           {/* Comments Section */}
-          <CommentSection 
-            postId={post.id} 
-            postSlug={post.slug}
-            comments={initialComments} 
-          />
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden mb-12">
+            <CommentSection 
+              postId={post.id} 
+              postSlug={post.slug}
+              comments={initialComments} 
+            />
+          </div>
           
           {/* Related Posts */}
           {relatedPosts.length > 0 && (
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              className="mt-12"
+              transition={{ delay: 0.7, duration: 0.5 }}
+              className="mt-16"
             >
-              <h2 className="text-2xl font-serif font-bold mb-6 text-gray-800 dark:text-gray-100">Related Articles</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <h2 className="text-3xl font-serif font-bold mb-8 text-gray-800 dark:text-gray-100 text-center">Related Articles</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {relatedPosts.map(relatedPost => (
                   <BlogPostCard key={relatedPost.id} post={relatedPost} />
                 ))}
@@ -272,13 +302,17 @@ const BlogPost = () => {
             </motion.div>
           )}
           
-          {/* Post Navigation - Change button text */}
-          <div className="flex justify-between mt-10 mb-16">
-            <Button variant="outline" onClick={() => navigate('/blog')} className="dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700">
-              <ChevronLeft className="mr-1" /> Back to Blog
+          {/* Navigation */}
+          <div className="flex justify-between items-center mt-16 mb-12 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+            <Button 
+              variant="outline" 
+              onClick={() => navigate('/blog')} 
+              className="dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700 px-6 py-3"
+            >
+              <ChevronLeft className="mr-2" /> Back to Blog
             </Button>
-            <Link to="#comments">
-              <Button className="bg-kranian-600 hover:bg-kranian-700 dark:bg-kranian-500 dark:hover:bg-kranian-600">
+            <Link to="/contact">
+              <Button className="bg-kranian-600 hover:bg-kranian-700 dark:bg-kranian-500 dark:hover:bg-kranian-600 px-6 py-3">
                 Request Quotation
               </Button>
             </Link>

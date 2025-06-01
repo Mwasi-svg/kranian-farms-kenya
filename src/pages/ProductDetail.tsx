@@ -19,6 +19,9 @@ import { Card, CardContent } from '@/components/ui/card';
 const stemLengths = [50, 60, 70, 80, 90, 100];
 const headSizes = ['Small', 'Medium', 'Large'];
 
+// Define flower categories
+const flowerCategories = ['summer-flowers', 'premium-roses', 'spray-roses', 'intermediate-roses'];
+
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -61,7 +64,12 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    addToCart(product, quantity, stemLength, headSize);
+    // Only pass stem length and head size for flower categories
+    if (flowerCategories.includes(product.category)) {
+      addToCart(product, quantity, stemLength, headSize);
+    } else {
+      addToCart(product, quantity);
+    }
   };
 
   const capitalizeFirstLetter = (string: string) => {
@@ -82,6 +90,9 @@ const ProductDetail = () => {
       shuffledRelatedProducts[i],
     ];
   }
+
+  // Check if product is a flower category
+  const isFlowerCategory = flowerCategories.includes(product.category);
 
   return (
     <div className="min-h-screen flex flex-col dark:bg-gray-900">
@@ -137,49 +148,54 @@ const ProductDetail = () => {
                 </div>
               </div>
 
-              {/* Head Size Selector */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Flower Head Size
-                </label>
-                <Select 
-                  value={headSize} 
-                  onValueChange={(value) => setHeadSize(value)}
-                >
-                  <SelectTrigger className="w-full sm:w-40 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200">
-                    <SelectValue placeholder="Select size" />
-                  </SelectTrigger>
-                  <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
-                    {headSizes.map(size => (
-                      <SelectItem key={size} value={size} className="dark:text-gray-200 dark:hover:bg-gray-700">
-                        {size}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+              {/* Only show flower-specific options for flower categories */}
+              {isFlowerCategory && (
+                <>
+                  {/* Head Size Selector */}
+                  <div className="mb-6">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Flower Head Size
+                    </label>
+                    <Select 
+                      value={headSize} 
+                      onValueChange={(value) => setHeadSize(value)}
+                    >
+                      <SelectTrigger className="w-full sm:w-40 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200">
+                        <SelectValue placeholder="Select size" />
+                      </SelectTrigger>
+                      <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
+                        {headSizes.map(size => (
+                          <SelectItem key={size} value={size} className="dark:text-gray-200 dark:hover:bg-gray-700">
+                            {size}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-              {/* Stem Length Selector */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Stem Length
-                </label>
-                <Select 
-                  value={String(stemLength)} 
-                  onValueChange={(value) => setStemLength(parseInt(value))}
-                >
-                  <SelectTrigger className="w-full sm:w-40 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200">
-                    <SelectValue placeholder="Select length" />
-                  </SelectTrigger>
-                  <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
-                    {stemLengths.map(length => (
-                      <SelectItem key={length} value={String(length)} className="dark:text-gray-200 dark:hover:bg-gray-700">
-                        {length} cm
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+                  {/* Stem Length Selector */}
+                  <div className="mb-6">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Stem Length
+                    </label>
+                    <Select 
+                      value={String(stemLength)} 
+                      onValueChange={(value) => setStemLength(parseInt(value))}
+                    >
+                      <SelectTrigger className="w-full sm:w-40 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200">
+                        <SelectValue placeholder="Select length" />
+                      </SelectTrigger>
+                      <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
+                        {stemLengths.map(length => (
+                          <SelectItem key={length} value={String(length)} className="dark:text-gray-200 dark:hover:bg-gray-700">
+                            {length} cm
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </>
+              )}
 
               <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                 {/* Quantity Selector */}
@@ -234,7 +250,7 @@ const ProductDetail = () => {
               <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                 <li>• Local delivery available within 24 hours</li>
                 <li>• International shipping to select countries</li>
-                <li>• All flowers are fresh-cut and arranged the day of delivery</li>
+                {isFlowerCategory && <li>• All flowers are fresh-cut and arranged the day of delivery</li>}
               </ul>
             </div>
           </div>

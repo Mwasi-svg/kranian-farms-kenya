@@ -81,24 +81,33 @@ const Blog: React.FC = () => {
 
         {/* Hero Section with Featured Posts Cards */}
         {!activeFilter && (
-          <section className="relative py-16 bg-gray-50 dark:bg-gray-800">
+          <section className="relative py-20 bg-gradient-to-br from-kranian-50 to-white dark:from-gray-800 dark:to-gray-900">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              <div className="text-center mb-16">
+                <motion.h1 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6"
+                >
                   Latest Stories
-                </h1>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                </motion.h1>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+                >
                   Discover insights, stories, and tips about sustainable farming and agricultural practices
-                </p>
+                </motion.p>
               </div>
 
               {/* Featured Posts Scrolling Animation */}
               <div className="relative overflow-hidden">
                 <motion.div 
-                  className="flex space-x-6"
-                  animate={{ x: [0, -100, 0] }}
+                  className="flex space-x-8"
+                  animate={{ x: [0, -120, 0] }}
                   transition={{ 
-                    duration: 20, 
+                    duration: 25, 
                     repeat: Infinity, 
                     repeatType: "loop",
                     ease: "linear"
@@ -107,34 +116,34 @@ const Blog: React.FC = () => {
                   {[...featuredPosts, ...featuredPosts].map((post, index) => (
                     <motion.div
                       key={`${post.id}-${index}`}
-                      className="flex-shrink-0 w-80 bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
-                      whileHover={{ y: -5 }}
+                      className="flex-shrink-0 w-96 bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                      whileHover={{ y: -8 }}
                     >
                       <Link to={`/blog/${post.slug}`}>
-                        <div className="relative h-48 overflow-hidden">
+                        <div className="relative h-64 overflow-hidden">
                           <img 
                             src={post.image} 
                             alt={post.title} 
                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                           />
-                          <div className="absolute top-4 left-4">
-                            <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white">
+                          <div className="absolute top-6 left-6">
+                            <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white px-3 py-1 text-sm">
                               {post.category}
                             </Badge>
                           </div>
                         </div>
-                        <div className="p-6">
-                          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
-                            <Calendar size={14} className="mr-2" />
+                        <div className="p-8">
+                          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+                            <Calendar size={16} className="mr-2" />
                             <span>{post.date}</span>
-                            <span className="mx-2">•</span>
-                            <Clock size={14} className="mr-2" />
+                            <span className="mx-3">•</span>
+                            <Clock size={16} className="mr-2" />
                             <span>{post.readTime} min read</span>
                           </div>
-                          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 line-clamp-2">
                             {post.title}
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-300 line-clamp-3 text-sm">
+                          <p className="text-gray-600 dark:text-gray-300 line-clamp-3 text-base leading-relaxed">
                             {post.excerpt}
                           </p>
                         </div>
@@ -148,12 +157,12 @@ const Blog: React.FC = () => {
         )}
 
         {/* Main Content */}
-        <div className="container mx-auto px-4 py-12 flex-grow">
+        <div className="container mx-auto px-4 py-16 flex-grow">
           {activeFilter && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-8 text-center"
+              className="mb-12 text-center"
             >
               <h1 className="text-4xl font-bold mb-4 text-gray-800 dark:text-gray-100">{activeFilter}</h1>
               <p className="text-gray-600 dark:text-gray-300">
@@ -162,12 +171,12 @@ const Blog: React.FC = () => {
             </motion.div>
           )}
 
-          <div className="flex flex-col lg:flex-row gap-12">
+          <div className="flex flex-col lg:flex-row gap-16">
             {/* Main Content Grid */}
             <div className="lg:w-2/3">
               {filteredPosts.length === 0 ? (
-                <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-lg shadow">
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">No posts found matching your criteria.</p>
+                <div className="text-center py-20 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                  <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">No posts found matching your criteria.</p>
                   <Link to="/blog" className="text-kranian-600 dark:text-kranian-400 hover:text-kranian-700 dark:hover:text-kranian-300 font-medium">
                     View all blog posts
                   </Link>
@@ -179,42 +188,42 @@ const Blog: React.FC = () => {
                     <motion.article
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="mb-8 bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                      className="mb-12 bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
                     >
                       <Link to={`/blog/${filteredPosts[0].slug}`}>
-                        <div className="relative h-80 overflow-hidden">
+                        <div className="relative h-96 overflow-hidden">
                           <img 
                             src={filteredPosts[0].image} 
                             alt={filteredPosts[0].title} 
                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                           />
-                          <div className="absolute top-6 left-6">
-                            <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white">
+                          <div className="absolute top-8 left-8">
+                            <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white px-4 py-2">
                               {filteredPosts[0].category}
                             </Badge>
                           </div>
                         </div>
-                        <div className="p-8">
-                          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
-                            <Calendar size={16} className="mr-2" />
+                        <div className="p-10">
+                          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-6">
+                            <Calendar size={18} className="mr-2" />
                             <span>{filteredPosts[0].date}</span>
-                            <span className="mx-2">•</span>
-                            <Clock size={16} className="mr-2" />
+                            <span className="mx-3">•</span>
+                            <Clock size={18} className="mr-2" />
                             <span>{filteredPosts[0].readTime} min read</span>
                           </div>
-                          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">
+                          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">
                             {filteredPosts[0].title}
                           </h2>
-                          <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
+                          <p className="text-gray-600 dark:text-gray-300 text-xl leading-relaxed mb-8">
                             {filteredPosts[0].excerpt}
                           </p>
                           <div className="flex items-center">
                             <img 
                               src={filteredPosts[0].author.avatar} 
                               alt={filteredPosts[0].author.name} 
-                              className="w-10 h-10 rounded-full mr-3 object-cover"
+                              className="w-12 h-12 rounded-full mr-4 object-cover"
                             />
-                            <span className="font-medium text-gray-700 dark:text-gray-300">
+                            <span className="font-medium text-gray-700 dark:text-gray-300 text-lg">
                               {filteredPosts[0].author.name}
                             </span>
                           </div>
@@ -225,46 +234,46 @@ const Blog: React.FC = () => {
 
                   {/* Remaining posts - 2 column grid */}
                   {filteredPosts.length > 1 && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                       {filteredPosts.slice(1).map((post, index) => (
                         <motion.article
                           key={post.id}
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: (index + 1) * 0.1 }}
-                          className="group bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                          className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
                         >
                           <Link to={`/blog/${post.slug}`} className="block">
-                            <div className="relative h-48 overflow-hidden">
+                            <div className="relative h-56 overflow-hidden">
                               <img 
                                 src={post.image} 
                                 alt={post.title} 
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                               />
                               <div className="absolute top-4 left-4">
-                                <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white">
+                                <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white px-3 py-1">
                                   {post.category}
                                 </Badge>
                               </div>
                             </div>
                           </Link>
                           
-                          <div className="p-6">
-                            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
-                              <Calendar size={14} className="mr-2" />
+                          <div className="p-8">
+                            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+                              <Calendar size={16} className="mr-2" />
                               <span>{post.date}</span>
                               <span className="mx-2">•</span>
-                              <Clock size={14} className="mr-2" />
+                              <Clock size={16} className="mr-2" />
                               <span>{post.readTime} min read</span>
                             </div>
                             
                             <Link to={`/blog/${post.slug}`} className="block">
-                              <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-3 group-hover:text-kranian-600 dark:group-hover:text-kranian-400 transition-colors line-clamp-2">
+                              <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 group-hover:text-kranian-600 dark:group-hover:text-kranian-400 transition-colors line-clamp-2">
                                 {post.title}
                               </h3>
                             </Link>
                             
-                            <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                            <p className="text-gray-600 dark:text-gray-300 mb-6 line-clamp-3 leading-relaxed">
                               {post.excerpt}
                             </p>
                             
@@ -272,7 +281,7 @@ const Blog: React.FC = () => {
                               <img 
                                 src={post.author.avatar} 
                                 alt={post.author.name} 
-                                className="w-8 h-8 rounded-full mr-3 object-cover"
+                                className="w-10 h-10 rounded-full mr-3 object-cover"
                               />
                               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                                 {post.author.name}
