@@ -9,7 +9,93 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      contact_us_table: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: number
+          message: string | null
+          name: string | null
+          phone: number | null
+          subject: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: number
+          message?: string | null
+          name?: string | null
+          phone?: number | null
+          subject?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: number
+          message?: string | null
+          name?: string | null
+          phone?: number | null
+          subject?: string | null
+        }
+        Relationships: []
+      }
+      newsletter_table: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: number
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: number
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: number
+        }
+        Relationships: []
+      }
+      quotation_table: {
+        Row: {
+          additional_info: string | null
+          email: string | null
+          id: number
+          location: string | null
+          name: string | null
+          phone_number: number | null
+          product: string | null
+          quantity: number | null
+          received_at: string
+          socials: string | null
+        }
+        Insert: {
+          additional_info?: string | null
+          email?: string | null
+          id?: number
+          location?: string | null
+          name?: string | null
+          phone_number?: number | null
+          product?: string | null
+          quantity?: number | null
+          received_at?: string
+          socials?: string | null
+        }
+        Update: {
+          additional_info?: string | null
+          email?: string | null
+          id?: number
+          location?: string | null
+          name?: string | null
+          phone_number?: number | null
+          product?: string | null
+          quantity?: number | null
+          received_at?: string
+          socials?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
