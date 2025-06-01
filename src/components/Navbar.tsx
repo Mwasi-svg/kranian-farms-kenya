@@ -66,6 +66,8 @@ const Navbar = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,10 +87,37 @@ const Navbar = () => {
     navigate(`/product/${productId}`);
     setSearchQuery('');
     setSearchResults([]);
+    setIsSearchVisible(false);
   };
+
+  // Handle search container hover
+  useEffect(() => {
+    const handleMouseEnter = () => setIsSearchVisible(true);
+    const handleMouseLeave = () => {
+      // Add delay to prevent immediate hiding when moving to results
+      setTimeout(() => {
+        if (searchContainerRef.current && !searchContainerRef.current.matches(':hover')) {
+          setIsSearchVisible(false);
+        }
+      }, 100);
+    };
+
+    const searchContainer = searchContainerRef.current;
+    if (searchContainer) {
+      searchContainer.addEventListener('mouseenter', handleMouseEnter);
+      searchContainer.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    return () => {
+      if (searchContainer) {
+        searchContainer.removeEventListener('mouseenter', handleMouseEnter);
+        searchContainer.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, []);
   
   return (
-    <nav className="bg-white bg-opacity-95 dark:bg-gray-900 dark:bg-opacity-95 shadow-sm sticky top-0 z-50 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+    <nav className="bg-white bg-opacity-95 dark:bg-gray-900 dark:bg-opacity-95 shadow-sm fixed top-0 w-full z-50 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
       <div className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
@@ -142,36 +171,40 @@ const Navbar = () => {
 
           {/* Search and Controls */}
           <div className="hidden md:flex items-center space-x-4">
-            {/* Search Icon and Search Bar Container */}
-            <div className="relative group">
-              {/* Search Icon */}
-              <Search className="h-5 w-5 text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors cursor-pointer group-hover:hidden" />
+            {/* Search Container */}
+            <div className="relative" ref={searchContainerRef}>
+              {/* Search Icon (visible when search is not active) */}
+              {!isSearchVisible && (
+                <Search className="h-5 w-5 text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors cursor-pointer" />
+              )}
               
-              {/* Search Bar and Results (hidden initially, visible on hover) */}
-              <div className="relative hidden group-hover:block">
-                <input
-                  style={{ minWidth: '200px' }}
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                  className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-kranian-500 text-sm w-64 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100"
-                />
-                {searchResults.length > 0 && (
-                  <ul className="absolute left-0 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-20">
-                    {searchResults.map(product => (
-                      <li key={product.id}>
-                        <Link
-                          to={`/product/${product.id}`}
-                          onClick={() => handleSearchResultClick(product.id)}
-                          className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">
-                          {product.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+              {/* Search Bar and Results */}
+              {isSearchVisible && (
+                <div className="relative">
+                  <input
+                    style={{ minWidth: '200px' }}
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-kranian-500 text-sm w-64 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100"
+                  />
+                  {searchResults.length > 0 && (
+                    <ul className="absolute left-0 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-20">
+                      {searchResults.map(product => (
+                        <li key={product.id}>
+                          <Link
+                            to={`/product/${product.id}`}
+                            onClick={() => handleSearchResultClick(product.id)}
+                            className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">
+                            {product.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
             </div>
 
             <ThemeToggle />

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import { blogPosts, BlogPost } from '@/data/blogPosts';
-import { ArrowLeft, ChevronLeft, ChevronRight, Calendar, Clock } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import BlogSidebar from '@/components/BlogSidebar';
 import Footer from '@/components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -15,13 +15,11 @@ const Blog: React.FC = () => {
   const tagParam = searchParams.get('tag');
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
   const [activeFilter, setActiveFilter] = useState<string>('');
-  const [currentSlide, setCurrentSlide] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
-  const autoSlideRef = useRef<NodeJS.Timeout>();
 
-  // Get featured posts (first 5 posts)
-  const featuredPosts = blogPosts.slice(0, 5);
+  // Get featured posts (first 3 posts for hero cards)
+  const featuredPosts = blogPosts.slice(0, 3);
 
   useEffect(() => {
     if (categoryParam) {
@@ -35,7 +33,7 @@ const Blog: React.FC = () => {
         blogPosts.filter((post) => post.tags.some((tag) => tag.toLowerCase() === tagParam))
       );
     } else {
-      setFilteredPosts(blogPosts.slice(5)); // Skip featured posts in main grid
+      setFilteredPosts(blogPosts.slice(3)); // Skip featured posts in main grid
     }
 
     setActiveFilter(
@@ -45,29 +43,6 @@ const Blog: React.FC = () => {
 
     window.scrollTo(0, 0);
   }, [categoryParam, tagParam, location.search]);
-
-  // Auto-slide functionality
-  useEffect(() => {
-    if (!activeFilter) {
-      autoSlideRef.current = setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % featuredPosts.length);
-      }, 5000);
-    }
-
-    return () => {
-      if (autoSlideRef.current) {
-        clearInterval(autoSlideRef.current);
-      }
-    };
-  }, [featuredPosts.length, activeFilter]);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % featuredPosts.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + featuredPosts.length) % featuredPosts.length);
-  };
 
   const categories = React.useMemo(() => {
     return Array.from(
@@ -90,213 +65,246 @@ const Blog: React.FC = () => {
   }, [allTags]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
-      {location.pathname !== '/' && (
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute top-20 left-4 z-10 bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800"
-          onClick={() => navigate(-1)}
-        >
-          <ArrowLeft className="h-5 w-5" />
-        </Button>
-      )}
+    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
+      {/* Add top padding to account for fixed navbar */}
+      <div className="pt-20">
+        {location.pathname !== '/' && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute top-24 left-4 z-10 bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800"
+            onClick={() => navigate(-1)}
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+        )}
 
-      {/* Hero Section with Featured Posts Carousel */}
-      {!activeFilter && (
-        <section className="relative h-[70vh] overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
-              className="absolute inset-0"
-            >
-              <div 
-                className="w-full h-full bg-cover bg-center relative"
-                style={{ backgroundImage: `url(${featuredPosts[currentSlide]?.image})` }}
-              >
-                <div className="absolute inset-0 bg-black bg-opacity-40" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="container mx-auto px-4 text-center text-white">
+        {/* Hero Section with Featured Posts Cards */}
+        {!activeFilter && (
+          <section className="relative py-16 bg-gray-50 dark:bg-gray-800">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-12">
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                  Latest Stories
+                </h1>
+                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                  Discover insights, stories, and tips about sustainable farming and agricultural practices
+                </p>
+              </div>
+
+              {/* Featured Posts Scrolling Animation */}
+              <div className="relative overflow-hidden">
+                <motion.div 
+                  className="flex space-x-6"
+                  animate={{ x: [0, -100, 0] }}
+                  transition={{ 
+                    duration: 20, 
+                    repeat: Infinity, 
+                    repeatType: "loop",
+                    ease: "linear"
+                  }}
+                >
+                  {[...featuredPosts, ...featuredPosts].map((post, index) => (
                     <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.3, duration: 0.8 }}
+                      key={`${post.id}-${index}`}
+                      className="flex-shrink-0 w-80 bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                      whileHover={{ y: -5 }}
                     >
-                      <Badge className="mb-4 bg-kranian-600 hover:bg-kranian-700 text-white">
-                        {featuredPosts[currentSlide]?.category}
-                      </Badge>
-                      <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-                        {featuredPosts[currentSlide]?.title}
-                      </h1>
-                      <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
-                        {featuredPosts[currentSlide]?.excerpt}
-                      </p>
-                      <div className="flex items-center justify-center gap-6 text-sm mb-8">
-                        <div className="flex items-center">
-                          <Calendar size={16} className="mr-2" />
-                          {featuredPosts[currentSlide]?.date}
+                      <Link to={`/blog/${post.slug}`}>
+                        <div className="relative h-48 overflow-hidden">
+                          <img 
+                            src={post.image} 
+                            alt={post.title} 
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute top-4 left-4">
+                            <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white">
+                              {post.category}
+                            </Badge>
+                          </div>
                         </div>
-                        <div className="flex items-center">
-                          <Clock size={16} className="mr-2" />
-                          {featuredPosts[currentSlide]?.readTime} min read
+                        <div className="p-6">
+                          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+                            <Calendar size={14} className="mr-2" />
+                            <span>{post.date}</span>
+                            <span className="mx-2">•</span>
+                            <Clock size={14} className="mr-2" />
+                            <span>{post.readTime} min read</span>
+                          </div>
+                          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                            {post.title}
+                          </h3>
+                          <p className="text-gray-600 dark:text-gray-300 line-clamp-3 text-sm">
+                            {post.excerpt}
+                          </p>
                         </div>
-                      </div>
-                      <Link
-                        to={`/blog/${featuredPosts[currentSlide]?.slug}`}
-                        className="inline-block bg-white text-gray-900 px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors"
-                      >
-                        Read More
                       </Link>
                     </motion.div>
-                  </div>
-                </div>
+                  ))}
+                </motion.div>
               </div>
+            </div>
+          </section>
+        )}
+
+        {/* Main Content */}
+        <div className="container mx-auto px-4 py-12 flex-grow">
+          {activeFilter && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-8 text-center"
+            >
+              <h1 className="text-4xl font-bold mb-4 text-gray-800 dark:text-gray-100">{activeFilter}</h1>
+              <p className="text-gray-600 dark:text-gray-300">
+                Showing {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''}
+              </p>
             </motion.div>
-          </AnimatePresence>
+          )}
 
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all"
-          >
-            <ChevronRight size={24} />
-          </button>
-
-          {/* Slide Indicators */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            {featuredPosts.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all ${
-                  index === currentSlide ? 'bg-white' : 'bg-white/50'
-                }`}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-12 flex-grow">
-        {activeFilter && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-8 text-center"
-          >
-            <h1 className="text-4xl font-bold mb-4 text-gray-800 dark:text-gray-100">{activeFilter}</h1>
-            <p className="text-gray-600 dark:text-gray-300">
-              Showing {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''}
-            </p>
-          </motion.div>
-        )}
-
-        {!activeFilter && (
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">Latest Stories</h2>
-            <p className="text-gray-600 dark:text-gray-300">
-              Discover insights, stories, and tips about sustainable farming and agricultural practices
-            </p>
-          </div>
-        )}
-
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* Main Content Grid */}
-          <div className="lg:w-2/3">
-            {filteredPosts.length === 0 ? (
-              <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-lg shadow">
-                <p className="text-gray-600 dark:text-gray-300 mb-4">No posts found matching your criteria.</p>
-                <Link to="/blog" className="text-kranian-600 dark:text-kranian-400 hover:text-kranian-700 dark:hover:text-kranian-300 font-medium">
-                  View all blog posts
-                </Link>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {filteredPosts.map((post, index) => (
-                  <motion.article
-                    key={post.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="group bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
-                  >
-                    <Link to={`/blog/${post.slug}`} className="block">
-                      <div className="relative pb-[60%] overflow-hidden">
-                        <img 
-                          src={post.image} 
-                          alt={post.title} 
-                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute top-4 left-4">
-                          <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white">
-                            {post.category}
-                          </Badge>
+          <div className="flex flex-col lg:flex-row gap-12">
+            {/* Main Content Grid */}
+            <div className="lg:w-2/3">
+              {filteredPosts.length === 0 ? (
+                <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-lg shadow">
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">No posts found matching your criteria.</p>
+                  <Link to="/blog" className="text-kranian-600 dark:text-kranian-400 hover:text-kranian-700 dark:hover:text-kranian-300 font-medium">
+                    View all blog posts
+                  </Link>
+                </div>
+              ) : (
+                <>
+                  {/* First post - Large featured */}
+                  {filteredPosts.length > 0 && (
+                    <motion.article
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mb-8 bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                    >
+                      <Link to={`/blog/${filteredPosts[0].slug}`}>
+                        <div className="relative h-80 overflow-hidden">
+                          <img 
+                            src={filteredPosts[0].image} 
+                            alt={filteredPosts[0].title} 
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute top-6 left-6">
+                            <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white">
+                              {filteredPosts[0].category}
+                            </Badge>
+                          </div>
                         </div>
-                      </div>
-                    </Link>
-                    
-                    <div className="p-6">
-                      <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
-                        <span className="text-gray-600 dark:text-gray-400">{post.date}</span>
-                        <span className="mx-2">•</span>
-                        <span>{post.readTime} min read</span>
-                      </div>
-                      
-                      <Link to={`/blog/${post.slug}`} className="block">
-                        <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-3 group-hover:text-kranian-600 dark:group-hover:text-kranian-400 transition-colors line-clamp-2">
-                          {post.title}
-                        </h3>
+                        <div className="p-8">
+                          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+                            <Calendar size={16} className="mr-2" />
+                            <span>{filteredPosts[0].date}</span>
+                            <span className="mx-2">•</span>
+                            <Clock size={16} className="mr-2" />
+                            <span>{filteredPosts[0].readTime} min read</span>
+                          </div>
+                          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors">
+                            {filteredPosts[0].title}
+                          </h2>
+                          <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
+                            {filteredPosts[0].excerpt}
+                          </p>
+                          <div className="flex items-center">
+                            <img 
+                              src={filteredPosts[0].author.avatar} 
+                              alt={filteredPosts[0].author.name} 
+                              className="w-10 h-10 rounded-full mr-3 object-cover"
+                            />
+                            <span className="font-medium text-gray-700 dark:text-gray-300">
+                              {filteredPosts[0].author.name}
+                            </span>
+                          </div>
+                        </div>
                       </Link>
-                      
-                      <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                        {post.excerpt}
-                      </p>
-                      
-                      <div className="flex items-center">
-                        <img 
-                          src={post.author.avatar} 
-                          alt={post.author.name} 
-                          className="w-8 h-8 rounded-full mr-3 object-cover"
-                        />
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                          {post.author.name}
-                        </span>
-                      </div>
+                    </motion.article>
+                  )}
+
+                  {/* Remaining posts - 2 column grid */}
+                  {filteredPosts.length > 1 && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      {filteredPosts.slice(1).map((post, index) => (
+                        <motion.article
+                          key={post.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: (index + 1) * 0.1 }}
+                          className="group bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                        >
+                          <Link to={`/blog/${post.slug}`} className="block">
+                            <div className="relative h-48 overflow-hidden">
+                              <img 
+                                src={post.image} 
+                                alt={post.title} 
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                              />
+                              <div className="absolute top-4 left-4">
+                                <Badge className="bg-kranian-600 hover:bg-kranian-700 text-white">
+                                  {post.category}
+                                </Badge>
+                              </div>
+                            </div>
+                          </Link>
+                          
+                          <div className="p-6">
+                            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+                              <Calendar size={14} className="mr-2" />
+                              <span>{post.date}</span>
+                              <span className="mx-2">•</span>
+                              <Clock size={14} className="mr-2" />
+                              <span>{post.readTime} min read</span>
+                            </div>
+                            
+                            <Link to={`/blog/${post.slug}`} className="block">
+                              <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-3 group-hover:text-kranian-600 dark:group-hover:text-kranian-400 transition-colors line-clamp-2">
+                                {post.title}
+                              </h3>
+                            </Link>
+                            
+                            <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                              {post.excerpt}
+                            </p>
+                            
+                            <div className="flex items-center">
+                              <img 
+                                src={post.author.avatar} 
+                                alt={post.author.name} 
+                                className="w-8 h-8 rounded-full mr-3 object-cover"
+                              />
+                              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {post.author.name}
+                              </span>
+                            </div>
+                          </div>
+                        </motion.article>
+                      ))}
                     </div>
-                  </motion.article>
-                ))}
-              </div>
-            )}
+                  )}
+                </>
+              )}
+            </div>
+
+            {/* Sidebar */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="lg:w-1/3"
+            >
+              <BlogSidebar
+                recentPosts={blogPosts.slice(0, 3)}
+                categories={categories}
+                tags={tagsWithCounts}
+              />
+            </motion.div>
           </div>
-
-          {/* Sidebar */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:w-1/3"
-          >
-            <BlogSidebar
-              recentPosts={blogPosts.slice(0, 3)}
-              categories={categories}
-              tags={tagsWithCounts}
-            />
-          </motion.div>
         </div>
-      </div>
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 };

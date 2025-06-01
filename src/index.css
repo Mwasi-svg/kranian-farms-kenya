@@ -89,6 +89,11 @@
   .kranian-gradient {
     background: linear-gradient(135deg, hsl(var(--kranian-600)) 0%, hsl(var(--kranian-800)) 100%);
   }
+  
+  /* Ensure body has proper padding for fixed navbar */
+  body {
+    padding-top: 0;
+  }
 }
 
 @layer utilities {
