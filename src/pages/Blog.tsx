@@ -2,13 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import { blogPosts, BlogPost } from '@/data/blogPosts';
-import { ArrowLeft, Calendar, Clock, Search, TrendingUp, Star } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, TrendingUp, Star } from 'lucide-react';
 import BlogSidebar from '@/components/BlogSidebar';
 import Footer from '@/components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
 
 const Blog: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -16,7 +15,7 @@ const Blog: React.FC = () => {
   const tagParam = searchParams.get('tag');
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
   const [activeFilter, setActiveFilter] = useState<string>('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [currentHeadlineIndex, setCurrentHeadlineIndex] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -24,16 +23,24 @@ const Blog: React.FC = () => {
   const featuredPosts = blogPosts.slice(0, 4);
   const trendingPosts = blogPosts.slice(0, 6);
 
+  // Animated headlines
+  const headlines = [
+    "Stories & Insights from the Farm",
+    "Discover Sustainable Agriculture",
+    "From Seed to Harvest Tales",
+    "Innovation in Modern Farming"
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentHeadlineIndex((prev) => (prev + 1) % headlines.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [headlines.length]);
+
   useEffect(() => {
     let posts = blogPosts;
-    
-    if (searchQuery) {
-      posts = posts.filter(post => 
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.category.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
     
     if (categoryParam) {
       posts = posts.filter(
@@ -46,12 +53,11 @@ const Blog: React.FC = () => {
     setFilteredPosts(posts);
     setActiveFilter(
       categoryParam ? `Category: ${categoryParam}` :
-      tagParam ? `Tag: ${tagParam}` : 
-      searchQuery ? `Search: "${searchQuery}"` : ''
+      tagParam ? `Tag: ${tagParam}` : ''
     );
 
     window.scrollTo(0, 0);
-  }, [categoryParam, tagParam, searchQuery, location.search]);
+  }, [categoryParam, tagParam, location.search]);
 
   const categories = React.useMemo(() => {
     return Array.from(
@@ -80,12 +86,24 @@ const Blog: React.FC = () => {
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
+            {/* Animated Headline */}
             <motion.h1 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-5xl md:text-7xl font-serif font-bold mb-6"
+              className="text-5xl md:text-7xl font-serif font-bold mb-6 h-20 flex items-center justify-center"
             >
-              Stories & Insights
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={currentHeadlineIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="block"
+                >
+                  {headlines[currentHeadlineIndex]}
+                </motion.span>
+              </AnimatePresence>
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -95,25 +113,6 @@ const Blog: React.FC = () => {
             >
               Discover the latest trends in sustainable agriculture and farming innovation
             </motion.p>
-            
-            {/* Search Bar */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="max-w-2xl mx-auto relative"
-            >
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                <Input
-                  type="text"
-                  placeholder="Search articles, topics, or categories..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 pr-4 py-4 text-lg bg-white/95 backdrop-blur-sm border-0 rounded-xl shadow-lg focus:ring-2 focus:ring-white/30"
-                />
-              </div>
-            </motion.div>
           </div>
 
           {/* Featured Posts Scrolling Animation */}
@@ -252,7 +251,7 @@ const Blog: React.FC = () => {
                 <div className="text-center py-20 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
                   <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">No posts found matching your criteria.</p>
                   <Button asChild variant="outline">
-                    <Link to="/blog" onClick={() => setSearchQuery('')}>
+                    <Link to="/blog">
                       View all blog posts
                     </Link>
                   </Button>

@@ -90,6 +90,94 @@
   .kranian-gradient {
     background: linear-gradient(135deg, hsl(var(--kranian-600)) 0%, hsl(var(--kranian-800)) 100%);
   }
+
+  /* Enhanced Typography for Blog Articles */
+  .enhanced-content {
+    @apply text-gray-800 dark:text-gray-200 leading-relaxed;
+    font-size: 1.125rem;
+    line-height: 1.8;
+    text-align: justify;
+  }
+
+  .enhanced-content p {
+    @apply mb-6 leading-relaxed;
+    text-indent: 1.5rem;
+  }
+
+  .enhanced-content p.drop-cap {
+    text-indent: 0;
+  }
+
+  .enhanced-content p.drop-cap::first-letter {
+    @apply float-left text-6xl font-serif font-bold text-kranian-600 dark:text-kranian-400 leading-none mr-2 mt-1;
+    line-height: 0.8;
+  }
+
+  .enhanced-content h1,
+  .enhanced-content h2,
+  .enhanced-content h3,
+  .enhanced-content h4,
+  .enhanced-content h5,
+  .enhanced-content h6 {
+    @apply font-serif font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4 leading-tight;
+  }
+
+  .enhanced-content h1 {
+    @apply text-4xl;
+  }
+
+  .enhanced-content h2 {
+    @apply text-3xl;
+  }
+
+  .enhanced-content h3 {
+    @apply text-2xl;
+  }
+
+  .enhanced-content h4 {
+    @apply text-xl;
+  }
+
+  .enhanced-content strong {
+    @apply font-bold text-gray-900 dark:text-gray-100;
+  }
+
+  .enhanced-content em {
+    @apply italic text-gray-800 dark:text-gray-200;
+  }
+
+  .enhanced-content u {
+    @apply underline decoration-kranian-600 decoration-2 underline-offset-2;
+  }
+
+  .enhanced-content blockquote {
+    @apply border-l-4 border-kranian-500 pl-6 ml-4 my-6 italic text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 py-4 rounded-r-lg;
+  }
+
+  .enhanced-content ul,
+  .enhanced-content ol {
+    @apply my-6 pl-6;
+  }
+
+  .enhanced-content li {
+    @apply mb-2 leading-relaxed;
+  }
+
+  .enhanced-content a {
+    @apply text-kranian-600 dark:text-kranian-400 hover:text-kranian-700 dark:hover:text-kranian-300 underline decoration-2 underline-offset-2 transition-colors;
+  }
+
+  .enhanced-content code {
+    @apply bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm font-mono;
+  }
+
+  .enhanced-content pre {
+    @apply bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto my-6;
+  }
+
+  .enhanced-content img {
+    @apply rounded-lg shadow-lg my-8;
+  }
 }
 
 @layer utilities {
@@ -122,5 +210,17 @@
     overflow: visible !important;
     text-overflow: unset !important;
     white-space: normal !important;
+  }
+
+  /* Ensure proper text visibility */
+  .card-text,
+  .product-title,
+  .product-name {
+    overflow: visible !important;
+    text-overflow: unset !important;
+    white-space: normal !important;
+    word-wrap: break-word;
+    line-height: 1.4;
+    padding-bottom: 0.5rem;
   }
 }

@@ -92,6 +92,17 @@ const BlogPost = () => {
     }
   };
 
+  // Enhanced content with better formatting
+  const enhancedContent = post.content
+    .replace(/^([A-Z][^.!?]*[.!?])/gm, '<p class="drop-cap">$1</p>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-gray-900 dark:text-gray-100">$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em class="italic text-gray-800 dark:text-gray-200">$1</em>')
+    .replace(/_(.*?)_/g, '<u class="underline decoration-kranian-600 decoration-2 underline-offset-2">$1</u>')
+    .replace(/#{1,6}\s*(.*)/g, (match, p1) => {
+      const level = match.indexOf(' ');
+      return `<h${level} class="text-${4-level}xl font-serif font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4 leading-tight">${p1}</h${level}>`;
+    });
+
   return (
     <motion.div 
       initial="initial"
@@ -99,7 +110,7 @@ const BlogPost = () => {
       variants={pageVariants}
       className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900"
     >
-      {/* Modern Header with improved spacing */}
+      {/* Header */}
       <div className="relative pt-24 pb-16 bg-gradient-to-br from-white via-kranian-50 to-kranian-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-800">
         {/* Back button */}
         <Button
@@ -219,17 +230,19 @@ const BlogPost = () => {
             </div>
           </div>
           
-          {/* Article Content */}
+          {/* Enhanced Article Content */}
           <motion.article 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="prose lg:prose-xl prose-headings:font-serif prose-headings:text-gray-800 dark:prose-headings:text-gray-100 
-                      prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-kranian-600 dark:prose-a:text-kranian-400 
-                      prose-img:rounded-xl prose-li:text-gray-700 dark:prose-li:text-gray-300 prose-blockquote:border-kranian-500
-                      max-w-none mb-12 bg-white dark:bg-gray-800 p-10 rounded-2xl shadow-lg"
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden mb-12"
           >
-            <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            <div className="p-10 lg:p-16">
+              <div 
+                className="enhanced-content prose prose-lg lg:prose-xl max-w-none"
+                dangerouslySetInnerHTML={{ __html: enhancedContent }} 
+              />
+            </div>
           </motion.article>
           
           {/* Author Bio */}
