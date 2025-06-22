@@ -278,6 +278,48 @@ export function searchBlogPosts(query: string): BlogPost[] {
   );
 }
 
+export function getRelatedPosts(currentPostId: number, limit: number = 3): BlogPost[] {
+  const currentPost = blogPosts.find(post => post.id === currentPostId);
+  if (!currentPost) return [];
+
+  // Find posts with similar tags or same category
+  const relatedPosts = blogPosts
+    .filter(post => post.id !== currentPostId)
+    .map(post => {
+      let score = 0;
+      
+      // Same category gets higher score
+      if (post.category === currentPost.category) {
+        score += 3;
+      }
+      
+      // Shared tags get points
+      const sharedTags = post.tags.filter(tag => 
+        currentPost.tags.includes(tag)
+      );
+      score += sharedTags.length;
+      
+      return { post, score };
+    })
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(item => item.post);
+
+  // If we don't have enough related posts, fill with recent posts
+  if (relatedPosts.length < limit) {
+    const recentPosts = getRecentBlogPosts(limit)
+      .filter(post => 
+        post.id !== currentPostId && 
+        !relatedPosts.some(rp => rp.id === post.id)
+      );
+    
+    relatedPosts.push(...recentPosts.slice(0, limit - relatedPosts.length));
+  }
+
+  return relatedPosts;
+}
+
 export function getAllCategories(): { name: string; count: number }[] {
   const categories = blogPosts.reduce((acc, post) => {
     acc[post.category] = (acc[post.category] || 0) + 1;
