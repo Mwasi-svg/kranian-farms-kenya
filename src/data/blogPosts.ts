@@ -1,270 +1,301 @@
-export type BlogPost = {
+export interface BlogPost {
   id: number;
   title: string;
   slug: string;
   excerpt: string;
   content: string;
   image: string;
+  date: string;
+  readTime: string;
+  category: string;
+  tags: string[];
   author: {
     name: string;
     avatar: string;
   };
-  date: string;
-  readTime: number;
-  tags: string[];
-  category: string;
 }
 
 export const blogPosts: BlogPost[] = [
   {
     id: 1,
-    title: "Sustainable Farming Practices That Make a Difference",
-    slug: "sustainable-farming-practices",
-    excerpt: "Discover how Kranian Farms is leading the way in sustainable farming, with innovative methods that protect the environment while producing premium crops.",
+    title: "Sustainable Farming: The Future of Agriculture",
+    slug: "sustainable-farming-future-agriculture",
+    excerpt: "Discover how sustainable farming practices are revolutionizing agriculture and creating a better future for our planet.",
     content: `
-      <p>At Kranian Farms, sustainability isn't just a buzzword—it's at the core of everything we do. From our water conservation efforts to our organic pest management solutions, we're committed to farming methods that protect and nurture the environment.</p>
+      <p>Sustainable farming is more than just a trend—it's a necessity for our planet's future. At Kranian Farms, we've embraced practices that not only yield exceptional produce but also protect and nurture our environment.</p>
       
-      <h2>Water Conservation</h2>
-      <p>Water is one of our most precious resources, especially in agriculture. Our drip irrigation systems reduce water usage by up to 60% compared to traditional methods, delivering water directly to plant roots where it's needed most. We've also implemented rainwater harvesting systems across our facilities, collecting and storing rainwater for use during drier periods.</p>
+      <h2>What is Sustainable Farming?</h2>
+      <p>Sustainable farming involves using methods that protect the environment, public health, human communities, and animal welfare. It's about finding the balance between growing food and preserving the earth for future generations.</p>
       
-      <h2>Organic Pest Management</h2>
-      <p>Chemical pesticides can harm beneficial insects, contaminate soil and water, and leave residues on produce. That's why we've developed an integrated pest management system that uses natural predators, companion planting, and other organic methods to keep pests at bay without resorting to harmful chemicals.</p>
+      <h2>Our Sustainable Practices</h2>
+      <ul>
+        <li><strong>Crop Rotation:</strong> We rotate crops to maintain soil health and reduce pest buildup naturally.</li>
+        <li><strong>Water Conservation:</strong> Our drip irrigation systems minimize water waste while ensuring crops receive adequate hydration.</li>
+        <li><strong>Organic Pest Control:</strong> We use beneficial insects and organic methods to control pests without harmful chemicals.</li>
+        <li><strong>Composting:</strong> Our composting program turns organic waste into nutrient-rich soil amendments.</li>
+      </ul>
       
-      <h2>Soil Health Initiatives</h2>
-      <p>Healthy soil is the foundation of successful farming. Our composting program converts plant waste into nutrient-rich material that enhances soil structure and fertility. We practice crop rotation to prevent soil depletion and reduce disease pressure, ensuring our land remains productive for generations to come.</p>
+      <h2>The Benefits</h2>
+      <p>Sustainable farming doesn't just benefit the environment—it produces healthier, more nutritious food. Our customers consistently tell us they can taste the difference in our organically grown fruits and vegetables.</p>
       
-      <h2>Looking to the Future</h2>
-      <p>As we continue to grow, we're constantly researching and implementing new sustainable practices. From solar-powered facilities to biodegradable packaging, we're committed to reducing our environmental footprint while delivering the exceptional produce our customers expect.</p>
-      
-      <p>By choosing Kranian Farms products, you're not just getting the freshest, highest-quality produce—you're supporting a business that puts the planet first. And that's a choice we can all feel good about.</p>
+      <p>By choosing sustainable produce, you're not just making a healthy choice for your family—you're supporting a farming system that will continue to provide for generations to come.</p>
     `,
-    image: "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad",
+    image: "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    date: "March 15, 2024",
+    readTime: "5 min read",
+    category: "Sustainability",
+    tags: ["Sustainability", "Organic", "Environment", "Future"],
     author: {
       name: "Rachel Muturi",
-      avatar: "/public/rachel.png",
-      bio: "Director at Kranian Farms with years of experience in sustainable agriculture."
-    },
-    date: "May 2, 2023",
-    readTime: 6,
-    tags: ["sustainability", "organic farming", "environment"],
-    category: "Farming Practices"
+      avatar: "/rachel.png"
+    }
   },
   {
     id: 2,
-    title: "The Journey of Our Roses: From Seed to Bouquet",
-    slug: "roses-seed-to-bouquet",
-    excerpt: "Follow the fascinating journey of our premium roses, from careful seed selection to the moment they arrive at your doorstep.",
+    title: "From Farm to Table: Our Quality Promise",
+    slug: "farm-to-table-quality-promise",
+    excerpt: "Learn about our commitment to delivering the freshest produce directly from our farms to your table.",
     content: `
-      <p>Have you ever wondered about the journey a rose takes before it becomes part of a beautiful bouquet in your home? At Kranian Farms, each rose has a story that begins long before it blooms.</p>
+      <p>At Kranian Farms, the journey from farm to table is more than just logistics—it's a promise of quality, freshness, and care in every step of the process.</p>
       
-      <h2>Selection and Breeding</h2>
-      <p>Our journey begins with careful selection of rose varieties known for their beauty, fragrance, and longevity. Our horticulturists work year-round to breed roses that not only look stunning but can withstand the challenges of shipping while maintaining their freshness.</p>
+      <h2>Our Quality Standards</h2>
+      <p>We maintain the highest standards from seed to harvest:</p>
       
-      <h2>Nurturing Growth</h2>
-      <p>Once planted, our roses receive the perfect balance of sunlight, water, and nutrients. Our greenhouse environment is carefully monitored to maintain ideal growing conditions, with temperatures adjusted to encourage robust growth and vibrant colors.</p>
+      <ul>
+        <li><strong>Premium Seeds:</strong> We source only the finest seeds from trusted suppliers.</li>
+        <li><strong>Optimal Growing Conditions:</strong> Our farmers monitor soil, water, and weather conditions daily.</li>
+        <li><strong>Harvest at Peak Ripeness:</strong> We pick our produce at the perfect moment for maximum flavor and nutrition.</li>
+        <li><strong>Immediate Processing:</strong> Fresh produce is processed and packaged within hours of harvest.</li>
+      </ul>
       
-      <h2>Harvesting at Peak Perfection</h2>
-      <p>Timing is everything when it comes to harvesting roses. Our experienced team knows exactly when each variety should be cut to ensure it reaches you at the perfect stage of bloom. Roses are harvested in the early morning when they're most hydrated and placed immediately in temperature-controlled water to preserve freshness.</p>
+      <h2>Cold Chain Management</h2>
+      <p>Maintaining the cold chain is crucial for preserving freshness. Our state-of-the-art refrigeration systems ensure your produce arrives as fresh as the moment it was harvested.</p>
       
-      <h2>The Cold Chain</h2>
-      <p>After harvesting, our roses enter what we call "the cold chain"—a continuous system of refrigeration that maintains the perfect temperature from our farm to your doorstep. This crucial step dramatically extends the life of each bloom, ensuring they arrive looking just as beautiful as when they were cut.</p>
+      <h2>Direct Relationships</h2>
+      <p>By working directly with our customers, we eliminate unnecessary middlemen and ensure you receive the freshest produce at the best prices. This direct relationship also allows us to respond quickly to your feedback and preferences.</p>
       
-      <h2>Craftsmanship in Arrangement</h2>
-      <p>Our floral designers are artists who understand how to combine different varieties, colors, and complementary blooms to create arrangements that take your breath away. Each bouquet is hand-tied with care, reflecting both traditional techniques and contemporary design principles.</p>
-      
-      <p>From the moment a rose is planted to the day it brightens your home, every step in its journey is guided by our commitment to quality and beauty. That's the Kranian Farms difference—and it's why our roses make every occasion special.</p>
+      <p>When you choose Kranian Farms, you're choosing a partner committed to bringing you the very best nature has to offer.</p>
     `,
-    image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7",
+    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    date: "March 10, 2024",
+    readTime: "4 min read",
+    category: "Quality",
+    tags: ["Quality", "Fresh", "Direct", "Promise"],
     author: {
-      name: "Brian Senelwa", 
-      avatar: "/public/brian.png",
-      bio: "Co-Director focusing on innovation and quality in farming practices."
-    },
-    date: "April 15, 2023",
-    readTime: 7,
-    tags: ["roses", "floriculture", "bouquets"],
-    category: "Flower Production"
+      name: "Rachel Muturi",
+      avatar: "/rachel.png"
+    }
   },
   {
     id: 3,
-    title: "Seasonal Guide: What Vegetables to Plant in Kenya By Month",
-    slug: "seasonal-planting-guide-kenya",
-    excerpt: "Make the most of Kenya's growing seasons with our comprehensive month-by-month planting guide for vegetables and herbs.",
+    title: "Seasonal Eating: Why It Matters",
+    slug: "seasonal-eating-why-it-matters",
+    excerpt: "Explore the benefits of eating seasonally and how it can improve your health while supporting local agriculture.",
     content: `
-      <p>Kenya's diverse climate creates unique opportunities for growing a variety of vegetables year-round. This seasonal guide will help both commercial farmers and home gardeners maximize their harvests by planting the right crops at the right time.</p>
+      <p>Eating seasonally means consuming fruits and vegetables that are naturally harvested during specific times of the year in your local area. This ancient practice is gaining renewed attention as people discover its numerous benefits.</p>
       
-      <h2>January-February (Dry Season)</h2>
-      <p>These hot, dry months are ideal for crops that can withstand higher temperatures and require less water:</p>
+      <h2>Health Benefits of Seasonal Eating</h2>
       <ul>
-        <li><strong>Sweet Potatoes:</strong> Drought-resistant and thrives in warm weather</li>
-        <li><strong>Amaranth:</strong> Heat-tolerant leafy vegetable rich in nutrients</li>
-        <li><strong>Okra:</strong> Produces well in hot conditions</li>
-        <li><strong>Eggplant:</strong> Enjoys the warmth and can be harvested for months</li>
+        <li><strong>Peak Nutrition:</strong> Seasonal produce is harvested at its nutritional peak, providing maximum vitamins and minerals.</li>
+        <li><strong>Better Taste:</strong> Fruits and vegetables taste better when they're in season and haven't traveled long distances.</li>
+        <li><strong>Variety in Diet:</strong> Seasonal eating naturally encourages dietary diversity throughout the year.</li>
+        <li><strong>Cost Effective:</strong> In-season produce is typically more affordable due to local abundance.</li>
       </ul>
       
-      <h2>March-May (Long Rains)</h2>
-      <p>As the rains arrive, it's time to plant vegetables that benefit from consistent moisture:</p>
-      <ul>
-        <li><strong>Kale and Collards:</strong> The backbone of Kenyan cuisine</li>
-        <li><strong>Tomatoes:</strong> Plant early in this season for best results</li>
-        <li><strong>Beans:</strong> Both bush and climbing varieties do well</li>
-        <li><strong>Spinach:</strong> Thrives with good rainfall</li>
-        <li><strong>Carrots:</strong> Ideal planting time for sweet, crunchy carrots</li>
-      </ul>
+      <h2>Environmental Impact</h2>
+      <p>Choosing seasonal produce reduces the environmental footprint of your food. Local, seasonal crops require less transportation, packaging, and artificial preservation, leading to lower carbon emissions.</p>
       
-      <h2>June-September (Cool Dry Season)</h2>
-      <p>These cooler months are perfect for crops that prefer mild temperatures:</p>
-      <ul>
-        <li><strong>Cabbage:</strong> Develops sweetness in cooler weather</li>
-        <li><strong>Broccoli:</strong> Produces tight heads in moderate temperatures</li>
-        <li><strong>Cauliflower:</strong> Similar to broccoli, enjoys the cooler season</li>
-        <li><strong>Swiss Chard:</strong> Provides continuous harvests throughout this period</li>
-      </ul>
+      <h2>Our Seasonal Calendar</h2>
+      <p>At Kranian Farms, we provide our customers with a seasonal calendar that highlights what's fresh each month. This helps you plan meals around the freshest, most nutritious options available.</p>
       
-      <h2>October-December (Short Rains)</h2>
-      <p>Take advantage of the shorter rainy season with these crops:</p>
-      <ul>
-        <li><strong>Green Peas:</strong> Perfect time for sweet, tender peas</li>
-        <li><strong>Cucumber:</strong> Quick-growing crop that loves moderate moisture</li>
-        <li><strong>Zucchini:</strong> Produces abundantly with consistent water</li>
-        <li><strong>Lettuce:</strong> Various varieties thrive before the heat returns</li>
-      </ul>
+      <h3>Spring (March-May)</h3>
+      <p>Fresh greens, asparagus, strawberries, and herbs</p>
       
-      <h2>Year-Round Options</h2>
-      <p>Some crops can be planted successfully throughout the year, especially with proper planning:</p>
-      <ul>
-        <li><strong>Herbs:</strong> Basil, rosemary, and mint adapt well to most conditions</li>
-        <li><strong>Spring Onions:</strong> Quick-growing and versatile</li>
-        <li><strong>Chili Peppers:</strong> Productive in most seasons with adequate care</li>
-      </ul>
+      <h3>Summer (June-August)</h3>
+      <p>Tomatoes, peppers, zucchini, berries, and stone fruits</p>
       
-      <p>Remember that microclimates within Kenya can vary significantly. Coastal regions, highlands, and areas near Lake Victoria each have their own unique growing conditions that may alter these general guidelines. Happy planting!</p>
+      <h3>Fall (September-November)</h3>
+      <p>Apples, pumpkins, squash, and root vegetables</p>
+      
+      <h3>Winter (December-February)</h3>
+      <p>Citrus fruits, stored apples, and preserved vegetables</p>
+      
+      <p>By aligning your eating habits with nature's rhythm, you'll discover new flavors, support your local ecosystem, and enjoy the freshest food possible.</p>
     `,
-    image: "https://images.unsplash.com/photo-1471193945509-9ad0617afabf",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    date: "March 5, 2024",
+    readTime: "6 min read",
+    category: "Health",
+    tags: ["Seasonal", "Health", "Nutrition", "Local"],
     author: {
       name: "Rachel Muturi",
-      avatar: "/public/rachel.png",
-      bio: "Director at Kranian Farms with years of experience in sustainable agriculture."
-    },
-    date: "March 18, 2023",
-    readTime: 8,
-    tags: ["seasonal planting", "vegetables", "farming tips"],
-    category: "Growing Guides"
+      avatar: "/rachel.png"
+    }
   },
   {
     id: 4,
-    title: "Export Excellence: How Kenyan Produce is Winning Global Markets",
-    slug: "kenyan-produce-global-markets",
-    excerpt: "Learn about the growing success of Kenyan agricultural exports and how farms like ours are meeting international standards.",
+    title: "The Benefits of Organic Honey",
+    slug: "benefits-organic-honey",
+    excerpt: "Discover the amazing health benefits and uses of our pure, organic honey straight from our apiaries.",
     content: `
-      <p>Kenya's agricultural exports have seen remarkable growth in recent years, with our fresh produce finding its way to dinner tables across Europe, the Middle East, and beyond. At Kranian Farms, we're proud to be part of this success story, contributing to Kenya's reputation as a source of premium agricultural products.</p>
+      <p>Pure, organic honey is one of nature's most perfect foods. At Kranian Farms, our honey comes from carefully tended beehives where our bees forage on diverse, pesticide-free flowers and plants.</p>
       
-      <h2>Meeting Global Standards</h2>
-      <p>Success in export markets demands adherence to strict international standards. Our farm has invested heavily in certification programs including GlobalG.A.P., ensuring our products meet the highest standards for food safety, environmental impact, and worker welfare. These certifications aren't just documents on a wall—they represent our commitment to excellence at every step of the production process.</p>
+      <h2>What Makes Our Honey Special</h2>
+      <ul>
+        <li><strong>Raw and Unprocessed:</strong> Our honey is never heated or filtered, preserving all natural enzymes and nutrients.</li>
+        <li><strong>Single Origin:</strong> Each batch comes from specific locations, giving unique flavor profiles.</li>
+        <li><strong>Sustainably Harvested:</strong> We take only what the bees can spare, ensuring healthy hive populations.</li>
+        <li><strong>No Additives:</strong> Pure honey with nothing added or removed.</li>
+      </ul>
       
-      <h2>Cold Chain Management</h2>
-      <p>The journey from our fields to international markets presents unique challenges, particularly for delicate products like flowers and berries. We've developed a sophisticated cold chain management system that maintains optimal temperatures from harvest through shipping, preserving freshness and extending shelf life. Our state-of-the-art cooling facilities and refrigerated transport ensure products arrive at their destination in perfect condition.</p>
+      <h2>Health Benefits</h2>
+      <p>Organic honey offers numerous health advantages:</p>
       
-      <h2>Strategic Partnerships</h2>
-      <p>Building relationships with reliable partners has been crucial to our export success. We work closely with specialized logistics companies, international distributors, and retail chains to create seamless supply chains. These partnerships have opened doors to new markets and allowed us to respond quickly to changing consumer preferences across different regions.</p>
+      <ul>
+        <li><strong>Antioxidant Properties:</strong> Rich in phenolic compounds that fight free radicals.</li>
+        <li><strong>Antimicrobial Effects:</strong> Natural antibacterial and antifungal properties.</li>
+        <li><strong>Digestive Health:</strong> Contains prebiotics that support gut health.</li>
+        <li><strong>Wound Healing:</strong> Topical application can help heal minor cuts and burns.</li>
+        <li><strong>Cough Relief:</strong> A natural remedy for soothing throat irritation.</li>
+      </ul>
       
-      <h2>Focus on Premium Varieties</h2>
-      <p>Not all produce varieties travel well or meet the expectations of international consumers. Through extensive research and testing, we've identified varieties that not only survive the journey but arrive looking and tasting exceptional. Our premium roses, for example, are selected specifically for their ability to maintain their appearance and fragrance during shipping to European markets.</p>
+      <h2>Culinary Uses</h2>
+      <p>Beyond its health benefits, our honey is a versatile ingredient:</p>
+      <ul>
+        <li>Natural sweetener for beverages and baked goods</li>
+        <li>Glaze for roasted vegetables and meats</li>
+        <li>Addition to salad dressings and marinades</li>
+        <li>Spread for bread and crackers</li>
+        <li>Ingredient in homemade beauty treatments</li>
+      </ul>
       
-      <h2>Adapting to Market Demands</h2>
-      <p>Different markets have different preferences, and flexibility is key to export success. We continually adapt our product mix and packaging based on feedback from specific markets. For instance, our herbs exported to the Middle East are packaged differently from those sent to European supermarkets, reflecting different culinary traditions and consumer habits.</p>
-      
-      <p>As global demand for high-quality, sustainably produced food continues to grow, Kenyan farms like ours are well-positioned to meet the challenge. Through continued innovation and a steadfast commitment to quality, we're helping to ensure that "Product of Kenya" remains a mark of excellence recognized around the world.</p>
+      <p>When you choose Kranian Farms honey, you're not just getting a superior product—you're supporting sustainable beekeeping practices that help protect these vital pollinators.</p>
     `,
-    image: "https://images.unsplash.com/photo-1542838132-92c53300491e",
+    image: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    date: "February 28, 2024",
+    readTime: "4 min read",
+    category: "Products",
+    tags: ["Honey", "Organic", "Health", "Natural"],
     author: {
-      name: "Brian Senelwa",
-      avatar: "/public/brian.png",
-      bio: "Co-Director focusing on innovation and quality in farming practices."
-    },
-    date: "February 7, 2023",
-    readTime: 6,
-    tags: ["exports", "international trade", "quality standards"],
-    category: "Market Insights"
+      name: "Rachel Muturi",
+      avatar: "/rachel.png"
+    }
   },
   {
     id: 5,
-    title: "Beyond Beautiful: The Health Benefits of Flowers in Your Home",
-    slug: "health-benefits-flowers",
-    excerpt: "Discover how adding fresh flowers to your living space can boost your mood, reduce stress, and even improve your physical health.",
+    title: "Growing Your Own Herb Garden",
+    slug: "growing-herb-garden",
+    excerpt: "A beginner's guide to starting your own herb garden with tips and tricks from our experienced farmers.",
     content: `
-      <p>We all know that a vase of fresh flowers brightens up a room and brings a touch of natural beauty to our homes. But did you know that having flowers around can actually benefit your health in measurable ways? Research has revealed numerous physical and psychological benefits to keeping fresh blooms in your living space.</p>
+      <p>Growing your own herbs is one of the most rewarding gardening experiences. Fresh herbs not only enhance your cooking but also provide natural remedies and beautiful fragrances for your home.</p>
       
-      <h2>Mood Enhancement</h2>
-      <p>Studies from Rutgers University found that flowers trigger happy emotions and heighten feelings of life satisfaction. Participants in the research reported feeling less depressed, anxious, and agitated when fresh flowers were present in their homes. The effect was almost immediate and continued to boost mood for days afterward. Even a single bloom can make a difference, though more abundant arrangements tend to create stronger positive reactions.</p>
+      <h2>Getting Started</h2>
+      <p>Starting an herb garden is easier than you might think. Here's what you need to know:</p>
       
-      <h2>Stress Reduction</h2>
-      <p>Research published in the Journal of Physiological Anthropology found that interacting with indoor plants—including flowers—can reduce both psychological and physiological stress. Study participants who handled flowers experienced a notable decrease in heart rate and blood pressure levels compared to those performing other tasks. The calming effect of flowers makes them perfect additions to workspaces and areas where you unwind after a busy day.</p>
+      <h3>Choose Your Location</h3>
+      <ul>
+        <li><strong>Sunlight:</strong> Most herbs need 6-8 hours of direct sunlight daily</li>
+        <li><strong>Drainage:</strong> Ensure good drainage to prevent root rot</li>
+        <li><strong>Accessibility:</strong> Plant herbs where you can easily harvest them for cooking</li>
+      </ul>
       
-      <h2>Air Purification</h2>
-      <p>While not as efficient as some leafy houseplants, certain flowers can help improve indoor air quality by filtering out volatile organic compounds (VOCs). Chrysanthemums, for example, are known for their air-purifying abilities and can help remove benzene, formaldehyde, and other common indoor pollutants. Cleaner air means easier breathing and potential reductions in headaches and allergic reactions.</p>
+      <h3>Essential Herbs for Beginners</h3>
+      <ul>
+        <li><strong>Basil:</strong> Perfect for Italian dishes and easy to grow</li>
+        <li><strong>Rosemary:</strong> Hardy perennial that's great with roasted meats</li>
+        <li><strong>Thyme:</strong> Low-maintenance and adds flavor to many dishes</li>
+        <li><strong>Parsley:</strong> Fast-growing and versatile for cooking</li>
+        <li><strong>Mint:</strong> Grows vigorously (plant in containers to control spread)</li>
+      </ul>
       
-      <h2>Memory and Concentration</h2>
-      <p>The presence of flowers and plants in work environments has been linked to improved concentration, memory retention, and productivity. A study at Texas A&M found that workers demonstrated higher levels of innovative thinking and problem-solving when flowers were present in their workspace. For students, keeping fresh flowers in study areas may help improve academic performance.</p>
+      <h2>Planting Tips</h2>
+      <ul>
+        <li>Start with seedlings for faster results</li>
+        <li>Space plants according to their mature size</li>
+        <li>Use quality potting soil for container gardens</li>
+        <li>Water regularly but don't overwater</li>
+      </ul>
       
-      <h2>Faster Recovery</h2>
-      <p>Hospital patients with flowers in their rooms have been shown to have faster recovery rates than those without. A famous study by researcher Roger Ulrich found that patients with garden views recovered faster than those facing brick walls. Bringing flowers to someone who's ill isn't just a kind gesture—it may actually help them heal more quickly by reducing stress and creating a more positive environment.</p>
+      <h2>Harvesting and Storage</h2>
+      <p>The key to a productive herb garden is regular harvesting:</p>
+      <ul>
+        <li>Harvest in the morning after dew has dried</li>
+        <li>Cut stems just above a leaf pair to encourage growth</li>
+        <li>Don't harvest more than 1/3 of the plant at once</li>
+        <li>Dry herbs in small bundles or freeze in ice cube trays with oil</li>
+      </ul>
       
-      <h2>Better Sleep</h2>
-      <p>Certain flowers, like lavender and jasmine, release scents that have been proven to lower heart rate and blood pressure, helping people fall asleep more easily and enjoy deeper, more restful sleep. Keeping these flowers in your bedroom might be nature's answer to sleep troubles.</p>
+      <h2>Common Problems and Solutions</h2>
+      <ul>
+        <li><strong>Pests:</strong> Use companion planting with marigolds to deter insects</li>
+        <li><strong>Disease:</strong> Ensure good air circulation and avoid overwatering</li>
+        <li><strong>Poor Growth:</strong> Check soil pH and nutrient levels</li>
+      </ul>
       
-      <p>So the next time you place a bouquet of Kranian Farms flowers in your home, remember you're doing more than just decorating—you're making an investment in your wellbeing. From stress reduction to mood enhancement, the benefits of fresh flowers make them a simple yet powerful tool for improving your quality of life. Beauty with benefits—that's something we can all appreciate.</p>
+      <p>At Kranian Farms, we offer high-quality herb seedlings and seeds to help you start your garden. Visit us for expert advice and premium plants that will thrive in your garden.</p>
     `,
-    image: "https://images.unsplash.com/photo-1508610048659-a06b669e3321",
+    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    date: "February 20, 2024",
+    readTime: "7 min read",
+    category: "Gardening",
+    tags: ["Herbs", "Gardening", "DIY", "Tips"],
     author: {
       name: "Rachel Muturi",
-      avatar: "/public/rachel.png",
-      bio: "Director at Kranian Farms with years of experience in sustainable agriculture."
-    },
-    date: "January 23, 2023",
-    readTime: 5,
-    tags: ["health benefits", "flowers", "wellbeing"],
-    category: "Lifestyle"
-  },
+      avatar: "/rachel.png"
+    }
+  }
 ];
 
-const authors = {
-  rachel: {
-    name: "Rachel Muturi",
-    avatar: "/public/rachel.png",
-    bio: "Director at Kranian Farms with years of experience in sustainable agriculture."
-  },
-  brian: {
-    name: "Brian Senelwa", 
-    avatar: "/public/brian.png",
-    bio: "Co-Director focusing on innovation and quality in farming practices."
-  },
-  team: {
-    name: "Kranian Farms Team",
-    avatar: "/public/rachel.png",
-    bio: "Our dedicated team of agricultural experts and farming enthusiasts."
-  }
-};
-
-export const getRecentBlogPosts = (count: number = 3) => {
-  return blogPosts.slice(0, count);
-};
-
-export const getBlogPostBySlug = (slug: string) => {
-  return blogPosts.find(post => post.slug === slug);
-};
-
-export const getBlogPostById = (id: number) => {
-  return blogPosts.find(post => post.id === id);
-};
-
-export const getRelatedPosts = (currentPostId: number, count: number = 3) => {
-  const currentPost = getBlogPostById(currentPostId);
-  if (!currentPost) return [];
-  
+export function getRecentBlogPosts(limit: number = 5): BlogPost[] {
   return blogPosts
-    .filter(post => post.id !== currentPostId && 
-              (post.category === currentPost.category || 
-               post.tags.some(tag => currentPost.tags.includes(tag))))
-    .slice(0, count);
-};
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, limit);
+}
+
+export function getBlogPostBySlug(slug: string): BlogPost | undefined {
+  return blogPosts.find(post => post.slug === slug);
+}
+
+export function getBlogPostsByCategory(category: string): BlogPost[] {
+  return blogPosts.filter(post => 
+    post.category.toLowerCase() === category.toLowerCase()
+  );
+}
+
+export function getBlogPostsByTag(tag: string): BlogPost[] {
+  return blogPosts.filter(post => 
+    post.tags.some(t => t.toLowerCase() === tag.toLowerCase())
+  );
+}
+
+export function searchBlogPosts(query: string): BlogPost[] {
+  const lowerQuery = query.toLowerCase();
+  return blogPosts.filter(post => 
+    post.title.toLowerCase().includes(lowerQuery) ||
+    post.excerpt.toLowerCase().includes(lowerQuery) ||
+    post.content.toLowerCase().includes(lowerQuery) ||
+    post.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
+  );
+}
+
+export function getAllCategories(): { name: string; count: number }[] {
+  const categories = blogPosts.reduce((acc, post) => {
+    acc[post.category] = (acc[post.category] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  return Object.entries(categories).map(([name, count]) => ({ name, count }));
+}
+
+export function getAllTags(): { name: string; count: number }[] {
+  const tags = blogPosts.reduce((acc, post) => {
+    post.tags.forEach(tag => {
+      acc[tag] = (acc[tag] || 0) + 1;
+    });
+    return acc;
+  }, {} as Record<string, number>);
+
+  return Object.entries(tags)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count);
+}

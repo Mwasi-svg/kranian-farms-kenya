@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Send } from 'lucide-react';
@@ -57,21 +58,19 @@ const Checkout: React.FC = () => {
     try {
       const { error } = await supabase
         .from('quotation_table')
-        .insert([
-          {
-            name: values.name,
-            email: values.email,
-            phone_number: values.phoneNumber,
-            location: values.location,
-            product: values.product,
-            quantity: parseFloat(values.quantity) || null,
-            additional_info: values.additionalInfo,
-            socials: values.socials,
-            status: 'pending',
-            requested_at: new Date().toISOString(),
-            received_at: new Date().toISOString()
-          }
-        ]);
+        .insert({
+          name: values.name,
+          email: values.email,
+          phone_number: parseFloat(values.phoneNumber) || null,
+          location: values.location,
+          product: values.product,
+          quantity: parseFloat(values.quantity) || null,
+          additional_info: values.additionalInfo || null,
+          socials: values.socials || null,
+          status: 'pending',
+          requested_at: new Date().toISOString(),
+          received_at: new Date().toISOString()
+        });
 
       if (error) {
         throw error;

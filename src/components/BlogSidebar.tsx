@@ -1,7 +1,8 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BlogPost } from '@/data/blogPosts';
-import { Newsletter } from '@/components/Newsletter';
+import Newsletter from '@/components/Newsletter';
 
 interface BlogSidebarProps {
   recentPosts: BlogPost[];
@@ -17,7 +18,7 @@ const BlogSidebar: React.FC<BlogSidebarProps> = ({ recentPosts, categories, tags
         <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">About Kranian Farms</h3>
         <div className="flex items-center mb-4">
           <img 
-            src="/public/rachel.png" 
+            src="/rachel.png" 
             alt="Rachel Muturi" 
             className="w-12 h-12 rounded-full mr-4 object-cover"
           />
