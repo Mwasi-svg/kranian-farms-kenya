@@ -1,11 +1,7 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BlogPost } from '@/data/blogPosts';
-import { Badge } from '@/components/ui/badge';
-import BlogSearch from './BlogSearch';
-import SocialStats from './SocialStats';
-import Newsletter from './Newsletter';
+import { Newsletter } from '@/components/Newsletter';
 
 interface BlogSidebarProps {
   recentPosts: BlogPost[];
@@ -14,77 +10,89 @@ interface BlogSidebarProps {
 }
 
 const BlogSidebar: React.FC<BlogSidebarProps> = ({ recentPosts, categories, tags }) => {
-  // Common card styling class for consistency
-  const cardClasses = "bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-lg";
-  const headerClasses = "text-lg font-bold text-gray-800 dark:text-gray-100 mb-4";
-
   return (
     <div className="space-y-8">
-      {/* Search */}
-      <div className={cardClasses}>
-        <h3 className={headerClasses}>Search</h3>
-        <BlogSearch />
+      {/* About Section */}
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">About Kranian Farms</h3>
+        <div className="flex items-center mb-4">
+          <img 
+            src="/public/rachel.png" 
+            alt="Rachel Muturi" 
+            className="w-12 h-12 rounded-full mr-4 object-cover"
+          />
+          <div>
+            <h4 className="font-medium text-gray-800 dark:text-gray-100">Rachel Muturi</h4>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Director</p>
+          </div>
+        </div>
+        <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+          At Kranian Farms, we're passionate about delivering fresh, quality produce while building sustainable farming practices for the future.
+        </p>
       </div>
 
       {/* Recent Posts */}
-      <div className={cardClasses}>
-        <h3 className={headerClasses}>Recent Posts</h3>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Recent Posts</h3>
         <div className="space-y-4">
-          {recentPosts.map(post => (
-            <div key={post.id} className="flex items-start">
-              <Link to={`/blog/${post.slug}`} className="w-16 h-16 rounded overflow-hidden flex-shrink-0">
-                <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
-              </Link>
-              <div className="ml-3">
-                <Link 
-                  to={`/blog/${post.slug}`} 
-                  className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors line-clamp-2 story-link"
-                >
-                  <span>{post.title}</span>
-                </Link>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{post.date}</p>
+          {recentPosts.map((post) => (
+            <Link key={post.id} to={`/blog/${post.slug}`} className="block group">
+              <div className="flex items-start space-x-3">
+                <img 
+                  src={post.image} 
+                  alt={post.title} 
+                  className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
+                />
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-sm font-medium text-gray-800 dark:text-gray-100 group-hover:text-kranian-600 dark:group-hover:text-kranian-400 transition-colors line-clamp-2">
+                    {post.title}
+                  </h4>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{post.date}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Categories */}
-      <div className={cardClasses}>
-        <h3 className={headerClasses}>Categories</h3>
-        <div className="space-y-2">
-          {categories.map(category => (
-            <div key={category.name} className="flex justify-between items-center">
-              <Link 
-                to={`/blog?category=${category.name.toLowerCase().replace(/\s+/g, '-')}`}
-                className="text-gray-700 dark:text-gray-300 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors story-link"
-              >
-                <span>{category.name}</span>
-              </Link>
-              <span className="text-sm text-gray-500 dark:text-gray-400">{category.count}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Tags */}
-      <div className={cardClasses}>
-        <h3 className={headerClasses}>Tags</h3>
-        <div className="flex flex-wrap gap-2">
-          {tags.map(tag => (
-            <Link key={tag.name} to={`/blog?tag=${tag.name.toLowerCase()}`}>
-              <Badge variant="outline" className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 cursor-pointer">
-                {tag.name} ({tag.count})
-              </Badge>
             </Link>
           ))}
         </div>
       </div>
 
-      {/* Social Stats */}
-      <SocialStats />
+      {/* Categories */}
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Categories</h3>
+        <div className="space-y-2">
+          {categories.map((category) => (
+            <Link 
+              key={category.name}
+              to={`/blog?category=${category.name.toLowerCase().replace(/\s+/g, '-')}`}
+              className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
+            >
+              <span className="text-gray-700 dark:text-gray-300 group-hover:text-kranian-600 dark:group-hover:text-kranian-400">
+                {category.name}
+              </span>
+              <span className="text-xs bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
+                {category.count}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
 
-      {/* Newsletter */}
+      {/* Popular Tags */}
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Popular Tags</h3>
+        <div className="flex flex-wrap gap-2">
+          {tags.slice(0, 10).map((tag) => (
+            <Link 
+              key={tag.name}
+              to={`/blog?tag=${tag.name.toLowerCase()}`}
+              className="inline-block bg-gray-100 dark:bg-gray-700 hover:bg-kranian-100 dark:hover:bg-kranian-800 text-gray-700 dark:text-gray-300 hover:text-kranian-600 dark:hover:text-kranian-400 px-3 py-1 rounded-full text-sm transition-colors"
+            >
+              {tag.name} ({tag.count})
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Newsletter Subscription */}
       <Newsletter />
     </div>
   );

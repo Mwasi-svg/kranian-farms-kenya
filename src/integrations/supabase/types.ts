@@ -44,16 +44,22 @@ export type Database = {
           created_at: string
           email: string | null
           id: number
+          status: string | null
+          subscribed_at: string | null
         }
         Insert: {
           created_at?: string
           email?: string | null
           id?: number
+          status?: string | null
+          subscribed_at?: string | null
         }
         Update: {
           created_at?: string
           email?: string | null
           id?: number
+          status?: string | null
+          subscribed_at?: string | null
         }
         Relationships: []
       }
@@ -68,7 +74,9 @@ export type Database = {
           product: string | null
           quantity: number | null
           received_at: string
+          requested_at: string | null
           socials: string | null
+          status: string | null
         }
         Insert: {
           additional_info?: string | null
@@ -80,7 +88,9 @@ export type Database = {
           product?: string | null
           quantity?: number | null
           received_at?: string
+          requested_at?: string | null
           socials?: string | null
+          status?: string | null
         }
         Update: {
           additional_info?: string | null
@@ -92,7 +102,9 @@ export type Database = {
           product?: string | null
           quantity?: number | null
           received_at?: string
+          requested_at?: string | null
           socials?: string | null
+          status?: string | null
         }
         Relationships: []
       }

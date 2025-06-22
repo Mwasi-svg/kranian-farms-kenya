@@ -1,4 +1,3 @@
-
 export type BlogPost = {
   id: number;
   title: string;
@@ -42,7 +41,8 @@ export const blogPosts: BlogPost[] = [
     image: "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad",
     author: {
       name: "Rachel Muturi",
-      avatar: "/placeholder.svg"
+      avatar: "/public/rachel.png",
+      bio: "Director at Kranian Farms with years of experience in sustainable agriculture."
     },
     date: "May 2, 2023",
     readTime: 6,
@@ -76,8 +76,9 @@ export const blogPosts: BlogPost[] = [
     `,
     image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7",
     author: {
-      name: "Brian Senelwa",
-      avatar: "/placeholder.svg"
+      name: "Brian Senelwa", 
+      avatar: "/public/brian.png",
+      bio: "Co-Director focusing on innovation and quality in farming practices."
     },
     date: "April 15, 2023",
     readTime: 7,
@@ -142,7 +143,8 @@ export const blogPosts: BlogPost[] = [
     image: "https://images.unsplash.com/photo-1471193945509-9ad0617afabf",
     author: {
       name: "Rachel Muturi",
-      avatar: "/placeholder.svg"
+      avatar: "/public/rachel.png",
+      bio: "Director at Kranian Farms with years of experience in sustainable agriculture."
     },
     date: "March 18, 2023",
     readTime: 8,
@@ -177,7 +179,8 @@ export const blogPosts: BlogPost[] = [
     image: "https://images.unsplash.com/photo-1542838132-92c53300491e",
     author: {
       name: "Brian Senelwa",
-      avatar: "/placeholder.svg"
+      avatar: "/public/brian.png",
+      bio: "Co-Director focusing on innovation and quality in farming practices."
     },
     date: "February 7, 2023",
     readTime: 6,
@@ -215,7 +218,8 @@ export const blogPosts: BlogPost[] = [
     image: "https://images.unsplash.com/photo-1508610048659-a06b669e3321",
     author: {
       name: "Rachel Muturi",
-      avatar: "/placeholder.svg"
+      avatar: "/public/rachel.png",
+      bio: "Director at Kranian Farms with years of experience in sustainable agriculture."
     },
     date: "January 23, 2023",
     readTime: 5,
@@ -223,6 +227,24 @@ export const blogPosts: BlogPost[] = [
     category: "Lifestyle"
   },
 ];
+
+const authors = {
+  rachel: {
+    name: "Rachel Muturi",
+    avatar: "/public/rachel.png",
+    bio: "Director at Kranian Farms with years of experience in sustainable agriculture."
+  },
+  brian: {
+    name: "Brian Senelwa", 
+    avatar: "/public/brian.png",
+    bio: "Co-Director focusing on innovation and quality in farming practices."
+  },
+  team: {
+    name: "Kranian Farms Team",
+    avatar: "/public/rachel.png",
+    bio: "Our dedicated team of agricultural experts and farming enthusiasts."
+  }
+};
 
 export const getRecentBlogPosts = (count: number = 3) => {
   return blogPosts.slice(0, count);

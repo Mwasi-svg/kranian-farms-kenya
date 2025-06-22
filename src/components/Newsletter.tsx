@@ -5,13 +5,14 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const Newsletter: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!email || !email.includes('@')) {
@@ -25,20 +26,49 @@ const Newsletter: React.FC = () => {
     
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      setEmail('');
-      
-      // Reset success state after 3 seconds
-      setTimeout(() => setIsSuccess(false), 3000);
-      
+    try {
+      const { error } = await supabase
+        .from('newsletter_table')
+        .insert([
+          {
+            email: email.toLowerCase().trim(),
+            subscribed_at: new Date().toISOString(),
+            status: 'active'
+          }
+        ]);
+
+      if (error) {
+        if (error.code === '23505') { // Unique constraint violation
+          toast({
+            title: "Already subscribed",
+            description: "This email is already subscribed to our newsletter",
+            variant: "destructive"
+          });
+        } else {
+          throw error;
+        }
+      } else {
+        setIsSuccess(true);
+        setEmail('');
+        
+        // Reset success state after 3 seconds
+        setTimeout(() => setIsSuccess(false), 3000);
+        
+        toast({
+          title: "Success!",
+          description: "Thank you for subscribing to our newsletter",
+        });
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
       toast({
-        title: "Success!",
-        description: "Thank you for subscribing to our newsletter",
+        title: "Error",
+        description: "Failed to subscribe. Please try again.",
+        variant: "destructive"
       });
-    }, 800);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -72,6 +102,7 @@ const Newsletter: React.FC = () => {
               className="mb-3 focus-visible:ring-kranian-600" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
             <Button 
               type="submit"
