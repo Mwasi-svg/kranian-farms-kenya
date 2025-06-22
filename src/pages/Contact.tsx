@@ -302,7 +302,7 @@ const Contact: React.FC = () => {
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow relative">
               <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 border-4 border-kranian-100 dark:border-kranian-800">
                 <img
-                  src="/placeholder.svg"
+                  src="/public/rachel.png"
                   alt="Rachel Muturi"
                   className="w-full h-full object-cover"
                 />
@@ -327,7 +327,7 @@ const Contact: React.FC = () => {
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow relative">
               <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 border-4 border-kranian-100 dark:border-kranian-800">
                 <img
-                  src="/placeholder.svg"
+                  src="/public/brian.png"
                   alt="Brian Senelwa"
                   className="w-full h-full object-cover"
                 />
