@@ -5,6 +5,7 @@ import { blogPosts, BlogPost } from '@/data/blogPosts';
 import { ArrowLeft, Calendar, Clock, TrendingUp, Star } from 'lucide-react';
 import BlogSidebar from '@/components/BlogSidebar';
 import Footer from '@/components/Footer';
+import InstagramSection from '@/components/InstagramSection';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -168,6 +169,9 @@ const Blog: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Instagram Section */}
+      <InstagramSection />
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-16 flex-grow">

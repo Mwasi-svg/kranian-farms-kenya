@@ -8,13 +8,22 @@ const ThemeToggle = () => {
   const [isDark, setIsDark] = useState<boolean>(false);
   const { toast } = useToast();
 
-  // Check for user's preference on component mount
+  // Initialize theme on component mount
   useEffect(() => {
-    const isDarkMode = localStorage.getItem('theme') === 'dark' || 
-                      (!localStorage.getItem('theme') && 
-                       window.matchMedia('(prefers-color-scheme: dark)').matches);
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    if (isDarkMode) {
+    let shouldBeDark = false;
+    
+    if (savedTheme) {
+      shouldBeDark = savedTheme === 'dark';
+    } else {
+      shouldBeDark = prefersDark;
+    }
+    
+    // Apply theme immediately
+    if (shouldBeDark) {
       document.documentElement.classList.add('dark');
       setIsDark(true);
     } else {
@@ -25,7 +34,9 @@ const ThemeToggle = () => {
 
   const toggleTheme = () => {
     const newMode = !isDark;
+    
     if (newMode) {
+      // Switching to dark mode
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
       setIsDark(true);
@@ -35,6 +46,7 @@ const ThemeToggle = () => {
         duration: 2000
       });
     } else {
+      // Switching to light mode
       document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
       setIsDark(false);
@@ -51,7 +63,7 @@ const ThemeToggle = () => {
       variant="ghost" 
       size="icon" 
       onClick={toggleTheme} 
-      aria-label="Toggle theme"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       className="rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
     >
       {isDark ? 
