@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import { blogPosts, BlogPost } from '@/data/blogPosts';
@@ -81,11 +80,14 @@ const Blog: React.FC = () => {
   }, [allTags]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 pt-20">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-kranian-600 to-kranian-800 dark:from-kranian-700 dark:to-kranian-900 text-white py-24">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="container mx-auto px-4 relative z-10">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
+      {/* Modern Green Gradient Background - Replaces white strip */}
+      <div className="w-full h-32 bg-gradient-to-b from-green-600 via-green-500 to-green-400 dark:from-green-700 dark:via-green-600 dark:to-green-500"></div>
+      
+      {/* Hero Section - Now seamlessly connected */}
+      <section className="relative bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600 dark:from-green-500 dark:via-emerald-600 dark:to-teal-700 text-white py-24 -mt-32">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="container mx-auto px-4 relative z-10 pt-32">
           <div className="text-center mb-16">
             {/* Animated Headline */}
             <motion.h1 
