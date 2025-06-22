@@ -33,7 +33,9 @@ const NewsletterPopup: React.FC<NewsletterPopupProps> = ({ isOpen, onClose }) =>
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase
+      console.log('Submitting popup newsletter subscription for:', email);
+      
+      const { data, error } = await supabase
         .from('newsletter_table')
         .insert([
           {
@@ -41,7 +43,10 @@ const NewsletterPopup: React.FC<NewsletterPopupProps> = ({ isOpen, onClose }) =>
             subscribed_at: new Date().toISOString(),
             status: 'active'
           }
-        ]);
+        ])
+        .select();
+
+      console.log('Newsletter popup submission result:', { data, error });
 
       if (error) {
         if (error.code === '23505') { // Unique constraint violation
@@ -51,6 +56,7 @@ const NewsletterPopup: React.FC<NewsletterPopupProps> = ({ isOpen, onClose }) =>
             variant: "destructive"
           });
         } else {
+          console.error('Newsletter popup subscription error:', error);
           throw error;
         }
       } else {
@@ -65,7 +71,7 @@ const NewsletterPopup: React.FC<NewsletterPopupProps> = ({ isOpen, onClose }) =>
         }, 2000);
       }
     } catch (error) {
-      console.error('Newsletter subscription error:', error);
+      console.error('Newsletter popup subscription error:', error);
       toast({
         title: "Error",
         description: "Failed to subscribe. Please try again.",

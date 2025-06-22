@@ -58,7 +58,7 @@ const Index: React.FC = () => {
         {/* Video Showcase */}
         
         <VideoShowcase
-          src="https://www.youtube.com/watch?v=fyqttjeM8Ps" 
+          src="https://www.instagram.com/p/DLDJpnyI4QP/" 
           poster="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
           title="Welcome to Kranian Farms" 
           description="Experience our sustainable farming practices and premium quality produce in this short introduction to what makes Kranian Farms special."

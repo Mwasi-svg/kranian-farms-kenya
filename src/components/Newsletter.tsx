@@ -27,7 +27,9 @@ const Newsletter: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      const { error } = await supabase
+      console.log('Submitting newsletter subscription for:', email);
+      
+      const { data, error } = await supabase
         .from('newsletter_table')
         .insert([
           {
@@ -35,7 +37,10 @@ const Newsletter: React.FC = () => {
             subscribed_at: new Date().toISOString(),
             status: 'active'
           }
-        ]);
+        ])
+        .select();
+
+      console.log('Newsletter submission result:', { data, error });
 
       if (error) {
         if (error.code === '23505') { // Unique constraint violation
@@ -45,6 +50,7 @@ const Newsletter: React.FC = () => {
             variant: "destructive"
           });
         } else {
+          console.error('Newsletter subscription error:', error);
           throw error;
         }
       } else {

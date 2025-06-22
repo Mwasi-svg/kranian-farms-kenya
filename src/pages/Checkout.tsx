@@ -56,23 +56,29 @@ const Checkout: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      const { error } = await supabase
+      console.log('Submitting quotation request:', values);
+      
+      const { data, error } = await supabase
         .from('quotation_table')
-        .insert({
+        .insert([{
           name: values.name,
           email: values.email,
-          phone_number: parseFloat(values.phoneNumber) || null,
+          phone_number: values.phoneNumber,
           location: values.location,
           product: values.product,
-          quantity: parseFloat(values.quantity) || null,
+          quantity: parseFloat(values.quantity),
           additional_info: values.additionalInfo || null,
           socials: values.socials || null,
           status: 'pending',
           requested_at: new Date().toISOString(),
           received_at: new Date().toISOString()
-        });
+        }])
+        .select();
+
+      console.log('Quotation submission result:', { data, error });
 
       if (error) {
+        console.error('Quotation submission error:', error);
         throw error;
       }
 
