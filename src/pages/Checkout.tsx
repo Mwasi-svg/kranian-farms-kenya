@@ -60,10 +60,10 @@ const Checkout: React.FC = () => {
       
       const { data, error } = await supabase
         .from('quotation_table')
-        .insert([{
+        .insert({
           name: values.name,
           email: values.email,
-          phone_number: values.phoneNumber,
+          phone_number: parseFloat(values.phoneNumber), // Convert string to number
           location: values.location,
           product: values.product,
           quantity: parseFloat(values.quantity),
@@ -72,7 +72,7 @@ const Checkout: React.FC = () => {
           status: 'pending',
           requested_at: new Date().toISOString(),
           received_at: new Date().toISOString()
-        }])
+        })
         .select();
 
       console.log('Quotation submission result:', { data, error });
