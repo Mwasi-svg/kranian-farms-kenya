@@ -118,7 +118,7 @@ const Navbar = () => {
   
   return (
     <nav className="bg-white bg-opacity-95 dark:bg-gray-900 dark:bg-opacity-95 shadow-sm fixed top-0 w-full z-50 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
-      <div className="py-4 px-4 sm:px-6 lg:px-8">
+      <div className="py-4 px-4 pr-6 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-3">
