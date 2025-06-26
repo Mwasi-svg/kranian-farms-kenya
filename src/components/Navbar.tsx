@@ -118,7 +118,7 @@ const Navbar = () => {
   
   return (
     <nav className="bg-white bg-opacity-95 dark:bg-gray-900 dark:bg-opacity-95 shadow-sm fixed top-0 w-full z-50 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
-      <div className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
+      <div className="py-4 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-3">
@@ -229,7 +229,7 @@ const Navbar = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden mt-4"
+              className="md:hidden mt-4 w-full"
             >
               <div className="flex flex-col space-y-4 pb-4">
                 <Link to="/" className="text-gray-700 dark:text-gray-200 hover:text-kranian-600 dark:hover:text-kranian-400 transition-colors text-lg py-2" onClick={() => setIsMenuOpen(false)}>Home</Link>
