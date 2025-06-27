@@ -10,19 +10,23 @@ const ThemeToggle = () => {
 
   // Initialize theme on component mount
   useEffect(() => {
-    // Check for saved theme preference or default to light mode
+    // Check for saved theme preference or default to system preference
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentlyDark = document.documentElement.classList.contains('dark');
     
     let shouldBeDark = false;
     
-    if (savedTheme) {
-      shouldBeDark = savedTheme === 'dark';
+    if (savedTheme === 'dark') {
+      shouldBeDark = true;
+    } else if (savedTheme === 'light') {
+      shouldBeDark = false;
     } else {
+      // No saved preference, use system preference
       shouldBeDark = prefersDark;
     }
     
-    // Apply theme immediately
+    // Apply theme immediately without animation to prevent flash
     if (shouldBeDark) {
       document.documentElement.classList.add('dark');
       setIsDark(true);
@@ -30,22 +34,15 @@ const ThemeToggle = () => {
       document.documentElement.classList.remove('dark');
       setIsDark(false);
     }
+
+    // Set the state based on the actual current theme
+    setIsDark(shouldBeDark);
   }, []);
 
   const toggleTheme = () => {
-    const newMode = !isDark;
+    const currentlyDark = document.documentElement.classList.contains('dark');
     
-    if (newMode) {
-      // Switching to dark mode
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-      setIsDark(true);
-      toast({
-        title: "Dark mode enabled",
-        description: "The website is now in dark mode.",
-        duration: 2000
-      });
-    } else {
+    if (currentlyDark) {
       // Switching to light mode
       document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
@@ -53,6 +50,16 @@ const ThemeToggle = () => {
       toast({
         title: "Light mode enabled",
         description: "The website is now in light mode.",
+        duration: 2000
+      });
+    } else {
+      // Switching to dark mode
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+      setIsDark(true);
+      toast({
+        title: "Dark mode enabled",
+        description: "The website is now in dark mode.",
         duration: 2000
       });
     }

@@ -17,18 +17,6 @@ import Vegetables from '@/pages/Vegetables';
 import Herbs from '@/pages/Herbs';
 
 function App() {
-  // Add an effect to check and set the initial theme
-  React.useEffect(() => {
-    // Check if the user has a theme preference
-    if (localStorage.theme === 'dark' || 
-        (!('theme' in localStorage) && 
-          window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, []);
-
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 overflow-x-hidden">
       <Navbar />

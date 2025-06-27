@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Mail, Phone, MapPin, MessageCircle, Instagram, Facebook, Send, Clock, ArrowLeft } from 'lucide-react';
@@ -11,6 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import PageHeading from '@/components/PageHeading';
+import { supabase } from '@/integrations/supabase/client';
 
 const contactFormSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -39,19 +41,46 @@ const Contact: React.FC = () => {
     }
   });
 
-  function onSubmit(data: ContactFormValues) {
+  async function onSubmit(values: ContactFormValues) {
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      console.log(data);
-      setIsSubmitting(false);
+    try {
+      console.log('Submitting contact form:', values);
+      
+      const { data, error } = await supabase
+        .from('contact_us_table')
+        .insert({
+          name: values.name,
+          email: values.email,
+          phone: values.phone ? parseFloat(values.phone) : null,
+          subject: values.subject,
+          message: values.message
+        })
+        .select();
+
+      console.log('Contact form submission result:', { data, error });
+
+      if (error) {
+        console.error('Contact form submission error:', error);
+        throw error;
+      }
+
       toast({
         title: "Message sent successfully!",
         description: "We'll get back to you as soon as possible.",
       });
+      
       form.reset();
-    }, 1500);
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (

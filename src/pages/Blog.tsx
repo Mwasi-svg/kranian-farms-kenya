@@ -80,12 +80,25 @@ const Blog: React.FC = () => {
   }, [allTags]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
-      {/* Modern Green Gradient Background - Replaces white strip */}
-      <div className="w-full h-32 bg-gradient-to-b from-green-600 via-green-500 to-green-400 dark:from-green-700 dark:via-green-600 dark:to-green-500"></div>
+    <div className="min-h-screen flex flex-col">
+      {location.pathname !== '/' && (
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-4 left-4 z-10"
+          onClick={() => navigate(-1)}
+        >
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+      )}
       
-      {/* Hero Section - Now seamlessly connected */}
-      <section className="relative bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600 dark:from-green-500 dark:via-emerald-600 dark:to-teal-700 text-white py-24 -mt-32">
+      {/* Hero Section with corrected gradient */}
+      <div 
+        className="relative py-24 px-4 text-center text-white overflow-hidden"
+        style={{
+          background: `linear-gradient(135deg, #11b811 0%, #0f4f0f 100%)`
+        }}
+      >
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="container mx-auto px-4 relative z-10 pt-32">
           <div className="text-center mb-16">
@@ -170,7 +183,7 @@ const Blog: React.FC = () => {
             </motion.div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Instagram Section */}
       <InstagramSection />

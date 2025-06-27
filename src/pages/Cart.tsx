@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Footer from '@/components/Footer';
@@ -21,6 +20,7 @@ import {
   SelectTrigger, 
   SelectValue
 } from '@/components/ui/select';
+import { supabase } from '@/integrations/supabase/client';
 
 // Create a schema for form validation
 const sourceOptions = ['Google', 'Instagram', 'Twitter', 'Facebook', 'Referral', 'Other'] as const;
@@ -138,7 +138,7 @@ const Cart = () => {
   };
   
   // Handle form submission
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (isLocationRestricted) {
       toast({
         title: "Location Restricted",
@@ -157,24 +157,89 @@ const Cart = () => {
       return;
     }
 
-    // Display success toast and redirect to contact page
-    toast({
-      title: "Received!",
-      description: "Your quotation request has been submitted successfully.",
-    });
+    try {
+      console.log('Submitting quotation request:', values, 'Cart:', cart);
+      
+      // Prepare cart items summary for database
+      const cartSummary = cart.map(item => ({
+        name: item.product.name,
+        quantity: item.quantity,
+        stemLength: item.stemLength || 60,
+        headSize: item.headSize || 'Medium',
+        category: item.product.category
+      }));
 
-    // Clear the form and cart
-    form.reset();
-    clearCart();
-    
-    // Redirect to contact page with a slight delay for the toast to be visible
-    setTimeout(() => {
-      navigate('/contact', { 
-        state: { 
-          fromQuotation: true 
-        } 
+      const { data, error } = await supabase
+        .from('quotation_table')
+        .insert({
+          name: values.name,
+          email: values.email,
+          phone_number: parseFloat(values.phone),
+          location: values.location,
+          product: JSON.stringify(cartSummary), // Store cart items as JSON
+          quantity: cart.reduce((total, item) => total + item.quantity, 0), // Total quantity
+          additional_info: values.message || null,
+          socials: values.howDidYouHear === 'Other' ? values.otherSource : values.howDidYouHear,
+          status: 'pending',
+          requested_at: new Date().toISOString(),
+          received_at: new Date().toISOString()
+        })
+        .select();
+
+      console.log('Quotation submission result:', { data, error });
+
+      if (error) {
+        console.error('Quotation submission error:', error);
+        throw error;
+      }
+
+      // Send email notification
+      try {
+        const { error: emailError } = await supabase.functions.invoke('send-quotation-email', {
+          body: {
+            quotationData: {
+              ...values,
+              phone_number: parseFloat(values.phone),
+              cartItems: cartSummary,
+              totalQuantity: cart.reduce((total, item) => total + item.quantity, 0)
+            }
+          }
+        });
+
+        if (emailError) {
+          console.error('Email sending error:', emailError);
+          // Don't throw error for email failure, just log it
+        }
+      } catch (emailError) {
+        console.error('Email function error:', emailError);
+        // Continue even if email fails
+      }
+
+      toast({
+        title: "Received!",
+        description: "Your quotation request has been submitted successfully.",
       });
-    }, 1500);
+
+      // Clear the form and cart
+      form.reset();
+      clearCart();
+      
+      // Redirect to contact page with a slight delay for the toast to be visible
+      setTimeout(() => {
+        navigate('/contact', { 
+          state: { 
+            fromQuotation: true 
+          } 
+        });
+      }, 1500);
+    } catch (error) {
+      console.error('Quotation submission error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to submit quotation request. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   // Check if product is a flower category
