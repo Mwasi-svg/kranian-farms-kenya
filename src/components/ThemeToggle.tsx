@@ -10,19 +10,22 @@ const ThemeToggle = () => {
 
   // Initialize theme on component mount
   useEffect(() => {
-    // Check for saved theme preference or default to light mode
+    // Check for saved theme preference or default to system preference
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
     let shouldBeDark = false;
     
-    if (savedTheme) {
-      shouldBeDark = savedTheme === 'dark';
+    if (savedTheme === 'dark') {
+      shouldBeDark = true;
+    } else if (savedTheme === 'light') {
+      shouldBeDark = false;
     } else {
+      // No saved preference, use system preference
       shouldBeDark = prefersDark;
     }
     
-    // Apply theme immediately
+    // Apply theme immediately without animation to prevent flash
     if (shouldBeDark) {
       document.documentElement.classList.add('dark');
       setIsDark(true);
