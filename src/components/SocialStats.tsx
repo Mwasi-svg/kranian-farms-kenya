@@ -19,7 +19,7 @@ const SocialStats: React.FC = () => {
       icon: <Instagram size={24} />,
       color: '#E1306C',
       colorDark: '#F06595',
-      username: '@kranianfarms'
+      username: '@kranianfarmkenya'
     },
     { 
       platform: 'TikTok', 

@@ -25,7 +25,7 @@ const BlogPost = () => {
   const initialComments: Comment[] = [
     {
       id: '1',
-      name: 'Jane Smith',
+      name: 'Jane Wangui',
       avatar: '/placeholder.svg',
       date: 'May 5, 2023',
       content: 'This was such an informative article! I\'ve been trying to implement sustainable practices in my small garden, and these tips will definitely help. Thank you for sharing your knowledge.',
@@ -34,7 +34,7 @@ const BlogPost = () => {
     },
     {
       id: '2',
-      name: 'Michael Johnson',
+      name: 'Michael Omondi',
       avatar: '/placeholder.svg',
       date: 'May 3, 2023',
       content: 'I\'ve been following Kranian Farms for a while now, and your commitment to sustainable farming is truly inspiring. Would love to see more content about water conservation techniques!',

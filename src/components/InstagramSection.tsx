@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 
 const InstagramSection: React.FC = () => {
-  const [followerCount] = useState('2.1K'); // Placeholder - would be dynamic with API
+  const [followerCount] = useState('335'); // Placeholder - would be dynamic with API
   const instagramHandle = 'kranianfarmkenya';
   const instagramUrl = 'https://www.instagram.com/kranianfarmkenya/';
 
@@ -83,23 +83,23 @@ const InstagramSection: React.FC = () => {
                 <div className="text-sm text-gray-500 dark:text-gray-400">Followers</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">1.2K</div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">133</div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">Following</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">450</div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">38</div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">Posts</div>
               </div>
             </div>
-            <Button 
-              className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
+            <Button
+ className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
               onClick={() => window.open(instagramUrl, '_blank')}
             >
               <Instagram className="w-4 h-4 mr-2" />
               Follow on Instagram
               <ExternalLink className="w-4 h-4 ml-2" />
             </Button>
-          </div>
+</div>
         </motion.div>
 
         {/* Instagram Posts Grid */}

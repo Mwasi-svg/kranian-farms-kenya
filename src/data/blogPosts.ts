@@ -18,30 +18,20 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     id: 1,
-    title: "Sustainable Farming: The Future of Agriculture",
+    title: "🌸 Color, Commerce & Collaboration: Kranian Farms at IFTEX 2025",
     slug: "sustainable-farming-future-agriculture",
     excerpt: "Discover how sustainable farming practices are revolutionizing agriculture and creating a better future for our planet.",
     content: `
-      <p>Sustainable farming is more than just a trend—it's a necessity for our planet's future. At Kranian Farms, we've embraced practices that not only yield exceptional produce but also protect and nurture our environment.</p>
+      <p>At the 12th International Floriculture Trade Expo (IFTEX) held at the Visa Oshwal Centre, Kranian Farms took center stage among 189 exhibitors from 18 countries, contributing to a record-breaking three-day event.</p>
       
-      <h2>What is Sustainable Farming?</h2>
-      <p>Sustainable farming involves using methods that protect the environment, public health, human communities, and animal welfare. It's about finding the balance between growing food and preserving the earth for future generations.</p>
+      <h2>A Stunning Showcase</h2>
+      <p>Kranian Farms displayed a vibrant selection: Ammi visnaga, Delphiniums, Agapanthus, Gypsophila, Matthiola, Craspedia, and Eryngiums. These blooms captured attention, highlighting Kranian’s versatility and commitment to both beauty and quality</p>
       
-      <h2>Our Sustainable Practices</h2>
-      <ul>
-        <li><strong>Crop Rotation:</strong> We rotate crops to maintain soil health and reduce pest buildup naturally.</li>
-        <li><strong>Water Conservation:</strong> Our drip irrigation systems minimize water waste while ensuring crops receive adequate hydration.</li>
-        <li><strong>Organic Pest Control:</strong> We use beneficial insects and organic methods to control pests without harmful chemicals.</li>
-        <li><strong>Composting:</strong> Our composting program turns organic waste into nutrient-rich soil amendments.</li>
-      </ul>
-      
-      <h2>The Benefits</h2>
-      <p>Sustainable farming doesn't just benefit the environment—it produces healthier, more nutritious food. Our customers consistently tell us they can taste the difference in our organically grown fruits and vegetables.</p>
-      
-      <p>By choosing sustainable produce, you're not just making a healthy choice for your family—you're supporting a farming system that will continue to provide for generations to come.</p>
+      <h2>Fostering Global Connections</h2>
+      <p>Kranian engaged in productive B2B conversations, forging new relationships and strengthening its foothold in international markets.</p>
     `,
-    image: "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    date: "March 15, 2024",
+    image: "/instagram4.jpg",
+    date: "June 5, 2025",
     readTime: "5 min read",
     category: "Sustainability",
     tags: ["Sustainability", "Organic", "Environment", "Future"],
@@ -76,14 +66,14 @@ export const blogPosts: BlogPost[] = [
       
       <p>When you choose Kranian Farms, you're choosing a partner committed to bringing you the very best nature has to offer.</p>
     `,
-    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    date: "March 10, 2024",
+    image: "/instagram6.png",
+    date: "March 10, 2025",
     readTime: "4 min read",
     category: "Quality",
     tags: ["Quality", "Fresh", "Direct", "Promise"],
     author: {
-      name: "Rachel Muturi",
-      avatar: "/rachel.png"
+      name: "Brian Senelwa",
+      avatar: "/brian.png"
     }
   },
   {
@@ -134,51 +124,47 @@ export const blogPosts: BlogPost[] = [
   },
   {
     id: 4,
-    title: "The Benefits of Organic Honey",
+    title: "From Kenyan Soil to Global Tables: A Day on Kranian Farms",
     slug: "benefits-organic-honey",
-    excerpt: "Discover the amazing health benefits and uses of our pure, organic honey straight from our apiaries.",
+    excerpt: "Nestled in the fertile highlands of Kenya’s Rift Valley and Western regions, Kranian Farms is where vibrant tropical produce begins.",
     content: `
-      <p>Pure, organic honey is one of nature's most perfect foods. At Kranian Farms, our honey comes from carefully tended beehives where our bees forage on diverse, pesticide-free flowers and plants.</p>
+      <p>Kranian Farms is where vibrant tropical produce begins its journey to dinner tables around the world. </p>
       
-      <h2>What Makes Our Honey Special</h2>
+      <h2>Kenya’s Bounty: Fruits with a Story</h2>
       <ul>
-        <li><strong>Raw and Unprocessed:</strong> Our honey is never heated or filtered, preserving all natural enzymes and nutrients.</li>
-        <li><strong>Single Origin:</strong> Each batch comes from specific locations, giving unique flavor profiles.</li>
-        <li><strong>Sustainably Harvested:</strong> We take only what the bees can spare, ensuring healthy hive populations.</li>
-        <li><strong>No Additives:</strong> Pure honey with nothing added or removed.</li>
+        <li><strong>Cavendish Bananas:</strong> Grown without synthetic fertilizers, with natural ripening on the plant.</li>
+        <li><strong>Hass & Fuerte Avocados:</strong> High oil content, creamy texture—perfect for export markets in Europe and the Middle East.</li>
+        <li><strong>Passion Fruits & Mangos:</strong> Rich in flavor, especially the Kenti and Apple mango varieties that mature between November and March.
+
+</li>
+        <li><strong>Pineapples:</strong> Grown on open-air ridges using mulching and composting to boost sweetness naturally.
+
+</li>
       </ul>
       
-      <h2>Health Benefits</h2>
-      <p>Organic honey offers numerous health advantages:</p>
+      <h2>The Export Journey</h2>
+      <p>From farm to freight, here’s what happens behind the scenes:
+
+</p>
       
       <ul>
-        <li><strong>Antioxidant Properties:</strong> Rich in phenolic compounds that fight free radicals.</li>
-        <li><strong>Antimicrobial Effects:</strong> Natural antibacterial and antifungal properties.</li>
-        <li><strong>Digestive Health:</strong> Contains prebiotics that support gut health.</li>
-        <li><strong>Wound Healing:</strong> Topical application can help heal minor cuts and burns.</li>
-        <li><strong>Cough Relief:</strong> A natural remedy for soothing throat irritation.</li>
+        <li><strong>Sorting & Grading:</strong> Each produce is hand-sorted based on client specifications.</li>
+        <li><strong>Post-Harvest Handling:</strong> Eco-friendly cleaning, cold chain storage, and zero-residue packaging are implemented.</li>
+        <li><strong>Documentation:</strong> Shipping records are meticulously logged.</li>
+        <li><strong>Logistics:</strong>  In partnership with licensed freight handlers, produce is shipped via air to markets within 24–72 hours.</li>
       </ul>
       
-      <h2>Culinary Uses</h2>
-      <p>Beyond its health benefits, our honey is a versatile ingredient:</p>
-      <ul>
-        <li>Natural sweetener for beverages and baked goods</li>
-        <li>Glaze for roasted vegetables and meats</li>
-        <li>Addition to salad dressings and marinades</li>
-        <li>Spread for bread and crackers</li>
-        <li>Ingredient in homemade beauty treatments</li>
-      </ul>
       
-      <p>When you choose Kranian Farms honey, you're not just getting a superior product—you're supporting sustainable beekeeping practices that help protect these vital pollinators.</p>
+      <p>With a clear mission and strong partnerships, the farm aims to continue being a model for regenerative agriculture and equitable growth in Africa.</p>
     `,
-    image: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "/instagram5.jpg",
     date: "February 28, 2024",
     readTime: "4 min read",
     category: "Products",
     tags: ["Honey", "Organic", "Health", "Natural"],
     author: {
-      name: "Rachel Muturi",
-      avatar: "/rachel.png"
+      name: "Brian Senelwa",
+      avatar: "/brian.png"
     }
   },
   {
