@@ -16,7 +16,7 @@ const AboutSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           <div className="rounded-lg overflow-hidden shadow-lg">
             <img 
-              src="./public/image.png" 
+              src="/instagram4.jpg" 
               alt="Kranian Farms" 
               className="w-full h-80 object-cover"
             />
