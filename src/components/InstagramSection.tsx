@@ -7,34 +7,34 @@ import { motion } from 'framer-motion';
 const InstagramSection: React.FC = () => {
   const [followerCount] = useState('2.1K'); // Placeholder - would be dynamic with API
   const instagramHandle = 'kranianfarmkenya';
-  const instagramUrl = 'https://www.instagram.com/kranianfarms_kenya/';
+  const instagramUrl = 'https://www.instagram.com/kranianfarmkenya/';
 
   // Mock Instagram posts data - would come from Instagram API
   const mockPosts = [
     {
       id: '1',
-      image: '/vegetables.png',
+      image: '/instagram1.jpg',
       likes: 234,
       comments: 12,
       caption: 'Fresh vegetables from our farm 🥬🥕'
     },
     {
       id: '2',
-      image: '/fruits.png',
+      image: '/instagram2.jpg',
       likes: 187,
       comments: 8,
       caption: 'Seasonal fruits harvest 🍎🍊'
     },
     {
       id: '3',
-      image: '/herbs.jpg',
+      image: '/instagram3.jpg',
       likes: 156,
       comments: 15,
       caption: 'Aromatic herbs collection 🌿'
     },
     {
       id: '4',
-      image: '/kranian-logo.png',
+      image: '/instagram4.jpg',
       likes: 298,
       comments: 23,
       caption: 'Kranian Farms - Quality you can trust 🌱'
@@ -156,12 +156,7 @@ const InstagramSection: React.FC = () => {
         </motion.div>
 
         {/* Integration Note */}
-        <div className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800 max-w-2xl mx-auto">
-          <p className="text-sm text-blue-700 dark:text-blue-300 text-center">
-            <strong>Note:</strong> Real-time Instagram integration requires API setup. Current display shows sample data. 
-            Contact your developer to implement live Instagram feed with follower counts.
-          </p>
-        </div>
+        
       </div>
     </section>
   );

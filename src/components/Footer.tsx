@@ -123,7 +123,7 @@ const Footer: React.FC = () => {
                 <li>
                   <Link to="/blog" className="text-gray-400 hover:text-white transition-colors flex items-center group">
                     <span className="inline-block w-0 group-hover:w-2 transition-all duration-300 h-0.5 bg-kranian-400 mr-0 group-hover:mr-2"></span>
-                    Blog
+                    Chatbot
                   </Link>
                 </li>
                 <li>
@@ -166,6 +166,10 @@ const Footer: React.FC = () => {
                 <span>+254 701 640 801</span>
               </li>
               <li className="flex items-center text-gray-400">
+                <Phone size={18} className="mr-2 text-kranian-400 flex-shrink-0" />
+                <span>+254 702 726 346</span>
+              </li>
+              <li className="flex items-center text-gray-400">
                 <Mail size={18} className="mr-2 text-kranian-400 flex-shrink-0" />
                 <a href="mailto:info@kranianfarms.com" className="hover:text-white transition-colors">
                   info@kranianfarms.com
@@ -178,9 +182,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm">&copy; {new Date().getFullYear()} Kranian Farms. All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#" className="text-gray-500 hover:text-gray-300 text-sm">Privacy Policy</a>
-            <a href="#" className="text-gray-500 hover:text-gray-300 text-sm">Terms of Service</a>
-            <a href="#" className="text-gray-500 hover:text-gray-300 text-sm">Sitemap</a>
+            
           </div>
         </div>
       </div>

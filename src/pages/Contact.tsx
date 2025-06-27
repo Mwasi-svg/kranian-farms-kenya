@@ -105,7 +105,7 @@ const Contact: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="font-medium text-gray-800 dark:text-gray-100 mb-1">Address</h4>
-                      <p className="text-gray-600 dark:text-gray-300 text-sm">Agrotronics House, JKIA/ Nairobi, Kenya</p>
+                      <p className="text-gray-600 dark:text-gray-300 text-sm">KQ Cargo, JKIA/ Nairobi, Kenya</p>
                       <a href="https://maps.app.goo.gl/iRTB1UTwPcEw9yxp9" target="_blank" rel="noopener noreferrer" className="text-kranian-600 dark:text-kranian-400 text-sm hover:text-kranian-700 dark:hover:text-kranian-300 mt-1 inline-block">
                         Get directions
                       </a>
@@ -302,7 +302,7 @@ const Contact: React.FC = () => {
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow relative">
               <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 border-4 border-kranian-100 dark:border-kranian-800">
                 <img
-                  src="/public/rachel.png"
+                  src="/rachel.png"
                   alt="Rachel Muturi"
                   className="w-full h-full object-cover"
                 />
@@ -327,7 +327,7 @@ const Contact: React.FC = () => {
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow relative">
               <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 border-4 border-kranian-100 dark:border-kranian-800">
                 <img
-                  src="/public/brian.png"
+                  src="/brian.png"
                   alt="Brian Senelwa"
                   className="w-full h-full object-cover"
                 />

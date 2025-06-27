@@ -7,7 +7,7 @@ const SocialStats: React.FC = () => {
   const stats = [
     { 
       platform: 'Facebook', 
-      followers: '25K', 
+      followers: '335', 
       icon: <Facebook size={24} />,
       color: '#1877F2',
       colorDark: '#4895EF',
@@ -15,7 +15,7 @@ const SocialStats: React.FC = () => {
     },
     { 
       platform: 'Instagram', 
-      followers: '48K', 
+      followers: '400', 
       icon: <Instagram size={24} />,
       color: '#E1306C',
       colorDark: '#F06595',
