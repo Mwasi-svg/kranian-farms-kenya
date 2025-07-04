@@ -115,7 +115,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     const emailResponse = await resend.emails.send({
       from: "Kranian Farms <onboarding@resend.dev>",
-      to: ["muturi@kranianfarms.com"],
+      to: ["turimwasi@gmail.com"],
       replyTo: quotationData.email,
       subject: `New Quotation Request from ${quotationData.name}`,
       html: emailHtml,
