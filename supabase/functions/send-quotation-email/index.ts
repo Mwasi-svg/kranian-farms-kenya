@@ -16,16 +16,18 @@ interface QuotationEmailRequest {
     email: string;
     phone_number: number;
     location: string;
-    message?: string;
-    howDidYouHear?: string;
-    cartItems: Array<{
+    product?: string;
+    quantity?: number;
+    additional_info?: string;
+    socials?: string;
+    cartItems?: Array<{
       name: string;
       quantity: number;
       stemLength?: number;
       headSize?: string;
       category: string;
     }>;
-    totalQuantity: number;
+    totalQuantity?: number;
   };
 }
 
@@ -40,30 +42,22 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Processing quotation email for:", quotationData.email);
 
-    // Format cart items for email
-    const cartItemsHtml = quotationData.cartItems.map(item => `
-      <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;">${item.name}</td>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;">${item.quantity}</td>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;">${item.stemLength ? item.stemLength + ' cm' : 'N/A'}</td>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;">${item.headSize || 'N/A'}</td>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;">${item.category}</td>
-      </tr>
-    `).join('');
+    // Format email content based on whether it's from cart or checkout form
+    let productDetailsHtml = '';
+    
+    if (quotationData.cartItems && quotationData.cartItems.length > 0) {
+      // Cart-based quotation
+      const cartItemsHtml = quotationData.cartItems.map(item => `
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${item.name}</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${item.quantity}</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${item.stemLength ? item.stemLength + ' cm' : 'N/A'}</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${item.headSize || 'N/A'}</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${item.category}</td>
+        </tr>
+      `).join('');
 
-    const emailHtml = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #11b811;">New Quotation Request - Kranian Farms</h2>
-        
-        <h3>Customer Information:</h3>
-        <ul>
-          <li><strong>Name:</strong> ${quotationData.name}</li>
-          <li><strong>Email:</strong> ${quotationData.email}</li>
-          <li><strong>Phone:</strong> ${quotationData.phone_number}</li>
-          <li><strong>Location:</strong> ${quotationData.location}</li>
-          <li><strong>How they heard about us:</strong> ${quotationData.howDidYouHear || 'Not specified'}</li>
-        </ul>
-
+      productDetailsHtml = `
         <h3>Requested Items:</h3>
         <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
           <thead>
@@ -79,12 +73,37 @@ const handler = async (req: Request): Promise<Response> => {
             ${cartItemsHtml}
           </tbody>
         </table>
-
         <p><strong>Total Quantity:</strong> ${quotationData.totalQuantity}</p>
+      `;
+    } else if (quotationData.product && quotationData.quantity) {
+      // Form-based quotation
+      productDetailsHtml = `
+        <h3>Product Request:</h3>
+        <ul>
+          <li><strong>Product:</strong> ${quotationData.product}</li>
+          <li><strong>Quantity:</strong> ${quotationData.quantity}</li>
+        </ul>
+      `;
+    }
 
-        ${quotationData.message ? `
+    const emailHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #11b811;">New Quotation Request - Kranian Farms</h2>
+        
+        <h3>Customer Information:</h3>
+        <ul>
+          <li><strong>Name:</strong> ${quotationData.name}</li>
+          <li><strong>Email:</strong> ${quotationData.email}</li>
+          <li><strong>Phone:</strong> ${quotationData.phone_number}</li>
+          <li><strong>Location:</strong> ${quotationData.location}</li>
+          ${quotationData.socials ? `<li><strong>Social Media:</strong> ${quotationData.socials}</li>` : ''}
+        </ul>
+
+        ${productDetailsHtml}
+
+        ${quotationData.additional_info ? `
           <h3>Additional Information:</h3>
-          <p style="background-color: #f9f9f9; padding: 15px; border-radius: 5px;">${quotationData.message}</p>
+          <p style="background-color: #f9f9f9; padding: 15px; border-radius: 5px;">${quotationData.additional_info}</p>
         ` : ''}
 
         <hr style="margin: 30px 0;">
@@ -96,7 +115,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     const emailResponse = await resend.emails.send({
       from: "Kranian Farms <onboarding@resend.dev>",
-      to: ["info@kranianfarms.com"],
+      to: ["muturi@kranianfarms.com"],
       replyTo: quotationData.email,
       subject: `New Quotation Request from ${quotationData.name}`,
       html: emailHtml,

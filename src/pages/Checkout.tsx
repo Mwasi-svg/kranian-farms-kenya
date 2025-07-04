@@ -63,7 +63,7 @@ const Checkout: React.FC = () => {
         .insert({
           name: values.name,
           email: values.email,
-          phone_number: parseFloat(values.phoneNumber), // Convert string to number
+          phone_number: parseFloat(values.phoneNumber),
           location: values.location,
           product: values.product,
           quantity: parseFloat(values.quantity),
@@ -80,6 +80,35 @@ const Checkout: React.FC = () => {
       if (error) {
         console.error('Quotation submission error:', error);
         throw error;
+      }
+
+      // Send email notification
+      try {
+        console.log('Sending email notification...');
+        const emailResponse = await supabase.functions.invoke('send-quotation-email', {
+          body: {
+            quotationData: {
+              name: values.name,
+              email: values.email,
+              phone_number: parseFloat(values.phoneNumber),
+              location: values.location,
+              product: values.product,
+              quantity: parseFloat(values.quantity),
+              additional_info: values.additionalInfo,
+              socials: values.socials
+            }
+          }
+        });
+
+        console.log('Email response:', emailResponse);
+
+        if (emailResponse.error) {
+          console.error('Email sending error:', emailResponse.error);
+          // Don't fail the whole process if email fails, just log it
+        }
+      } catch (emailError) {
+        console.error('Email function error:', emailError);
+        // Don't fail the whole process if email fails
       }
 
       toast({
@@ -114,13 +143,11 @@ const Checkout: React.FC = () => {
         </Button>
       )}
       
-      {/* Hero Section - Use PageHeading component */}
       <PageHeading 
         title="Request a Quotation"
         description="Fill out the form below to request a quotation for our products. Please provide as much detail as possible so we can prepare an accurate quote."
       />
 
-      {/* Main Content */}
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 md:p-8 max-w-3xl mx-auto">

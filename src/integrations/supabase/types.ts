@@ -71,7 +71,7 @@ export type Database = {
           location: string | null
           name: string | null
           phone_number: number | null
-          product: string | null
+          product: Json | null
           quantity: number | null
           received_at: string
           requested_at: string | null
@@ -85,7 +85,7 @@ export type Database = {
           location?: string | null
           name?: string | null
           phone_number?: number | null
-          product?: string | null
+          product?: Json | null
           quantity?: number | null
           received_at?: string
           requested_at?: string | null
@@ -99,7 +99,7 @@ export type Database = {
           location?: string | null
           name?: string | null
           phone_number?: number | null
-          product?: string | null
+          product?: Json | null
           quantity?: number | null
           received_at?: string
           requested_at?: string | null
